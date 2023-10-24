@@ -1,0 +1,117 @@
+import 'package:canadianslife/Constants.dart';
+import 'package:canadianslife/Views/GroupsTabsView.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
+
+import '../GroupsView.dart';
+
+class BottomNavigation extends StatelessWidget {
+
+  BottomNavigation({Key? key}) : super(key: key);
+
+  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.home),
+        title: (AppLocalizations.of(context)!.mainHome),
+        activeColorPrimary: appDesign.colorPrimary,
+        inactiveColorPrimary: appDesign.colorUnhighlighted,
+
+
+
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.people_outline),
+        title: (AppLocalizations.of(context)!.mainGroups),
+        activeColorPrimary: appDesign.colorPrimary,
+        inactiveColorPrimary: appDesign.colorUnhighlighted,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Image.asset(
+          'images/iconmiddle.png',
+          scale: 1,
+          fit: BoxFit.scaleDown,
+        ),
+        title: (AppLocalizations.of(context)!.mainAdelAwdah),
+        activeColorPrimary: appDesign.colorPrimary,
+        inactiveColorPrimary: appDesign.colorPrimary,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.notifications_outlined),
+        title: (AppLocalizations.of(context)!.mainNotifs),
+        activeColorPrimary: appDesign.colorPrimary,
+        inactiveColorPrimary: appDesign.colorUnhighlighted,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.person_outline_rounded),
+        title: (AppLocalizations.of(context)!.mainUserAccount),
+        activeColorPrimary: appDesign.colorPrimary,
+        inactiveColorPrimary: appDesign.colorUnhighlighted,
+      ),
+    ];
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    ScreenUtil.init(context);
+    List<Widget> _buildScreens() {
+
+      print("USER ID IN BAR IS : ${UserData.userId}");
+      print("TAPPED");
+      return [
+        GroupsTabsView(),
+        GroupsTabsView(),
+        GroupsTabsView(),
+        GroupsTabsView(),
+        GroupsTabsView()
+
+      ];
+    }
+
+    PersistentTabController _controller;
+    _controller = PersistentTabController(initialIndex: 0);
+
+
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(context),
+      confineInSafeArea: true,
+      backgroundColor: appDesign.backGround,
+      handleAndroidBackButtonPress: true,
+      resizeToAvoidBottomInset: true,
+      stateManagement: true,
+      hideNavigationBarWhenKeyboardShows: true,
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(0.0),
+        colorBehindNavBar: Colors.white,
+      ),
+      popAllScreensOnTapOfSelectedTab: false,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: ItemAnimationProperties(
+        duration: Duration(milliseconds: 700),
+        curve: Curves.easeInExpo,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        animateTabTransition: true,
+        curve: Curves.easeInExpo,
+        duration: Duration(milliseconds: 700),
+      ),
+      navBarStyle: NavBarStyle.style15,
+    );
+  }
+
+
+}
+
+
+
+

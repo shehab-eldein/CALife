@@ -1,7 +1,12 @@
+import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
-
-import 'Views/Login.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'Constants.dart';
+import 'Views/GroupsView.dart';
+import 'Views/Shared/BottomNavigation.dart';
+import 'Views/Shared/appBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +22,10 @@ class MyApp extends StatelessWidget {
       builder: (ctx) =>  MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: Locale(UserData.language),
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -33,10 +42,13 @@ class MyApp extends StatelessWidget {
           //
           // This works for code too, not just values: Most code changes can be
           // tested with just a hot reload.
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: appDesign.colorPrimaryDark),
           useMaterial3: true,
         ),
-        home: const Login(),
+        home:  Scaffold(
+            appBar:  BaseAppBar(
+              appBar: AppBar(), widgetContext: context, showBackButton: false,),
+            body: BottomNavigation()),
       ),
     );
   }
