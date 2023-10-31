@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:canadianslife/Constants.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';

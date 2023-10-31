@@ -2,7 +2,7 @@ import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Constants.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'Views/GroupsView.dart';
 import 'Views/Shared/BottomNavigation.dart';
 import 'Views/Shared/appBar.dart';
@@ -12,10 +12,9 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return  FlutterBootstrap5(

@@ -1,5 +1,8 @@
-import 'package:canadianslife/Constants.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
+import 'package:canadianslife/Views/login.dart';
+import 'package:canadianslife/Views/postView.dart';
+import 'package:canadianslife/Views/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +36,7 @@ class BottomNavigation extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: Image.asset(
           'images/iconmiddle.png',
-          scale: 1,
+          scale: 1 ,
           fit: BoxFit.scaleDown,
         ),
         title: (AppLocalizations.of(context)!.mainAdelAwdah),
@@ -63,10 +66,9 @@ class BottomNavigation extends StatelessWidget {
     ScreenUtil.init(context);
     List<Widget> _buildScreens() {
 
-      print("USER ID IN BAR IS : ${UserData.userId}");
-      print("TAPPED");
+
       return [
-        GroupsTabsView(),
+       PostView(),
         GroupsTabsView(),
         GroupsTabsView(),
         GroupsTabsView(),
@@ -97,13 +99,13 @@ class BottomNavigation extends StatelessWidget {
       popAllScreensOnTapOfSelectedTab: false,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
-        duration: Duration(milliseconds: 700),
+
         curve: Curves.easeInExpo,
       ),
       screenTransitionAnimation: ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.easeInExpo,
-        duration: Duration(milliseconds: 700),
+
       ),
       navBarStyle: NavBarStyle.style15,
     );

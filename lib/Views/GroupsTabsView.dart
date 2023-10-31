@@ -1,4 +1,4 @@
-import 'package:canadianslife/Constants.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/GroupsView.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
