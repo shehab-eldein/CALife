@@ -3,7 +3,7 @@ import 'dart:ui';
 class appDesign {
 
   static const colorPrimary=Color(0xff030F2E);
-  static const colorPrimaryDark=Color(0xff213e60);
+  static const colorPrimaryDark=Color(0xff0A4D68);
   static const colorPrimaryLight=Color(0xfff6f6f6);
   static const colorAccent=Color(0xff088395);
   static const colorUnhighlighted=Color(0xff818796);

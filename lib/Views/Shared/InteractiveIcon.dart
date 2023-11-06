@@ -24,7 +24,7 @@ class InteractiveIcon extends StatelessWidget {
             color: Colors.grey,
 
             fontWeight: FontWeight.normal,
-            fontSize: 13,
+            fontSize: 11,
           ),
         ),
 

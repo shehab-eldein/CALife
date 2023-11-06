@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 
 class Post extends StatefulWidget {
@@ -82,12 +83,82 @@ class _PostState extends State<Post> {
               ),
               //todo handel many image case
               Container(
-                height: 200,
+                height: 300,
                 width: double.infinity,
 
-                child: Image(
-                    image: AssetImage("images/placeholder.png")
+                child: StaggeredGrid.count(
+                  crossAxisCount: 5,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 2,
+                  children:  [
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 2,
+                      mainAxisCellCount: 3,
+                      child: GestureDetector(
+                        child: Container(
+                          color: Colors.red,
+
+
+                        ),
+                        onTap: () {
+                          print("Click on red one");
+                        },
+
+                      ),
+                    ),
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 3,
+                      mainAxisCellCount: 2,
+                      child: Container(
+                        color: Colors.green,
+                      ),
+                    ),
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 3,
+                      mainAxisCellCount: 1,
+                      child: Container(
+                        color: Colors.yellow,
+                      ),
+                    ),
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 2,
+                      mainAxisCellCount: 2,
+                      child: Container(
+                        color: Colors.purple,
+                        child:  Stack(
+                          children: [
+
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                              child: Center(
+                                child: Text(
+                                  "2+",
+                                  style: TextStyle(
+
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+
+                    ),
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 3,
+                      mainAxisCellCount: 2,
+                      child: Container(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
+                // child: Image(
+                //     image: AssetImage("images/placeholder.png")
+                // ),
               ),
               Padding(
                 padding:const EdgeInsets.fromLTRB(0, 8, 0, 0) ,
@@ -116,12 +187,16 @@ class _PostState extends State<Post> {
 
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
+
                     Expanded(child: InteractiveIcon(icon: Icons.thumb_up_alt_outlined, text: "50")),
+                    Spacer(flex: 2,),
                     Expanded(child: InteractiveIcon(icon: Icons.message_outlined, text: "20")),
+                    Spacer(flex: 2,),
                     Expanded(child: InteractiveIcon(icon: Icons.bookmark_border_outlined, text: "")),
+
 
 
                   ],

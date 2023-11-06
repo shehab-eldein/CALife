@@ -1,5 +1,6 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
+import 'package:canadianslife/Views/signup.dart';
 import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Views/Shared/authTextField.dart';
@@ -91,7 +92,7 @@ class _LoginState extends State<LoginView> {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.navigateTo(SplashView());
+                      context.navigateTo(SignUpView());
                     },
                     child: Text("ليس لديك حساب؟",
                         style: const TextStyle(

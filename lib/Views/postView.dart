@@ -1,4 +1,4 @@
-import 'package:canadianslife/Views/Shared/postWidget.dart';
+import 'package:canadianslife/Views/Shared/postCard.dart';
 import 'package:flutter/material.dart';
 
 import '../Managers/LayoutManager.dart';

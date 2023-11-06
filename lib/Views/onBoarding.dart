@@ -29,13 +29,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
          Padding(
            padding: EdgeInsets.fromLTRB(
-               layoutManager.valuesHandler(48, 38, 220, 220)
-               ,   layoutManager.valuesHandler(60, 40, 20, 20),
+               // layoutManager.valuesHandler(48, 38, 220, 220)
+          0
+               ,   layoutManager.valuesHandler(40, 40, 20, 20),
                0,
                0),
            child: Container(
@@ -47,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                itemCount: _onboardingData.length,
                itemBuilder: (context, index) {
                  return Container(
-                   width: 103,
+                   width: context.screenWidth * 0.3,
                    height: 10,
                    margin: EdgeInsets.symmetric(horizontal: 4),
                    decoration: BoxDecoration(

@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'Views/GroupsView.dart';
 import 'Views/Shared/BottomNavigation.dart';
 import 'Views/Shared/appBar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'Views/onBoarding.dart';
 
 void main() {
   runApp(const MyApp());

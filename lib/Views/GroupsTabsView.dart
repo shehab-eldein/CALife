@@ -1,10 +1,14 @@
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Views/GroupsView.dart';
+
+import 'package:canadianslife/Views/Shared/groupCard.dart';
+import 'package:canadianslife/Views/Shared/postCard.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../Managers/LayoutManager.dart';
 
 class GroupsTabsView extends StatefulWidget {
   const GroupsTabsView({super.key});
@@ -13,126 +17,182 @@ class GroupsTabsView extends StatefulWidget {
 
   @override
   State<GroupsTabsView> createState() => GroupsViewState();
+
 }
 
-class GroupsViewState extends State<GroupsTabsView> {
+class GroupsViewState extends State<GroupsTabsView>  with SingleTickerProviderStateMixin {
   int tabSelected = 1;
   final TextEditingController _searchController = TextEditingController();
+  late TabController _tabController;
+  bool hideSubscribeButton = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_onTabChanged);
+
+  }
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+  void _onTabChanged() {
+
+
+    setState(() {
+      if (_tabController.index == 0) {
+        tabSelected=1;
+        hideSubscribeButton = false;
+      } else if (_tabController.index == 1) {
+        tabSelected=2;
+        hideSubscribeButton = true;
+
+
+      }
+    });
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
+    final  layoutManager = LayoutManager(context);
 
-    return Scaffold(
-      body: Card(
-        elevation: 20,
-        child: Container(
-          decoration: BoxDecoration(
-            color: appDesign.backGround,
-          ),
-          child:
-          FB5Row(
-            classNames: 'align-items-center justify-content-center',
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+
+      child: Container(
+
+          color: Colors.grey.shade200,
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FB5Col(classNames: 'col-12', height: 52,
-              child:Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                child: Container(
-                  height: 36,
-                  child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: appDesign.greyBackground,
 
-                        hintText: AppLocalizations.of(context)!.groupsSearch,
-                          contentPadding: EdgeInsets.zero,
-                        prefixIcon: IconButton(
-                          icon: Icon(Icons.search, color: appDesign.colorPrimary),
-                          onPressed: () {
-                            // Perform the search here
-                          },
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(7.0),
-                          borderSide: BorderSide(width: 1,color: appDesign.colorPrimary),
-                      ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(7.0),
-                          borderSide: BorderSide(width: 1,color: appDesign.colorPrimary),
-                        ),
-                      ),
-                  ),
+              SizedBox(height: 5,),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.mainHorizontalPadding(),
+                  vertical: 5
+
                 ),
-              ),),
-          FB5Col(classNames: 'col-12',child: FB5Row(
-            classNames: 'align-items-center justify-content-center',
-            children: [
-              FB5Col(
-                  height: MediaQuery.of(context).size.height,
-                  classNames: 'col-12',
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: appDesign.backGround,
-                    ),
-                    child: FB5Row(
-                        classNames: 'align-items-center justify-content-center',
-                        children: [
-                          FB5Col(
-                            height: MediaQuery.of(context).size.height/8,
-                            classNames: 'col-12',
-                            child: Center(
-                              child: CustomSlidingSegmentedControl<int>(
-                                initialValue: tabSelected,
-                                children: {
-                                  1: Text(AppLocalizations.of(context)!.groupsMyGroups,style: TextStyle(color: tabSelected==1?appDesign.colorPrimaryDark:appDesign.backGround)),
-                                  2: Text(AppLocalizations.of(context)!.groupsNewGroups,style: TextStyle(color:  tabSelected==2?appDesign.colorPrimaryDark:appDesign.backGround)),
-                                },
-                                decoration: BoxDecoration(
-                                  color: appDesign.colorPrimaryDark,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                thumbDecoration: BoxDecoration(
-                                  color: appDesign.backGround,
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(.3),
-                                      blurRadius: 4.0,
-                                      spreadRadius: 1.0,
-                                      offset: Offset(
-                                        0.0,
-                                        2.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInToLinear,
-                                onValueChanged: (v) {
-                                 tabSelected=v;
-                                 setState(() {
 
-                                 });
-                                },
-                              ),
-                            ),
+                color: Colors.white,
+
+                child: Column(
+                  children: [
+                    Container(
+
+
+                      height: 40,
+
+
+                      child: TextField(
+
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: appDesign.greyBackground,
+
+                          hintText: AppLocalizations.of(context)!.groupsSearch,
+                          contentPadding: EdgeInsets.zero,
+                          prefixIcon: IconButton(
+                            icon: Icon(Icons.search, color: appDesign.colorPrimaryDark),
+                            onPressed: () {
+                              // Perform the search here
+                            },
                           ),
-                          FB5Col(
-                            classNames: 'col-12',
+                          suffixIcon:Icon(  Icons.filter_list ,color: appDesign.colorPrimaryDark,),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(7.0),
+                            borderSide: BorderSide(width: 2,color: appDesign.colorPrimaryDark),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(7.0),
+                            borderSide: BorderSide(width: 1,color: appDesign.colorPrimaryDark),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    TabBar(
 
-                            child: Center(
-                              child: GroupsView(),
+                      controller: _tabController,
+                      tabs: [
+                        Tab(
+                            child:Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                    AppLocalizations.of(context)!.groupsMyGroups,
+                                    style: TextStyle(color: tabSelected==1?appDesign.colorPrimaryDark:Colors.grey,
+                                        fontWeight: FontWeight.bold
+
+                                    )),
+                                SizedBox(width: 5,),
+                                Icon(
+                                  tabSelected == 1? CupertinoIcons.group_solid : CupertinoIcons.group,
+                                  color:  tabSelected == 1? appDesign.colorPrimaryDark : Colors.grey,
+
+                                )
+                              ],
+                            ) ),
+                        Tab(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+
+                              children: [
+                                Text(
+                                    AppLocalizations.of(context)!.groupsNewGroups,
+                                    style: TextStyle(color:  tabSelected==2?appDesign.colorPrimaryDark:Colors.grey,
+                                        fontWeight: FontWeight.bold
+
+                                    )),
+                                SizedBox(width: 5,),
+
+                                Icon(
+                                  tabSelected == 2? CupertinoIcons.group_solid : CupertinoIcons.group,
+                                  color:  tabSelected == 2? appDesign.colorPrimaryDark : Colors.grey,
+
+                                )
+                              ],
                             ),
+                        )
+                      ],
+                      indicatorColor: appDesign.colorPrimaryDark,
+                      indicatorSize: TabBarIndicatorSize.label,
 
-                          )
-                        ]),
-                  ))
-            ],
-          ),)]),
 
-        ),
+                    ),
+                  ],
+                ),
+              ),
+
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: layoutManager.mainHorizontalPadding(),vertical: 10),
+
+
+
+                height: context.screenHeight *0.7,
+
+
+                color: Colors.grey.shade200,
+                child: ListView.builder(
+                    itemCount: 4,
+                    itemBuilder: (context, index){
+                      return GroupCard(subscribeBtnIsHidden: hideSubscribeButton,);
+                    }
+
+
+                ),
+
+              )
+            ]),
       ),
     );
   }
