@@ -55,7 +55,8 @@ class AuthTextField extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hintText ,
                 hintStyle: TextStyle(
-                    color: Colors.grey.shade500
+                    color: Colors.grey.shade500,
+
                 ),
                 focusColor: appDesign.colorPrimary ,
                 //labelText: labelText,

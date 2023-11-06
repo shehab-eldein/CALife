@@ -1,5 +1,22 @@
 import 'dart:ui';
 
+class Constant  {
+  static const baseURL="https://tender-chandrasekhar.38-100-170-33.plesk.page/";
+  static const user="User/";
+  static const group="Group/";
+
+  static  String getMessages (int adID,int userID,int otherUserID) {
+    return  "https://keen-clarke.38-100-170-33.plesk.page/AdMessage/GetAdMessagesDetailsByAdId?adId=${adID}&userId=${userID}&otherUserId=${otherUserID}";
+
+  }
+
+  static const loginBeforKey = 'isLoginBefor';
+  static const userSFKey = 'user';
+
+}
+
+
+
 class appDesign {
 
   static const colorPrimary=Color(0xff030F2E);
@@ -21,6 +38,7 @@ class UserData{
   static String  userName = "";
   static String deviceToken="";
   static int  userId = 0;
+  static int  userType = 0;
 
 
 }
