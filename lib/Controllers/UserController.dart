@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 
 class UserController {
 
-  Future<User?> signUp(User user) async {
+  Future<User?> signUp(String fullName,String displayName,String email,String password,String phone,String userImage) async {
+    User user=new User(displayName: displayName, fullName: fullName, email: email, password: password,phone:phone,id: 0,deviceToken: '',lastLoginDate: '2023-01-01',registerationDate: '2023-01-01',userType: UserData.userType,isActive: true,userImage: userImage );
     final url = "${Constant.baseURL}${Constant.user}AddUser";
 
     print(jsonEncode(user.toJson()));
