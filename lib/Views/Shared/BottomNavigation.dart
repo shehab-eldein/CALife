@@ -1,4 +1,5 @@
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:canadianslife/Views/login.dart';
 import 'package:canadianslife/Views/postView.dart';
@@ -67,7 +68,7 @@ class BottomNavigation extends StatelessWidget {
 
 
       return [
-       PostView(),
+       GroupDetails(),
         GroupsTabsView(),
         GroupsTabsView(),
         GroupsTabsView(),

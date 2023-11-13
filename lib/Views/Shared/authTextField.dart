@@ -27,7 +27,7 @@ class AuthTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
         labelText,

@@ -34,7 +34,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             widget.labelText,

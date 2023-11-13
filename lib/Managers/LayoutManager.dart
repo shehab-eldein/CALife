@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class LayoutManager{
 
 
-final  _smallPhones = 480;
+final  _smallPhones = 550;
 final _regularPhones = 1080;
 final _tablet = 1024;
 final BuildContext context;
@@ -29,7 +29,7 @@ double valuesHandler(double regular,double small ,double tablet ,double landScap
     return regular;
 }
 double mainHorizontalPadding() {
- return valuesHandler(16, 10, 70, 70);
+ return valuesHandler(16, 8, 70, 70);
 }
 
 

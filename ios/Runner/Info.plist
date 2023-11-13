@@ -47,6 +47,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>I want to access Gallery to make user can choose photo to add for his post </string>
     <key>NSUserTrackingUsageDescription</key>
     <string>We use your data to provide personalized ads and measure the effectiveness of our marketing campaigns. All data is anonymized and cannot be used to identify you personally.</string>
 </dict>

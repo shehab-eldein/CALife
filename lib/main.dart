@@ -1,4 +1,5 @@
 import 'package:canadianslife/Views/GroupsTabsView.dart';
+import 'package:canadianslife/Views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         home:  Scaffold(
             appBar:  BaseAppBar(
               appBar: AppBar(), widgetContext: context, showBackButton: false,),
-            body: BottomNavigation()),
+            body: LoginView()),
       ),
     );
   }

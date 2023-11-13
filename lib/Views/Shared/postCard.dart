@@ -1,4 +1,5 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,8 +24,11 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
 
 
+
   @override
   Widget build(BuildContext context) {
+    LayoutManager layoutManager = LayoutManager(context);
+
     return Padding(
       padding:  const EdgeInsets.symmetric(vertical: 5),
       child: Material(
@@ -187,14 +191,14 @@ class _PostState extends State<Post> {
 
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: layoutManager.valuesHandler(0, 0, 20, 20)),
                 child: Row(
                   children: [
 
                     Expanded(child: InteractiveIcon(icon: Icons.thumb_up_alt_outlined, text: "50")),
-                    Spacer(flex: 2,),
+                    Spacer(flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
                     Expanded(child: InteractiveIcon(icon: Icons.message_outlined, text: "20")),
-                    Spacer(flex: 2,),
+                    Spacer(flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
                     Expanded(child: InteractiveIcon(icon: Icons.bookmark_border_outlined, text: "")),
 
 

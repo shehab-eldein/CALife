@@ -1,5 +1,6 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Views/Shared/SearchBar.dart';
 
 import 'package:canadianslife/Views/Shared/groupCard.dart';
 import 'package:canadianslife/Views/Shared/postCard.dart';
@@ -22,7 +23,6 @@ class GroupsTabsView extends StatefulWidget {
 
 class GroupsViewState extends State<GroupsTabsView>  with SingleTickerProviderStateMixin {
   int tabSelected = 1;
-  final TextEditingController _searchController = TextEditingController();
   late TabController _tabController;
   bool hideSubscribeButton = false;
 
@@ -61,6 +61,8 @@ class GroupsViewState extends State<GroupsTabsView>  with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     final  layoutManager = LayoutManager(context);
+    print(context.screenHeight);
+    print("+++++++++++++++++++++");
 
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -85,38 +87,8 @@ class GroupsViewState extends State<GroupsTabsView>  with SingleTickerProviderSt
 
                 child: Column(
                   children: [
-                    Container(
-
-
-                      height: 40,
-
-
-                      child: TextField(
-
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: appDesign.greyBackground,
-
-                          hintText: AppLocalizations.of(context)!.groupsSearch,
-                          contentPadding: EdgeInsets.zero,
-                          prefixIcon: IconButton(
-                            icon: Icon(Icons.search, color: appDesign.colorPrimaryDark),
-                            onPressed: () {
-                              // Perform the search here
-                            },
-                          ),
-                          suffixIcon:Icon(  Icons.filter_list ,color: appDesign.colorPrimaryDark,),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                            borderSide: BorderSide(width: 2,color: appDesign.colorPrimaryDark),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                            borderSide: BorderSide(width: 1,color: appDesign.colorPrimaryDark),
-                          ),
-                        ),
-                      ),
+                    CustomSearchBar(
+                      hintText: AppLocalizations.of(context)!.groupsSearch,
                     ),
                     SizedBox(height: 5,),
                     TabBar(

@@ -8,6 +8,7 @@ import 'package:canadianslife/Views/Shared/passTextField.dart';
 import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import '../Controllers/UserController.dart';
 import '../Managers/LayoutManager.dart';
 
 
@@ -33,6 +34,7 @@ class _LoginState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
+    UserController().login("01141735647", "232312312");
   }
   @override
   Widget build(BuildContext context) {
