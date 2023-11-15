@@ -8,8 +8,10 @@ import 'package:canadianslife/Views/Shared/passTextField.dart';
 import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import '../Controllers/UserController.dart';
+import '../Controllers/AuthenticationController.dart';
 import '../Managers/LayoutManager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class LoginView extends StatefulWidget {
@@ -30,16 +32,45 @@ class _LoginState extends State<LoginView> {
   RoundedLoadingButtonController();
   var email;
   var pass;
+  final _authController = AuthenticationController();
 
   @override
   void initState() {
     super.initState();
-    UserController().login("01141735647", "232312312");
   }
+
+  void loginValidation(RoundedLoadingButtonController btnController) {
+    if (email == null || pass == null) {
+      context.okAlert(
+          title: AppLocalizations.of(context)!.required,
+          message: AppLocalizations.of(context)!.emptyMessage);
+      btnController.reset();
+    } else {
+
+      _authController.login(email, pass).then((user) {
+        if (user != null) {
+          print("User IS ${user} *************************");
+          btnController.success();
+
+          }
+        else {
+          context.okAlert(
+              title: AppLocalizations.of(context)!.invalid,
+              message: AppLocalizations.of(context)!.invalidEmail_Pass);
+          btnController.reset();
+        }
+      });
+      }
+
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
     final  layoutManager = LayoutManager(context);
     return Scaffold(
+      appBar: null,
 
       body: SingleChildScrollView(
         child: Padding(
@@ -77,30 +108,29 @@ class _LoginState extends State<LoginView> {
               CustomLoadingButton(
                   controller: _loginBtnController,
                   text:"تسجيل الدخول" ,
-                  onPressed: () {
-
-                  }),
+                  onPressed: () => loginValidation(_loginBtnController)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "إنشاء حساب جديد",
+                    "ليس لديك حساب؟",
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: appDesign.colorPrimary ,
-                        decoration: TextDecoration.underline
+
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       context.navigateTo(SignUpView());
                     },
-                    child: Text("ليس لديك حساب؟",
+                    child: Text("إنشاء حساب جديد",
                         style: const TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                             color: appDesign.colorPrimary,
+                            decoration: TextDecoration.underline
 
                         )),
                   )

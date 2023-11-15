@@ -9,8 +9,16 @@
   "mainUserAccount":  "Account",
   "groupsMyGroups":  "Subscriptions",
   "groupsNewGroups":  "New Groups",
-  "groupsSearch":  "Search for a group"
-
+  "groupsSearch":  "Search for a group",
+  "required": "Required!",
+  "emptyMessage": "Please Fill the Empty Filled.",
+  "invalid": "Invalid",
+  "invalidEmail_Pass": "Invalid Email or password!",
+  "dialogOk": "Confirm",
+  "name3Message": "Name must be at least 3 charchters",
+  "passMustBe": "Password must have at least 8 elements and one special charchter and one number",
+  "confirmPassError": "Confirm password must be same as the password ",
+  "numberMustBe": "Number must be without any charecter and atleast 8 numbers"
 }
 
 

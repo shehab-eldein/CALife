@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 extension NavigationExtension on BuildContext {
@@ -9,7 +11,6 @@ extension NavigationExtension on BuildContext {
       MediaQuery
           .of(this)
           .size;
-
   double get screenHeight => screenSize.height;
 
   double get screenWidth => screenSize.width;
@@ -51,9 +52,11 @@ extension NavigationExtension on BuildContext {
   //Alerts
   void okAlert({String title = '', String message = '', Function? onDismiss}) {
     showDialog(
+
       context: this,
       builder: (BuildContext context) {
         return AlertDialog(
+
 
           title: Text(
             title,
@@ -69,6 +72,7 @@ extension NavigationExtension on BuildContext {
                 fontWeight: FontWeight.normal
             ),
           ),
+          backgroundColor: Colors.white,
           elevation: 3.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -86,8 +90,7 @@ extension NavigationExtension on BuildContext {
                   )
               ),
               child: Text(
-                //AppLocalizations.of(context)!.dialogOk,
-                "ok",
+                AppLocalizations.of(context)!.dialogOk,
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
@@ -104,6 +107,7 @@ extension NavigationExtension on BuildContext {
           ],
         );
       },
+
     );
   }
 

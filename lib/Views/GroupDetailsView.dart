@@ -1,4 +1,4 @@
-import 'package:canadianslife/Controllers/UserController.dart';
+import 'package:canadianslife/Controllers/AuthenticationController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
