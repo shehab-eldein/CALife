@@ -1,7 +1,11 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
+import 'package:canadianslife/Views/editInfoView.dart';
 import 'package:canadianslife/Views/login.dart';
+import 'package:canadianslife/Views/myAccount.dart';
+import 'package:canadianslife/Views/myPosts.dart';
+import 'package:canadianslife/Views/mySettings.dart';
 import 'package:canadianslife/Views/postView.dart';
 import 'package:canadianslife/Views/signup.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,9 +15,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 
-
 class BottomNavigation extends StatelessWidget {
-
   BottomNavigation({Key? key}) : super(key: key);
 
   List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
@@ -23,9 +25,6 @@ class BottomNavigation extends StatelessWidget {
         title: (AppLocalizations.of(context)!.mainHome),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
-
-
-
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.people_outline),
@@ -36,7 +35,7 @@ class BottomNavigation extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: Image.asset(
           'images/iconmiddle.png',
-          scale: 1 ,
+          scale: 1,
           fit: BoxFit.scaleDown,
         ),
         title: (AppLocalizations.of(context)!.mainAdelAwdah),
@@ -58,28 +57,25 @@ class BottomNavigation extends StatelessWidget {
     ];
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
     ScreenUtil.init(context);
     List<Widget> _buildScreens() {
-
-
       return [
-       GroupDetails(),
+        GroupDetails(),
         GroupsTabsView(),
         GroupsTabsView(),
         GroupsTabsView(),
-      LoginView()
-
+        // EditInfoView(),
+        // MyPostsView(),
+        // MySettingsView(),
+        // MyAccountView(),
+        LoginView()
       ];
     }
 
     PersistentTabController _controller;
     _controller = PersistentTabController(initialIndex: 0);
-
 
     return PersistentTabView(
       context,
@@ -99,21 +95,13 @@ class BottomNavigation extends StatelessWidget {
       popAllScreensOnTapOfSelectedTab: false,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
-
         curve: Curves.easeInExpo,
       ),
       screenTransitionAnimation: ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.easeInExpo,
-
       ),
       navBarStyle: NavBarStyle.style15,
     );
   }
-
-
 }
-
-
-
-

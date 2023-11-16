@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkManager {
-
   Future<T> getRequest<T>({
     required String endpoint,
     required dynamic body,
@@ -17,22 +16,15 @@ class NetworkManager {
     print(uri);
 
     try {
-      final response = await http.get(
-        uri,
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          }
-      );
+      final response = await http.get(uri, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
 
       if (response.statusCode == 200) {
-        final  dynamic responseBody = json.decode(response.body);
+        final dynamic responseBody = json.decode(response.body);
         return fromJson(responseBody);
       } else {
-
-
-
         throw Exception('Failed to make the request ${response.statusCode}');
-
       }
     } catch (e) {
       throw Exception('Error: $e');
