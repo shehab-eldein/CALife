@@ -1,6 +1,8 @@
 import 'package:canadianslife/Controllers/UserController.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../Helper/responsive.dart';
 import '../views/shared/save_btn.dart';
 
@@ -17,15 +19,18 @@ class EditEmailView extends StatefulWidget {
 class _EditEmailViewState extends State<EditEmailView> {
   void editInfo() async {
     User? userInfo = widget.userInfo;
-    await UserController().editUser(
-      userInfo.id!,
-      userInfo.displayName,
-      userInfo.fullName,
-      textController.text,
-      userInfo.password,
-      userInfo.phone.toString(),
-      userInfo.userType!,
-    );
+    await UserController()
+        .editUser(
+          userInfo.id!,
+          userInfo.displayName,
+          userInfo.fullName,
+          textController.text,
+          userInfo.password,
+          userInfo.phone.toString(),
+          userInfo.userType!,
+        )
+        .then((value) =>
+            Provider.of<UserData>(context, listen: false).logUser(value));
     Navigator.of(context).pop();
     widget.refresh();
   }

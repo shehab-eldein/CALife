@@ -1,10 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
+
+import 'package:canadianslife/Models/User.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Constant {
   static const baseURL =
       "https://tender-chandrasekhar.38-100-170-33.plesk.page/";
   static const user = "User/";
   static const group = "Group/";
+  static const topic = "Topic/";
 
   static String getMessages(int adID, int userID, int otherUserID) {
     return "https://keen-clarke.38-100-170-33.plesk.page/AdMessage/GetAdMessagesDetailsByAdId?adId=${adID}&userId=${userID}&otherUserId=${otherUserID}";
@@ -25,11 +32,80 @@ class appDesign {
   static const greyBackground = Color(0xffF5F5F5);
 }
 
-class UserData {
+// class UserData {
+//   static String language = 'ar';
+//   static String userNumber = "";
+//   static String userName = "";
+//   static String deviceToken = "";
+//   static int userId = 0;
+//   static int userType = 0;
+// }
+
+class UserData extends ChangeNotifier {
   static String language = 'ar';
   static String userNumber = "";
   static String userName = "";
   static String deviceToken = "";
-  static int userId = 0;
-  static int userType = 0;
+  // static int userId = 0;
+  // static int userType = 0;
+
+  User _userInfo = User(
+    id: 0,
+    displayName: "",
+    fullName: "",
+    email: "",
+    password: "",
+    phone: "",
+    userImage: "",
+  );
+
+  User get userInfo => _userInfo;
+
+  loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    _userInfo = User.fromJson(json.decode(prefs.getString('userInfo') ??
+        {
+          "id": 0,
+          "displayName": "",
+          "fullName": "",
+          "email": "",
+          "password": "",
+          "phone": "",
+          "userImage": ""
+        }.toString()));
+    notifyListeners();
+    print('Loaded user ID: ${_userInfo.id}');
+  }
+
+  void saveUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('userInfo', jsonEncode(userInfo.toJson()));
+  }
+
+  bool isLoggedIn() {
+    bool isLoggedIn = _userInfo.id == 0 ? false : true;
+    return isLoggedIn;
+  }
+
+  logUser(user) {
+    print("Logged in!");
+    _userInfo = user;
+    saveUserData();
+    notifyListeners();
+  }
+
+  signOut() {
+    print("Logged out!");
+    _userInfo = User(
+      id: 0,
+      displayName: "",
+      fullName: "",
+      email: "",
+      password: "",
+      phone: "",
+      userImage: "",
+    );
+    saveUserData();
+    notifyListeners();
+  }
 }

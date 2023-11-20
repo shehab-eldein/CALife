@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../Helper/Constants.dart';
 import '../Managers/NetworkManager.dart';
 import '../Models/User.dart';
@@ -10,7 +8,7 @@ class UserController {
   Future<String?> users() async {
     try {
       final res = await _networkManager.getRequest(
-        endpoint: '${Constant.user}',
+        endpoint: Constant.user,
         body: null,
         fromJson: (dynamic res) {
           return res;
@@ -113,7 +111,7 @@ class UserController {
         body: null,
         fromJson: (json) => User.fromJson(json),
       );
-      print(user);
+      print(user.toString());
       return user;
     } catch (e) {
       print(e);
@@ -133,7 +131,7 @@ class UserController {
         deviceToken: '',
         lastLoginDate: '2023-01-01',
         registerationDate: '2023-01-01',
-        userType: UserData.userType,
+        userType: 0,
         isActive: true,
         userImage: 'userImage');
     try {

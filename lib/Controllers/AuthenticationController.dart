@@ -37,7 +37,7 @@ class AuthenticationController {
         deviceToken: '',
         lastLoginDate: '2023-01-01',
         registerationDate: '2023-01-01',
-        userType: UserData.userType,
+        userType: 0,
         isActive: true,
         userImage: userImage);
 

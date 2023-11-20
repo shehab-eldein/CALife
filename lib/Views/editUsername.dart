@@ -1,10 +1,10 @@
-import 'package:canadianslife/Controllers/AuthenticationController.dart';
 import 'package:canadianslife/Controllers/UserController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/views/shared/save_btn.dart';
+import 'package:provider/provider.dart';
 
 class EditUsernameView extends StatefulWidget {
   const EditUsernameView(
@@ -18,15 +18,18 @@ class EditUsernameView extends StatefulWidget {
 class _EditUsernameViewState extends State<EditUsernameView> {
   void editInfo() async {
     User? userInfo = widget.userInfo;
-    await UserController().editUser(
-      userInfo.id!,
-      textController.text,
-      userInfo.fullName,
-      userInfo.email,
-      userInfo.password,
-      userInfo.phone.toString(),
-      userInfo.userType!,
-    );
+    await UserController()
+        .editUser(
+          userInfo.id!,
+          textController.text,
+          userInfo.fullName,
+          userInfo.email,
+          userInfo.password,
+          userInfo.phone.toString(),
+          userInfo.userType!,
+        )
+        .then((value) =>
+            Provider.of<UserData>(context, listen: false).logUser(value));
     Navigator.of(context).pop();
     widget.refresh();
   }

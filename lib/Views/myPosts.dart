@@ -12,14 +12,16 @@ class MyPostsView extends StatefulWidget {
 class _MyPostsViewState extends State<MyPostsView> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      children: [
-        const ProfileInfoRow(),
-        const SizedBox(height: 25),
-        Post(),
-        Post(),
-      ],
+    return Scaffold(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        children: [
+          const ProfileInfoRow(),
+          const SizedBox(height: 25),
+          Post(),
+          Post(),
+        ],
+      ),
     );
   }
 }

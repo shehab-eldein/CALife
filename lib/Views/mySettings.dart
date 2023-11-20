@@ -21,39 +21,41 @@ class _MySettingsViewState extends State<MySettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      children: [
-        const ProfileInfoRow(),
-        const SizedBox(height: 25),
-        AppListTile(
-          title: "الإشعارات",
-          icon: Icons.notifications_outlined,
-          onPressed: () {},
-          isCustom: true,
-          child: Switch(
-            activeTrackColor: const Color(0xFF04BFDB),
-            value: notifications,
-            onChanged: changeValue,
+    return Scaffold(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        children: [
+          const ProfileInfoRow(),
+          const SizedBox(height: 25),
+          AppListTile(
+            title: "الإشعارات",
+            icon: Icons.notifications_outlined,
+            onPressed: () {},
+            isCustom: true,
+            child: Switch(
+              activeTrackColor: const Color(0xFF04BFDB),
+              value: notifications,
+              onChanged: changeValue,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
-        AppListTile(
-          title: "اللغة",
-          icon: Icons.language_outlined,
-          onPressed: () {},
-          isCustom: true,
-          child: Switch(
-            activeTrackColor: const Color(0xFF04BFDB),
-            value: notifications,
-            onChanged: (value) {
-              setState(() {
-                notifications == value;
-              });
-            },
+          const SizedBox(height: 12),
+          AppListTile(
+            title: "اللغة",
+            icon: Icons.language_outlined,
+            onPressed: () {},
+            isCustom: true,
+            child: Switch(
+              activeTrackColor: const Color(0xFF04BFDB),
+              value: notifications,
+              onChanged: (value) {
+                setState(() {
+                  notifications == value;
+                });
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:canadianslife/Controllers/UserController.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../Helper/responsive.dart';
 import 'package:canadianslife/views/shared/save_btn.dart';
 import '../colors.dart';
@@ -18,17 +20,27 @@ class EditInterestView extends StatefulWidget {
 class _EditInterestViewState extends State<EditInterestView> {
   bool isInCanada = true;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isInCanada = widget.userInfo.userType == 0 ? true : false;
+  }
+
   void editInfo() async {
     User? userInfo = widget.userInfo;
-    await UserController().editUser(
-      userInfo.id!,
-      userInfo.displayName,
-      userInfo.fullName,
-      userInfo.email,
-      userInfo.password,
-      userInfo.phone.toString(),
-      isInCanada ? 0 : 1,
-    );
+    await UserController()
+        .editUser(
+          userInfo.id!,
+          userInfo.displayName,
+          userInfo.fullName,
+          userInfo.email,
+          userInfo.password,
+          userInfo.phone.toString(),
+          isInCanada ? 0 : 1,
+        )
+        .then((value) =>
+            Provider.of<UserData>(context, listen: false).logUser(value));
     Navigator.of(context).pop();
     widget.refresh();
   }
