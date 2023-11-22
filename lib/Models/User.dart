@@ -1,5 +1,5 @@
 class User {
-  int? id;
+  int id;
   String displayName;
   String fullName;
   bool? isActive;
@@ -12,7 +12,7 @@ class User {
   String? userImage;
   String? deviceToken;
   User({
-    this.id,
+    required this.id,
     required this.displayName,
     required this.fullName,
     this.isActive,

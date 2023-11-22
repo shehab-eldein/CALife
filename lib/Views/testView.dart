@@ -12,6 +12,7 @@ class TestView extends StatefulWidget {
 
 class _TestViewState extends State<TestView> {
   late List<Group>? newGroups;
+  late List<Group>? userGroups;
   bool isLoading = true;
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _TestViewState extends State<TestView> {
 
   getNewGroups() async {
     newGroups = await GroupController().getUnsubedGroups(0, 11, "T", 0);
+    userGroups = await GroupController().getSubedGroups(11, "T", 0);
     setState(() {
       isLoading = false;
     });
@@ -32,14 +34,6 @@ class _TestViewState extends State<TestView> {
     return isLoading == false
         ? ListView(
             children: [
-              // MaterialButton(
-              //   onPressed: () {
-              //     GroupController().getUnsubedGroups(0, 11, "NewTestGroup", 0);
-              //   },
-              //   child: const Text(
-              //     'Click Here',
-              //   ),
-              // ),
               ...newGroups!.map(
                 (e) => GroupCard(
                   subscribeBtnIsHidden: false,

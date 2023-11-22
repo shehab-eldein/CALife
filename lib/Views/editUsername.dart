@@ -20,7 +20,7 @@ class _EditUsernameViewState extends State<EditUsernameView> {
     User? userInfo = widget.userInfo;
     await UserController()
         .editUser(
-          userInfo.id!,
+          userInfo.id,
           textController.text,
           userInfo.fullName,
           userInfo.email,

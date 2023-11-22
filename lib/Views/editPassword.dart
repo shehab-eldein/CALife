@@ -23,7 +23,7 @@ class _EditPasswordViewState extends State<EditPasswordView> {
   void editInfo() async {
     User? userInfo = widget.userInfo;
     await UserController().editUser(
-      userInfo.id!,
+      userInfo.id,
       userInfo.displayName,
       userInfo.fullName,
       userInfo.email,

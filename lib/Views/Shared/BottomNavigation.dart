@@ -10,6 +10,7 @@ import 'package:canadianslife/Views/mySettings.dart';
 import 'package:canadianslife/Views/postView.dart';
 import 'package:canadianslife/Views/signup.dart';
 import 'package:canadianslife/Views/testView.dart';
+import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,13 +69,8 @@ class BottomNavigation extends StatelessWidget {
         GroupsTabsView(),
         GroupsTabsView(),
         // GroupsTabsView(),
-        TestView(),
-        // EditInfoView(),
-        // MyPostsView(),
-        // MySettingsView(),
+        TopicView(),
         MyAccountView(),
-        // AuthenticationService(),
-        // LoginView(),
       ];
     }
 

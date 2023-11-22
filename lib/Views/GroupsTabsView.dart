@@ -1,14 +1,15 @@
+import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/Group.dart';
+import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 
 import 'package:canadianslife/Views/Shared/groupCard.dart';
-import 'package:canadianslife/Views/Shared/postCard.dart';
-import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import '../Managers/LayoutManager.dart';
 
@@ -25,10 +26,43 @@ class GroupsViewState extends State<GroupsTabsView>
   late TabController _tabController;
   bool hideSubscribeButton = false;
 
+  TextEditingController searchController = TextEditingController();
+
+  late List<Group>? newGroups;
+  late List<Group>? userGroups;
+  bool isLoadingUser = true;
+  bool isLoadingNew = true;
+
+  late User userInfo;
+
+  getNewGroups() async {
+    setState(() {
+      isLoadingNew = true;
+    });
+    newGroups = await GroupController().getUnsubedGroups(
+        userInfo.userType!, userInfo.id, searchController.text, 0);
+    setState(() {
+      isLoadingNew = false;
+    });
+  }
+
+  getUserGroups() async {
+    setState(() {
+      isLoadingUser = true;
+    });
+    userGroups = await GroupController()
+        .getSubedGroups(userInfo.id, searchController.text, 0);
+    setState(() {
+      isLoadingUser = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-
+    userInfo = Provider.of<UserData>(context, listen: false).userInfo;
+    getUserGroups();
+    getNewGroups();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_onTabChanged);
   }
@@ -54,15 +88,13 @@ class GroupsViewState extends State<GroupsTabsView>
   @override
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
-    print(context.screenHeight);
-    print("+++++++++++++++++++++");
 
     return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       child: Container(
         color: Colors.grey.shade200,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Container(
@@ -73,8 +105,11 @@ class GroupsViewState extends State<GroupsTabsView>
               children: [
                 CustomSearchBar(
                   hintText: AppLocalizations.of(context)!.groupsSearch,
+                  controller: searchController,
+                  onSearchPressed:
+                      tabSelected == 1 ? getUserGroups : getNewGroups,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TabBar(
@@ -90,7 +125,7 @@ class GroupsViewState extends State<GroupsTabsView>
                                     ? appDesign.colorPrimaryDark
                                     : Colors.grey,
                                 fontWeight: FontWeight.bold)),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Icon(
@@ -113,7 +148,7 @@ class GroupsViewState extends State<GroupsTabsView>
                                       ? appDesign.colorPrimaryDark
                                       : Colors.grey,
                                   fontWeight: FontWeight.bold)),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Icon(
@@ -135,27 +170,44 @@ class GroupsViewState extends State<GroupsTabsView>
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: layoutManager.mainHorizontalPadding(),
-                vertical: 10),
-            height: context.screenHeight * 0.7,
-            color: Colors.grey.shade200,
-            child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return GroupCard(
-                    subscribeBtnIsHidden: hideSubscribeButton,
-                    groupInfo: Group(
-                        id: 0,
-                        name: "الحياة في تورنتو",
-                        groupType: 0,
-                        locationX: 0,
-                        locationY: 0,
-                        visibility: 0,
-                        userId: 0),
-                  );
-                }),
-          )
+              padding: EdgeInsets.symmetric(
+                  horizontal: layoutManager.mainHorizontalPadding(),
+                  vertical: 10),
+              height: context.screenHeight * 0.7,
+              color: Colors.grey.shade200,
+              child: tabSelected == 1
+                  ? isLoadingUser == false
+                      ? userGroups!.isEmpty
+                          ? const Center(
+                              child: Text('لم نجد مجموعات!'),
+                            )
+                          : ListView(
+                              children: [
+                                ...userGroups!.map(
+                                  (e) => GroupCard(
+                                    subscribeBtnIsHidden: false,
+                                    groupInfo: e,
+                                  ),
+                                ),
+                              ],
+                            )
+                      : const Center(child: CircularProgressIndicator())
+                  : isLoadingNew == false
+                      ? newGroups!.isEmpty
+                          ? const Center(
+                              child: Text('لم نجد مجموعات!'),
+                            )
+                          : ListView(
+                              children: [
+                                ...newGroups!.map(
+                                  (e) => GroupCard(
+                                    subscribeBtnIsHidden: true,
+                                    groupInfo: e,
+                                  ),
+                                ),
+                              ],
+                            )
+                      : const Center(child: CircularProgressIndicator()))
         ]),
       ),
     );

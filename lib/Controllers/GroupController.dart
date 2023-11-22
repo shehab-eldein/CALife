@@ -11,11 +11,11 @@ class GroupController {
   final _networkManager = NetworkManager();
 
   Future<List<Group>?> getUnsubedGroups(
-      int type, int userId, String searchTerm, int loadingId) async {
+      int type, int userId, String searchWord, int loadingId) async {
     try {
       final res = await _networkManager.getRequest(
         endpoint:
-            '${Constant.group}GetUnsubscribedGroups??groupsType=$type&userID=$userId&searchWord=$searchTerm&loadingId=$loadingId',
+            '${Constant.group}GetUnsubscribedGroups??groupsType=$type&userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
         body: null,
         fromJson: (json) => json,
       );
@@ -29,6 +29,28 @@ class GroupController {
       return null;
     }
   }
+
+  Future<List<Group>?> getSubedGroups(
+      int userId, String searchWord, int loadingId) async {
+    try {
+      final res = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.group}GetSubscribedGroups?userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      final List<dynamic> data = res;
+      print(data.toString());
+      final List<Group> groups =
+          data.map((item) => Group.fromJson(item)).toList();
+      return groups;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  //
 
   Future<List<Group>> getSubscribedGroups(int userId, String searchWord) async {
     final finalUri =
@@ -140,7 +162,7 @@ class GroupController {
   }
 
   Future<bool> subscribeToGroup(int groupId, int userId) async {
-    GroupSubscriber subscriber = new GroupSubscriber(
+    GroupSubscriber subscriber = GroupSubscriber(
         id: 0,
         groupId: groupId,
         userId: userId,
@@ -170,7 +192,7 @@ class GroupController {
 
   Future<bool> createGroup(String name, int groupType, int visibility,
       int creatorUserId, String groupImage) async {
-    Group subscriber = new Group(
+    Group subscriber = Group(
         id: 0,
         name: name,
         groupType: groupType,
@@ -180,7 +202,7 @@ class GroupController {
         userId: creatorUserId,
         groupImage: groupImage,
         creationDate: '2023-01-01',
-        subscribersCount: 0,
+        subscribersNo: 0,
         user: null);
     final url = "${Constant.baseURL}${Constant.group}AddGroup";
 

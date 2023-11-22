@@ -1,3 +1,4 @@
+import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
@@ -8,6 +9,7 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class GroupCard extends StatefulWidget {
   final bool subscribeBtnIsHidden;
@@ -63,10 +65,13 @@ class _GroupCardState extends State<GroupCard> {
                   CircleAvatar(
                     radius: 14,
                     backgroundColor: Colors.grey,
+                    child: widget.groupInfo.user!.userImage != null
+                        ? Image.network(widget.groupInfo.user!.userImage!)
+                        : Image.asset("images/person.png"),
                   ),
                   SizedBox(width: 5),
                   Text(
-                    "اسم مشرف المجموعة",
+                    widget.groupInfo.user!.displayName,
                     style: TextStyle(
                       color: appDesign.colorAccent,
                       fontWeight: FontWeight.normal,
@@ -85,15 +90,21 @@ class _GroupCardState extends State<GroupCard> {
                   children: [
                     Expanded(
                         child: InteractiveIcon(
-                      icon: Icons.lock_rounded,
-                      text: "مجموعة عامة",
+                      icon: widget.groupInfo.visibility == 0
+                          ? Icons.lock_open_rounded
+                          : Icons.lock_rounded,
+                      text: widget.groupInfo.visibility == 0
+                          ? "مجموعة عامة"
+                          : "مجموعة خاصة",
                     )),
                     Expanded(
                         child: InteractiveIcon(
-                            icon: Icons.person, text: "+500 عضواً")),
+                            icon: Icons.person,
+                            text: "${widget.groupInfo.subscribersNo} عضواً")),
                     Expanded(
                         child: InteractiveIcon(
-                            icon: Icons.share, text: "+200 منشور")),
+                            icon: Icons.share,
+                            text: "${widget.groupInfo.topicsNo} منشور")),
                   ],
                 ),
               ),
@@ -108,7 +119,13 @@ class _GroupCardState extends State<GroupCard> {
                         child: CustomTextButton(
                           backgroundColor: appDesign.colorPrimaryDark,
                           text: "اشتراك",
-                          onPressed: () {},
+                          onPressed: () {
+                            GroupController().subscribeToGroup(
+                                widget.groupInfo.id,
+                                Provider.of<UserData>(context, listen: false)
+                                    .userInfo
+                                    .id);
+                          },
                           icon: Icons.add_box_rounded,
                         ),
                       ),

@@ -1,7 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/Shared/BottomNavigation.dart';
 import 'package:canadianslife/Views/login.dart';
-import 'package:canadianslife/Views/myAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +14,6 @@ class AuthenticationService extends StatefulWidget {
 class _AuthenticationServiceState extends State<AuthenticationService> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadData();
   }

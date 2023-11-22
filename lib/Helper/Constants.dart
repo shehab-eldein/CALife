@@ -57,6 +57,7 @@ class UserData extends ChangeNotifier {
     password: "",
     phone: "",
     userImage: "",
+    userType: 0,
   );
 
   User get userInfo => _userInfo;
@@ -71,15 +72,16 @@ class UserData extends ChangeNotifier {
           "email": "",
           "password": "",
           "phone": "",
-          "userImage": ""
+          "userImage": "",
+          "userType": 0,
         }.toString()));
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }
 
-  void saveUserData() async {
+  void saveUserData(user) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('userInfo', jsonEncode(userInfo.toJson()));
+    prefs.setString('userInfo', jsonEncode(user.toJson()));
   }
 
   bool isLoggedIn() {
@@ -87,16 +89,16 @@ class UserData extends ChangeNotifier {
     return isLoggedIn;
   }
 
-  logUser(user) {
-    print("Logged in!");
+  logUser(User? user) {
+    print("Logged User: ${user!.toJson().toString()}");
     _userInfo = user;
-    saveUserData();
+    saveUserData(user);
     notifyListeners();
   }
 
   signOut() {
     print("Logged out!");
-    _userInfo = User(
+    User clearUser = User(
       id: 0,
       displayName: "",
       fullName: "",
@@ -104,8 +106,10 @@ class UserData extends ChangeNotifier {
       password: "",
       phone: "",
       userImage: "",
+      userType: 0,
     );
-    saveUserData();
+    _userInfo = clearUser;
+    saveUserData(clearUser);
     notifyListeners();
   }
 }

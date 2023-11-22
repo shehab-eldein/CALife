@@ -1,5 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/NetworkManager.dart';
+import 'package:canadianslife/Models/TopicComment.dart';
 
 import '../Models/Topic.dart';
 
@@ -176,15 +177,20 @@ class TopicController {
     }
   }
 
-  Future<List?> topicCommentsGetByTopicId(int topicId, int loadingId) async {
+  Future<List<dynamic>?> topicCommentsGetByTopicId(
+      int topicId, int loadingId) async {
     try {
       List res = await _networkManager.getRequest(
         endpoint:
             '${Constant.topic}TopicCommentsGetByTopicId?topicId=$topicId&loadingId=$loadingId',
         body: null,
-        fromJson: (json) => (json),
+        fromJson: (json) => json
+            .map(
+              (item) => TopicComment.fromJson(item),
+            )
+            .toList(),
       );
-      print(res.toList());
+      print(res);
       return res;
     } catch (e) {
       print(e);
@@ -195,10 +201,11 @@ class TopicController {
   Future<List?> topicCommentsGetByUserId(int userId) async {
     try {
       List res = await _networkManager.getRequest(
-        endpoint: '${Constant.topic}TopicCommentsGetByUserId?userId=$userId',
-        body: null,
-        fromJson: (json) => (json),
-      );
+          endpoint: '${Constant.topic}TopicCommentsGetByUserId?userId=$userId',
+          body: null,
+          fromJson: (json) => json.map(
+                (item) => TopicComment.fromJson(item),
+              ));
       print(res.toList());
       return res;
     } catch (e) {

@@ -21,7 +21,7 @@ class _EditPhoneViewState extends State<EditPhoneView> {
     User? userInfo = widget.userInfo;
     await UserController()
         .editUser(
-          userInfo.id!,
+          userInfo.id,
           userInfo.displayName,
           userInfo.fullName,
           userInfo.email,
