@@ -177,18 +177,18 @@ class TopicController {
     }
   }
 
-  Future<List<dynamic>?> topicCommentsGetByTopicId(
+  Future<List<TopicComment>?> topicCommentsGetByTopicId(
       int topicId, int loadingId) async {
     try {
-      List res = await _networkManager.getRequest(
+      List<TopicComment> res = await _networkManager.getRequest(
         endpoint:
             '${Constant.topic}TopicCommentsGetByTopicId?topicId=$topicId&loadingId=$loadingId',
         body: null,
-        fromJson: (json) => json
-            .map(
-              (item) => TopicComment.fromJson(item),
-            )
-            .toList(),
+        fromJson: (json) => List<TopicComment>.from(
+          json.map(
+            (item) => TopicComment.fromJson(item),
+          ),
+        ),
       );
       print(res);
       return res;
@@ -198,14 +198,17 @@ class TopicController {
     }
   }
 
-  Future<List?> topicCommentsGetByUserId(int userId) async {
+  Future<List<TopicComment>?> topicCommentsGetByUserId(int userId) async {
     try {
-      List res = await _networkManager.getRequest(
-          endpoint: '${Constant.topic}TopicCommentsGetByUserId?userId=$userId',
-          body: null,
-          fromJson: (json) => json.map(
-                (item) => TopicComment.fromJson(item),
-              ));
+      List<TopicComment> res = await _networkManager.getRequest(
+        endpoint: '${Constant.topic}TopicCommentsGetByUserId?userId=$userId',
+        body: null,
+        fromJson: (json) => List<TopicComment>.from(
+          json.map(
+            (item) => TopicComment.fromJson(item),
+          ),
+        ),
+      );
       print(res.toList());
       return res;
     } catch (e) {

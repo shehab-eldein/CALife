@@ -1,7 +1,9 @@
+import 'package:canadianslife/Models/TopicComment.dart';
 import 'package:flutter/material.dart';
 
 class CommentCard extends StatefulWidget {
-  const CommentCard({super.key});
+  const CommentCard({super.key, required this.commentInfo});
+  final TopicComment commentInfo;
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -31,8 +33,8 @@ class _CommentCardState extends State<CommentCard> {
               const SizedBox(
                 width: 16,
               ),
-              const Text(
-                "اسم المستخدم",
+              Text(
+                widget.commentInfo.user!.displayName,
                 style: TextStyle(
                   color: Color(0xFF088395),
                   fontSize: 17,
@@ -43,17 +45,20 @@ class _CommentCardState extends State<CommentCard> {
               ),
             ],
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 65),
-            child: Text(
-              'هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، ',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                color: Color(0xFF263238),
-                fontSize: 13,
-                fontFamily: '.SF Arabic',
-                fontWeight: FontWeight.w400,
-                height: 0,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                widget.commentInfo.commentDetails,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Color(0xFF263238),
+                  fontSize: 13,
+                  fontFamily: '.SF Arabic',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
               ),
             ),
           ),
