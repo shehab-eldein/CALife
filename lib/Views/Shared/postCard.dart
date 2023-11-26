@@ -1,7 +1,9 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
+import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
+import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -179,8 +181,30 @@ class _PostState extends State<Post> {
                     Spacer(
                         flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
                     Expanded(
-                        child: InteractiveIcon(
-                            icon: Icons.message_outlined, text: "20")),
+                      child: InteractiveIcon(
+                        icon: Icons.message_outlined,
+                        text: "20",
+                        onPressed: () {
+                          context.navigateTo(TopicView(
+                            topicInfo: Topic(
+                              id: 11,
+                              title: "title",
+                              details:
+                                  'محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور،  ',
+                              isPinned: true,
+                              groupId: 2,
+                              userId: 0,
+                              user: User(
+                                  id: 0,
+                                  displayName: "اسم المستخدم",
+                                  fullName: "fullName",
+                                  email: "email",
+                                  password: "password"),
+                            ),
+                          ));
+                        },
+                      ),
+                    ),
                     Spacer(
                         flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
                     Expanded(
