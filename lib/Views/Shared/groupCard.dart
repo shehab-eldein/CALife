@@ -1,6 +1,7 @@
 import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Models/Group.dart';
+import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +137,11 @@ class _GroupCardState extends State<GroupCard> {
                         backgroundColor: Colors.white,
                         text: "زيارة المجموعة",
                         textColor: appDesign.colorPrimaryDark,
-                        onPressed: () {},
+                        onPressed: () {
+                          context.navigateTo(GroupDetails(
+                            groupInfo: widget.groupInfo,
+                          ));
+                        },
                         icon: Icons.keyboard_double_arrow_left_sharp,
                         iconColor: appDesign.colorPrimaryDark,
                       ),

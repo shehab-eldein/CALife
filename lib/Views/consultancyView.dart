@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Managers/NetworkManager.dart';
 import 'package:canadianslife/Models/ConsultanceForm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 class Consultancy {
-  ConsultanceForm constultanceForm = ConsultanceForm(
+  static ConsultanceForm constultanceForm = ConsultanceForm(
     id: 0,
     userId: 0,
     passportNo: "passportNo",
@@ -68,19 +71,38 @@ class _ConsultancyViewState extends State<ConsultancyView> {
   }
 
   submit() async {
-    print(Consultancy().constultanceForm.toJson().toString());
     final Uri uri = Uri.parse(
       "https://tender-chandrasekhar.38-100-170-33.plesk.page/Consultancy/ConsultancyAdd",
     );
     var res = await http.post(
       uri,
-      body: Consultancy().constultanceForm.toJson(),
+      body: jsonEncode(Consultancy.constultanceForm.toJson()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print(res);
+    print(json.decode(res.body));
   }
+
+  // Future<bool> submitConsultancy(int groupId, int userId) async {
+  //   final url = "${Constant.baseURL}${Constant.group}AddGroupSubscriber";
+
+  //   final response = await http.post(
+  //     Uri.parse(url),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(.toJson()),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     print("Success");
+  //     return true;
+  //   } else {
+  //     print("Falied ${response.statusCode} ");
+  //     return false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +192,7 @@ class _Consultancy1State extends State<Consultancy1> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Consultancy().constultanceForm.userId =
+    Consultancy.constultanceForm.userId =
         Provider.of<UserData>(context, listen: false).userInfo.id;
   }
 
@@ -199,11 +221,11 @@ class _Consultancy1State extends State<Consultancy1> {
   }
 
   updateData() {
-    Consultancy().constultanceForm.passportNo = passportNo.text;
-    Consultancy().constultanceForm.passportIssuer = passportSource.text;
-    Consultancy().constultanceForm.passportImage = passportCopy.text;
-    Consultancy().constultanceForm.maritalStatus = 0;
-    Consultancy().constultanceForm.residenceCountry = country.text;
+    Consultancy.constultanceForm.passportNo = passportNo.text;
+    Consultancy.constultanceForm.passportIssuer = passportSource.text;
+    Consultancy.constultanceForm.passportImage = passportCopy.text;
+    Consultancy.constultanceForm.maritalStatus = 0;
+    Consultancy.constultanceForm.residenceCountry = country.text;
   }
 
   @override
@@ -442,35 +464,35 @@ class _Consultancy2State extends State<Consultancy2> {
   setHasBachelor(value) {
     setState(() {
       hasBachelor = value;
-      Consultancy().constultanceForm.hasBachelor = value;
+      Consultancy.constultanceForm.hasBachelor = value;
     });
   }
 
   setWriting(value) {
     setState(() {
       writing = value;
-      Consultancy().constultanceForm.writingRate = value;
+      Consultancy.constultanceForm.writingRate = value;
     });
   }
 
   setSpeaking(value) {
     setState(() {
       speaking = value;
-      Consultancy().constultanceForm.speakingRate = value;
+      Consultancy.constultanceForm.speakingRate = value;
     });
   }
 
   setReading(value) {
     setState(() {
       reading = value;
-      Consultancy().constultanceForm.readingRate = value;
+      Consultancy.constultanceForm.readingRate = value;
     });
   }
 
   setListening(value) {
     setState(() {
       listening = value;
-      Consultancy().constultanceForm.listeningRate = value;
+      Consultancy.constultanceForm.listeningRate = value;
     });
   }
 
@@ -811,7 +833,7 @@ class _Consultancy3State extends State<Consultancy3> {
   setHasOffer(value) {
     setState(() {
       hasOffer = value;
-      Consultancy().constultanceForm.hasOffer = value;
+      Consultancy.constultanceForm.hasOffer = value;
     });
   }
 
@@ -819,7 +841,7 @@ class _Consultancy3State extends State<Consultancy3> {
   setHasFriend(value) {
     setState(() {
       hasFriend = value;
-      Consultancy().constultanceForm.hasFriend = value;
+      Consultancy.constultanceForm.hasFriend = value;
     });
   }
 
@@ -827,7 +849,7 @@ class _Consultancy3State extends State<Consultancy3> {
   setHasFamily(value) {
     setState(() {
       hasFamily = value;
-      Consultancy().constultanceForm.hasFamily = value;
+      Consultancy.constultanceForm.hasFamily = value;
     });
   }
 
@@ -835,7 +857,7 @@ class _Consultancy3State extends State<Consultancy3> {
   setIsAgree(value) {
     setState(() {
       isAgree = value;
-      Consultancy().constultanceForm.isAgree = value;
+      Consultancy.constultanceForm.isAgree = value;
     });
   }
 
@@ -844,7 +866,7 @@ class _Consultancy3State extends State<Consultancy3> {
   setNetWealth(value) {
     setState(() {
       netWealth = value;
-      Consultancy().constultanceForm.netWealth = value;
+      Consultancy.constultanceForm.netWealth = value;
     });
   }
 

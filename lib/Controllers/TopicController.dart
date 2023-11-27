@@ -72,13 +72,17 @@ class TopicController {
     }
   }
 
-  Future<List?> topicsGetByGroupId(int groupId, int loadingId) async {
+  Future<List<Topic>?> topicsGetByGroupId(int groupId, int loadingId) async {
     try {
-      List topics = await _networkManager.getRequest(
+      List<Topic> topics = await _networkManager.getRequest(
         endpoint:
             '${Constant.topic}TopicsGetByGroupId?groupId=$groupId&loadingId=$loadingId',
         body: null,
-        fromJson: (json) => json,
+        fromJson: (json) => List<Topic>.from(
+          json.map(
+            (item) => Topic.fromJson(item),
+          ),
+        ),
       );
       print(topics.toString());
       return topics;

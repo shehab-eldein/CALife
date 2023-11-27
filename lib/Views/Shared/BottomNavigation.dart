@@ -2,6 +2,7 @@ import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
+import 'package:canadianslife/Views/HomeView.dart';
 import 'package:canadianslife/Views/consultancyView.dart';
 import 'package:canadianslife/Views/editInfoView.dart';
 import 'package:canadianslife/Views/login.dart';
@@ -67,11 +68,11 @@ class BottomNavigation extends StatelessWidget {
     ScreenUtil.init(context);
     List<Widget> _buildScreens() {
       return [
-        GroupDetails(),
-        GroupsTabsView(),
+        // GroupDetails(),
         // GroupsTabsView(),
+        HomeView(),
+        GroupsTabsView(),
         ConsultancyView(),
-        // TestView(),
         // GroupsTabsView(),
         TopicView(),
         MyAccountView(),
