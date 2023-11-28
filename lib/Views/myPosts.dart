@@ -1,3 +1,5 @@
+import 'package:canadianslife/Models/Topic.dart';
+import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/postCard.dart';
 import 'package:canadianslife/Views/Shared/profileInfoRow.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,42 @@ class _MyPostsViewState extends State<MyPostsView> {
         children: [
           const ProfileInfoRow(),
           const SizedBox(height: 25),
-          Post(),
-          Post(),
+          Post(
+            topicInfo: Topic(
+              id: 0,
+              title: "title",
+              details: "details",
+              isPinned: true,
+              groupId: 0,
+              userId: 0,
+              likesNo: 99,
+              commentsNo: 99,
+              user: User(
+                  id: 0,
+                  displayName: "displayName",
+                  fullName: "fullName",
+                  email: "email",
+                  password: "password"),
+            ),
+          ),
+          Post(
+            topicInfo: Topic(
+              id: 0,
+              title: "title",
+              details: "details",
+              isPinned: true,
+              groupId: 0,
+              userId: 0,
+              likesNo: 99,
+              commentsNo: 99,
+              user: User(
+                  id: 0,
+                  displayName: "displayName",
+                  fullName: "fullName",
+                  email: "email",
+                  password: "password"),
+            ),
+          ),
         ],
       ),
     );

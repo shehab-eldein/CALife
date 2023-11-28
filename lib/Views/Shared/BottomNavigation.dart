@@ -73,8 +73,8 @@ class BottomNavigation extends StatelessWidget {
         HomeView(),
         GroupsTabsView(),
         ConsultancyView(),
-        // GroupsTabsView(),
-        TopicView(),
+        GroupsTabsView(),
+        // TopicView(),
         MyAccountView(),
       ];
     }

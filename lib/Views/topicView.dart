@@ -1,8 +1,9 @@
 import 'package:canadianslife/Controllers/TopicController.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Models/TopicComment.dart';
-import 'package:canadianslife/Models/User.dart';
+import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/commentCard.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -11,9 +12,9 @@ import 'package:provider/provider.dart';
 class TopicView extends StatefulWidget {
   const TopicView({
     super.key,
-    this.topicInfo,
+    required this.topicInfo,
   });
-  final Topic? topicInfo;
+  final Topic topicInfo;
 
   @override
   State<TopicView> createState() => _TopicViewState();
@@ -23,43 +24,29 @@ class _TopicViewState extends State<TopicView> {
   TextEditingController textController = TextEditingController();
   final FocusNode textFocusNode = FocusNode();
   final ScrollController scrollController = ScrollController();
+  late Topic topicInfo;
 
   @override
   void initState() {
     super.initState();
-    topicInfo = widget.topicInfo ??
-        Topic(
-          id: 11,
-          title: "title",
-          details:
-              'محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور، محتوي المنشور،  ',
-          isPinned: true,
-          groupId: 2,
-          userId: 0,
-          user: User(
-              id: 0,
-              displayName: "اسم المستخدم",
-              fullName: "fullName",
-              email: "email",
-              password: "password"),
-        );
+    topicInfo = widget.topicInfo;
     getTopicComments();
   }
 
   List<TopicComment>? comments = [];
+  bool isLoading = true;
 
   getTopicComments() async {
     setState(() {
-      comments = [];
+      isLoading = true;
     });
     List<TopicComment>? res =
         await TopicController().topicCommentsGetByTopicId(topicInfo.id, 0);
     setState(() {
       comments = res;
+      isLoading = false;
     });
   }
-
-  late Topic topicInfo;
 
   addComment() async {
     await TopicController()
@@ -67,6 +54,32 @@ class _TopicViewState extends State<TopicView> {
             Provider.of<UserData>(context, listen: false).userInfo.id)
         .then((value) => getTopicComments());
     textController.text = "";
+  }
+
+  toggleLike() async {
+    topicInfo.isUserLikedTopic == false
+        ? await TopicController()
+            .topicLikeAdd(topicInfo.id,
+                Provider.of<UserData>(context, listen: false).userInfo.id)
+            .then((value) {
+            if (value == true) {
+              setState(() {
+                topicInfo.isUserLikedTopic = true;
+                topicInfo.likesNo = (topicInfo.likesNo! + 1);
+              });
+            }
+          })
+        : await TopicController()
+            .topicLikeDelete(topicInfo.id,
+                Provider.of<UserData>(context, listen: false).userInfo.id)
+            .then((value) {
+            if (value == true) {
+              setState(() {
+                topicInfo.isUserLikedTopic = false;
+                topicInfo.likesNo = (topicInfo.likesNo! - 1);
+              });
+            }
+          });
   }
 
   void scrollDown() {
@@ -155,26 +168,32 @@ class _TopicViewState extends State<TopicView> {
             aspectRatio: 3 / 2,
             child: Image.asset("images/placeholder.png"),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.groups,
-                  color: Color(0xFF088395),
-                ),
-                SizedBox(width: 15),
-                Text(
-                  'الحياة في تورنتو',
-                  style: TextStyle(
+          InkWell(
+            onTap: () {
+              context.navigateTo(GroupDetails(groupInfo: topicInfo.group!));
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.groups,
                     color: Color(0xFF088395),
-                    fontSize: 13,
-                    fontFamily: '.SF Arabic',
-                    fontWeight: FontWeight.w600,
-                    height: 0.12,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 15),
+                  Text(
+                    topicInfo.group!.name,
+                    style: const TextStyle(
+                      color: Color(0xFF088395),
+                      fontSize: 13,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w600,
+                      height: 0.12,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
@@ -192,13 +211,17 @@ class _TopicViewState extends State<TopicView> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.thumb_up_alt_outlined),
+                      onPressed: () {
+                        toggleLike();
+                      },
+                      icon: widget.topicInfo.isUserLikedTopic == true
+                          ? const Icon(Icons.thumb_up_alt)
+                          : const Icon(Icons.thumb_up_alt_outlined),
                       color: const Color(0xFF0A4D68),
                     ),
-                    const Text(
-                      '25',
-                      style: TextStyle(
+                    Text(
+                      widget.topicInfo.likesNo.toString(),
+                      style: const TextStyle(
                         color: Color(0xFF676D7A),
                         fontSize: 15,
                         fontFamily: 'SF Pro',
@@ -243,7 +266,7 @@ class _TopicViewState extends State<TopicView> {
                       color: const Color(0xFF0A4D68),
                     ),
                     const Text(
-                      '10',
+                      '99',
                       style: TextStyle(
                         color: Color(0xFF676D7A),
                         fontSize: 15,
@@ -279,7 +302,7 @@ class _TopicViewState extends State<TopicView> {
           //     ],
           //   ),
           // ),
-          comments!.isNotEmpty
+          !isLoading
               ? Column(
                   children: [
                     ...comments!.map(

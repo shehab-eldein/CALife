@@ -13,7 +13,6 @@ class ImagePickerManager {
   //
   // ImagePickerManager(this.context);
 
-
   File? _selectedImage;
   List<Asset> _selectedImages = [];
 
@@ -22,20 +21,18 @@ class ImagePickerManager {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      _selectedImage = File(pickedFile.path);
 
-        _selectedImage = File(pickedFile.path);
-
-        return _selectedImage;
+      return _selectedImage;
 
       // Handle the picked image, you can display it or perform any other actions.
       print('Image path: ${pickedFile.path}');
-
     } else {
-
       print('No image selected.');
       return null;
     }
   }
+
   Future<List<Asset>?> selectMultiImage() async {
     List<Asset> resultList = [];
 
@@ -51,11 +48,9 @@ class ImagePickerManager {
     }
     _selectedImages = resultList;
     return _selectedImages;
-
   }
+
   void _removeImage(int index) {
-
-      _selectedImages.removeAt(index);
-
+    _selectedImages.removeAt(index);
   }
 }

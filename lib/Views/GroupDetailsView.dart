@@ -4,6 +4,7 @@ import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../Managers/LayoutManager.dart';
 import 'Shared/addPostPopUp.dart';
@@ -16,15 +17,6 @@ class GroupDetails extends StatefulWidget {
   State<GroupDetails> createState() => _GroupDetailsState();
 }
 
-void showAddPostPopup(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AddPostPopup();
-    },
-  );
-}
-
 class _GroupDetailsState extends State<GroupDetails> {
   @override
   void initState() {
@@ -32,11 +24,32 @@ class _GroupDetailsState extends State<GroupDetails> {
     getTopics();
   }
 
+  void showAddPostPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddPostPopup(
+          groupId: widget.groupInfo.id,
+          refresh: refresh,
+        );
+      },
+    );
+  }
+
+  refresh() {
+    topics = null;
+    setState(() {
+      getTopics();
+    });
+  }
+
   List<Topic>? topics;
 
   getTopics() async {
-    List<Topic>? groupTopics =
-        await TopicController().topicsGetByGroupId(widget.groupInfo.id, 0);
+    List<Topic>? groupTopics = await TopicController().topicsGetByGroupId(
+        widget.groupInfo.id,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        0);
     setState(() {
       topics = groupTopics;
     });
@@ -121,7 +134,9 @@ class _GroupDetailsState extends State<GroupDetails> {
                           horizontal: layoutManager.mainHorizontalPadding()),
                       child: Column(
                         children: [
-                          ...topics!.map((e) => Post()),
+                          ...topics!.map((e) => Post(
+                                topicInfo: e,
+                              )),
                         ],
                       ),
                     )
