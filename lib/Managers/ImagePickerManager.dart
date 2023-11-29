@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -8,34 +9,42 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerManager {
-  // final BuildContext context;
-  //
-  //
-  // ImagePickerManager(this.context);
-
+  Future<List<String>?> pickImages() async {
+    List<String> imageFiles = [];
+    final ImagePicker picker = ImagePicker();
+    List<XFile> images = await picker.pickMultiImage();
+    if (images.isNotEmpty) {
+      for (var element in images) {
+        var imagFile = File(element.path).readAsBytesSync();
+        String base64Image = base64Encode(imagFile);
+        imageFiles.add(base64Image);
+      }
+      return imageFiles;
+    } else {
+      return null;
+    }
+  }
 
   File? _selectedImage;
   List<Asset> _selectedImages = [];
 
   Future<File?> selectSingleImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      _selectedImage = File(pickedFile.path);
 
-        _selectedImage = File(pickedFile.path);
-
-        return _selectedImage;
+      return _selectedImage;
 
       // Handle the picked image, you can display it or perform any other actions.
       print('Image path: ${pickedFile.path}');
-
     } else {
-
       print('No image selected.');
       return null;
     }
   }
+
   Future<List<Asset>?> selectMultiImage() async {
     List<Asset> resultList = [];
 
@@ -51,11 +60,9 @@ class ImagePickerManager {
     }
     _selectedImages = resultList;
     return _selectedImages;
-
   }
+
   void _removeImage(int index) {
-
-      _selectedImages.removeAt(index);
-
+    _selectedImages.removeAt(index);
   }
 }

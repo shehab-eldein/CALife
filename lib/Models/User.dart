@@ -1,6 +1,5 @@
-
 class User {
-  int? id;
+  int id;
   String displayName;
   String fullName;
   bool? isActive;
@@ -13,7 +12,7 @@ class User {
   String? userImage;
   String? deviceToken;
   User({
-    this.id,
+    required this.id,
     required this.displayName,
     required this.fullName,
     this.isActive,
@@ -27,7 +26,6 @@ class User {
     this.deviceToken,
   });
 
-
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
@@ -38,34 +36,25 @@ class User {
       userType: json['userType'],
       email: json['email'],
       registerationDate: json['registerationDate'],
-      lastLoginDate: json['lastLoginDate'] ,
+      lastLoginDate: json['lastLoginDate'],
       password: json['password'],
       userImage: json['userImage'],
       deviceToken: json['deviceToken'],
-
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'displayName': displayName,
-    'fullName': fullName,
-    'isActive': isActive,
-    'phone': phone,
-    'userType': userType,
-    'email': email,
-'registerationDate': registerationDate, // convert DateTime to string
-    'lastLoginDate': lastLoginDate, // convert DateTime to string
-    'password': password,
-    'userImage': userImage,
-    'deviceToken': deviceToken,
-  };
+        'id': id,
+        'displayName': displayName,
+        'fullName': fullName,
+        'isActive': isActive,
+        'phone': phone,
+        'userType': userType,
+        'email': email,
+        'registerationDate': registerationDate, // convert DateTime to string
+        'lastLoginDate': lastLoginDate, // convert DateTime to string
+        'password': password,
+        'userImage': userImage,
+        'deviceToken': deviceToken,
+      };
 }
-
-
-
-
-
-
-
-
