@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -7,7 +7,6 @@ import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AddPostPopup extends StatefulWidget {
   const AddPostPopup({super.key, required this.groupId, required this.refresh});
@@ -22,18 +21,25 @@ class _AddPostPopupState extends State<AddPostPopup> {
   TextEditingController _textController = TextEditingController();
   RoundedLoadingButtonController controller = RoundedLoadingButtonController();
   ImagePickerManager imagePickerManager = ImagePickerManager();
-  List<Asset>? _selectedImages = [];
+  // List<Asset>? _selectedImages = [];
 
+  List<String> imageFiles = [];
   void chooseMuliImages() async {
-    imagePickerManager.selectMultiImage().then((images) {
-      if (images != null) {
-        setState(() {
-          _selectedImages = images;
-        });
-      } else {
-        _selectedImages = null;
-      }
-    });
+    List<String>? images = await imagePickerManager.pickImages();
+    if (images != null) {
+      setState(() {
+        imageFiles = images;
+      });
+    }
+    // imagePickerManager.selectMultiImage().then((images) {
+    //   if (images != null) {
+    //     setState(() {
+    //       _selectedImages = images;
+    //     });
+    //   } else {
+    //     _selectedImages = null;
+    //   }
+    // });
   }
 
   submitPost() async {
@@ -86,26 +92,39 @@ class _AddPostPopupState extends State<AddPostPopup> {
                   ),
                 ),
               ),
-              Container(
-                height: 90,
-                width: context.screenWidth,
-                child: Center(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _selectedImages?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.all(4.0),
-                        child: AssetThumb(
-                          asset: _selectedImages![index],
-                          width: 50,
-                          height: 50,
+              imageFiles.isNotEmpty
+                  ? Container(
+                      decoration: BoxDecoration(border: Border.all(width: 0.5)),
+                      height: 200,
+                      width: context.screenWidth,
+                      child: Center(
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            ...imageFiles.map((e) => Image.memory(
+                                  base64Decode(e),
+                                  width: 150,
+                                  height: 200,
+                                ))
+                          ],
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+                        // child: ListView.builder(
+                        //   scrollDirection: Axis.horizontal,
+                        //   itemCount: _selectedImages?.length ?? 0,
+                        //   itemBuilder: (context, index) {
+                        //     return Container(
+                        //       padding: EdgeInsets.all(4.0),
+                        //       child: AssetThumb(
+                        //         asset: _selectedImages![index],
+                        //         width: 50,
+                        //         height: 50,
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
+                      ),
+                    )
+                  : const SizedBox(),
               SizedBox(height: 7.0),
               Align(
                 alignment: Alignment.bottomCenter,
