@@ -1,10 +1,11 @@
+import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:provider/provider.dart';
 
 import 'onBoarding.dart';
-
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -14,30 +15,27 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-
-
+  bool isLoaded = false;
   @override
   void initState() {
     super.initState();
+    loadData();
     askAppTrackingIOS();
     //_getLanguages();
   }
 
   Future<void> askAppTrackingIOS() async {
     final TrackingStatus status =
-    await AppTrackingTransparency.trackingAuthorizationStatus;
+        await AppTrackingTransparency.trackingAuthorizationStatus;
     if (status == TrackingStatus.notDetermined) {
       await Future.delayed(const Duration(milliseconds: 200));
 
       await AppTrackingTransparency.requestTrackingAuthorization();
-
     }
 
     final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
     print("UUID: $uuid");
   }
-
-
 
   // void _getUser() {
   //   context.getUser().then((user) {
@@ -82,26 +80,34 @@ class _SplashViewState extends State<SplashView> {
   // }
   //
 
+  loadData() async {
+    await Provider.of<UserData>(context, listen: false).loadUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      context.navigateTo(OnboardingScreen());
+      setState(() {
+        isLoaded = true;
+      });
+      // context.navigateTo(OnboardingScreen());
+      // context.navigateTo(AuthenticationService());
       // _getUser();
       //
       // _navigationDestination();
     });
 
-    return Scaffold(
-      backgroundColor: appDesign.backGround,
-      body: Container(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(30),
-            child: Image.asset("images/applogo.png"),
-          ),
-        ),
-      )
-    );
+    return isLoaded
+        ? AuthenticationService()
+        : Scaffold(
+            backgroundColor: appDesign.backGround,
+            body: Container(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Image.asset("images/applogo.png"),
+                ),
+              ),
+            ));
   }
 }

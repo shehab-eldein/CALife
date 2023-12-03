@@ -190,20 +190,30 @@ class GroupController {
     }
   }
 
-  Future<bool> createGroup(String name, int groupType, int visibility,
-      int creatorUserId, String groupImage) async {
+  Future<bool> createGroup(
+      String name,
+      int groupType,
+      int visibility,
+      String description,
+      String guide,
+      int creatorUserId,
+      String groupImage) async {
     Group subscriber = Group(
-        id: 0,
-        name: name,
-        groupType: groupType,
-        locationX: 0,
-        locationY: 0,
-        visibility: visibility,
-        userId: creatorUserId,
-        groupImage: groupImage,
-        creationDate: '2023-01-01',
-        subscribersNo: 0,
-        user: null);
+      id: 0,
+      name: name,
+      groupType: groupType,
+      locationX: 0,
+      locationY: 0,
+      visibility: visibility,
+      userId: creatorUserId,
+      groupImage: groupImage,
+      creationDate: '2023-01-01',
+      subscribersNo: 0,
+      topicsNo: 0,
+      user: null,
+      guide: guide,
+      description: description,
+    );
     final url = "${Constant.baseURL}${Constant.group}AddGroup";
 
     final response = await http.post(

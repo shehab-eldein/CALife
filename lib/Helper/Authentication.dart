@@ -12,21 +12,23 @@ class AuthenticationService extends StatefulWidget {
 }
 
 class _AuthenticationServiceState extends State<AuthenticationService> {
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
+  // @override
+  // void initState() {
+  // super.initState();
+  // loadData();
+  // }
 
-  loadData() async {
-    await Provider.of<UserData>(context, listen: false).loadUserData();
-  }
+  // loadData() async {
+  //   await Provider.of<UserData>(context, listen: false).loadUserData();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<UserData>(
       builder: (context, userData, child) {
-        return userData.userInfo.id == 0 ? LoginView() : BottomNavigation();
+        return userData.userInfo.id == 0
+            ? const LoginView()
+            : const BottomNavigation();
       },
     );
   }

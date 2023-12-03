@@ -1,6 +1,6 @@
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../Helper/responsive.dart';
-import '../../colors.dart';
 
 // ignore: must_be_immutable
 class AppListTileBtn extends StatefulWidget {
@@ -29,8 +29,8 @@ class _AppListTileBtnState extends State<AppListTileBtn> {
         widget.onPressed();
       },
       child: ListTile(
-        shape: Border(
-          bottom: BorderSide(color: blueColor, width: 1),
+        shape: const Border(
+          bottom: BorderSide(color: appDesign.colorPrimaryLight, width: 1),
         ),
         title: Text(
           widget.title,

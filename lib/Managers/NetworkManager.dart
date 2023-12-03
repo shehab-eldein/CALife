@@ -1,9 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-
 import '../Helper/Constants.dart';
-import '../Models/User.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkManager {

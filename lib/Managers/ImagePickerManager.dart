@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:canadianslife/Extinsions/extensions.dart';
-import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
-import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerManager {
@@ -35,10 +30,10 @@ class ImagePickerManager {
     if (pickedFile != null) {
       _selectedImage = File(pickedFile.path);
 
+      print('Image path: ${pickedFile.path}');
       return _selectedImage;
 
       // Handle the picked image, you can display it or perform any other actions.
-      print('Image path: ${pickedFile.path}');
     } else {
       print('No image selected.');
       return null;

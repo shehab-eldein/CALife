@@ -1,39 +1,30 @@
-import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Views/GroupDetailsView.dart';
+import 'package:canadianslife/Views/GroupCreateView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:canadianslife/Views/HomeView.dart';
-import 'package:canadianslife/Views/consultancyView.dart';
-import 'package:canadianslife/Views/editInfoView.dart';
-import 'package:canadianslife/Views/login.dart';
+import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:canadianslife/Views/myAccount.dart';
-import 'package:canadianslife/Views/myPosts.dart';
-import 'package:canadianslife/Views/mySettings.dart';
-import 'package:canadianslife/Views/postView.dart';
-import 'package:canadianslife/Views/signup.dart';
-import 'package:canadianslife/Views/splash.dart';
-import 'package:canadianslife/Views/testView.dart';
-import 'package:canadianslife/Views/topicView.dart';
+import 'package:canadianslife/Views/onBoarding.dart';
+import 'package:canadianslife/Views/selectPurpose.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter/foundation.dart';
 
 class BottomNavigation extends StatelessWidget {
-  BottomNavigation({Key? key}) : super(key: key);
+  const BottomNavigation({Key? key}) : super(key: key);
 
   List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: const Icon(CupertinoIcons.home),
         title: (AppLocalizations.of(context)!.mainHome),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.people_outline),
+        icon: const Icon(Icons.people_outline),
         title: (AppLocalizations.of(context)!.mainGroups),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
@@ -49,13 +40,13 @@ class BottomNavigation extends StatelessWidget {
         inactiveColorPrimary: appDesign.colorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.notifications_outlined),
+        icon: const Icon(Icons.notifications_outlined),
         title: (AppLocalizations.of(context)!.mainNotifs),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.person_outline_rounded),
+        icon: const Icon(Icons.person_outline_rounded),
         title: (AppLocalizations.of(context)!.mainUserAccount),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
@@ -66,26 +57,24 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    List<Widget> _buildScreens() {
+    List<Widget> buildScreens() {
       return [
-        // GroupDetails(),
-        // GroupsTabsView(),
-        HomeView(),
-        GroupsTabsView(),
-        ConsultancyView(),
-        GroupsTabsView(),
-        // TopicView(),
-        MyAccountView(),
+        const HomeView(),
+        const GroupsTabsView(),
+        const ConsultancyView(),
+        const GroupCreateView(),
+        // OnboardingScreen(),
+        const MyAccountView(),
       ];
     }
 
-    PersistentTabController _controller;
-    _controller = PersistentTabController(initialIndex: 0);
+    PersistentTabController controller;
+    controller = PersistentTabController(initialIndex: 0);
 
     return PersistentTabView(
       context,
-      controller: _controller,
-      screens: _buildScreens(),
+      controller: controller,
+      screens: buildScreens(),
       items: _navBarsItems(context),
       confineInSafeArea: true,
       backgroundColor: appDesign.backGround,
@@ -99,10 +88,10 @@ class BottomNavigation extends StatelessWidget {
       ),
       popAllScreensOnTapOfSelectedTab: false,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         curve: Curves.easeInExpo,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.easeInExpo,
       ),

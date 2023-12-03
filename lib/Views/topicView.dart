@@ -1,6 +1,7 @@
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/responsive.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Models/TopicComment.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
@@ -92,24 +93,29 @@ class _TopicViewState extends State<TopicView> {
 
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return Scaffold(
       body: ListView(
         controller: scrollController,
         children: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.symmetric(
+                horizontal: layoutManager.mainHorizontalPadding(),
+                vertical: 15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
                   child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         '10 د',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                          color: Color(0xFF818796),
+                          color: appDesign.colorUnhighlighted,
                           fontSize: 15,
                           fontFamily: 'SF Pro',
                           fontWeight: FontWeight.w400,
@@ -129,7 +135,7 @@ class _TopicViewState extends State<TopicView> {
                     Text(
                       topicInfo.user!.displayName,
                       style: const TextStyle(
-                        color: Color(0xFF088395),
+                        color: appDesign.colorAccentDarker,
                         fontSize: 17,
                         fontFamily: '.SF Arabic',
                         fontWeight: FontWeight.w600,
@@ -179,13 +185,13 @@ class _TopicViewState extends State<TopicView> {
                 children: [
                   const Icon(
                     Icons.groups,
-                    color: Color(0xFF088395),
+                    color: appDesign.colorAccentDarker,
                   ),
                   const SizedBox(width: 15),
                   Text(
                     topicInfo.group!.name,
                     style: const TextStyle(
-                      color: Color(0xFF088395),
+                      color: appDesign.colorAccentDarker,
                       fontSize: 13,
                       fontFamily: '.SF Arabic',
                       fontWeight: FontWeight.w600,
@@ -217,7 +223,7 @@ class _TopicViewState extends State<TopicView> {
                       icon: widget.topicInfo.isUserLikedTopic == true
                           ? const Icon(Icons.thumb_up_alt)
                           : const Icon(Icons.thumb_up_alt_outlined),
-                      color: const Color(0xFF0A4D68),
+                      color: appDesign.colorPrimaryDark,
                     ),
                     Text(
                       widget.topicInfo.likesNo.toString(),
@@ -239,7 +245,7 @@ class _TopicViewState extends State<TopicView> {
                         textFocusNode.requestFocus();
                       },
                       icon: const Icon(Icons.message_outlined),
-                      color: const Color(0xFF0A4D68),
+                      color: appDesign.colorPrimaryDark,
                     ),
                     Text(
                       comments!.length.toString(),
@@ -256,14 +262,14 @@ class _TopicViewState extends State<TopicView> {
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.bookmark_outline_rounded),
-                  color: const Color(0xFF0A4D68),
+                  color: appDesign.colorPrimaryDark,
                 ),
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.share),
-                      color: const Color(0xFF0A4D68),
+                      color: appDesign.colorPrimaryDark,
                     ),
                     const Text(
                       '99',
@@ -286,13 +292,13 @@ class _TopicViewState extends State<TopicView> {
           //     children: [
           //       Icon(
           //         Icons.list,
-          //         color: Color(0xFF088395),
+          //         color: appDesign.colorAccent,
           //       ),
           //       SizedBox(width: 15),
           //       Text(
           //         'ترتيب حسب',
           //         style: TextStyle(
-          //           color: Color(0xFF088395),
+          //           color: appDesign.colorAccent,
           //           fontSize: 17,
           //           fontFamily: 'SF Pro',
           //           fontWeight: FontWeight.w600,
@@ -347,7 +353,7 @@ class _TopicViewState extends State<TopicView> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: const Color(0xFF04BFDB),
+                  color: appDesign.colorAccent,
                 ),
                 child: Transform.rotate(
                   angle: 45 * 3.14 / 180,

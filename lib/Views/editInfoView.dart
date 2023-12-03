@@ -1,18 +1,13 @@
 import 'package:canadianslife/Controllers/UserController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
+import 'package:canadianslife/Views/Shared/EditDataView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Helper/responsive.dart';
-import 'package:canadianslife/views/editEmail.dart';
-import 'package:canadianslife/views/editPassword.dart';
-import 'package:canadianslife/views/editPhone.dart';
-import 'package:canadianslife/views/editInterest.dart';
-import 'package:canadianslife/views/editUsername.dart';
 import 'package:canadianslife/views/shared/EditInfoTile.dart';
 import 'package:canadianslife/views/shared/EditInfoTileBtn.dart';
 import 'package:canadianslife/views/shared/user_img.dart';
-import '../colors.dart';
 
 class EditInfoView extends StatefulWidget {
   const EditInfoView({super.key});
@@ -31,7 +26,7 @@ class _EditInfoViewState extends State<EditInfoView> {
   }
 
   void getUserInfo() async {
-    int userId = Provider.of<UserData>(context, listen: false).userInfo.id ?? 0;
+    int userId = Provider.of<UserData>(context, listen: false).userInfo.id;
     userInfo = await UserController().loginById(userId);
     setState(() {
       isLoading = false;
@@ -62,9 +57,11 @@ class _EditInfoViewState extends State<EditInfoView> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditUsernameView(
+                            builder: (context) => EditDataView(
+                              type: 0,
                               userInfo: userInfo!,
                               refresh: getUserInfo,
+                              title: 'اسم المستخدم',
                             ),
                           ),
                         );
@@ -77,9 +74,11 @@ class _EditInfoViewState extends State<EditInfoView> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditInterestView(
+                            builder: (context) => EditDataView(
+                              type: 1,
                               userInfo: userInfo!,
                               refresh: getUserInfo,
+                              title: '',
                             ),
                           ),
                         );
@@ -90,9 +89,11 @@ class _EditInfoViewState extends State<EditInfoView> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditEmailView(
+                            builder: (context) => EditDataView(
+                              type: 2,
                               userInfo: userInfo!,
                               refresh: getUserInfo,
+                              title: 'البريد الالكترونى',
                             ),
                           ),
                         );
@@ -103,9 +104,11 @@ class _EditInfoViewState extends State<EditInfoView> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditPhoneView(
+                            builder: (context) => EditDataView(
+                              type: 3,
                               userInfo: userInfo!,
                               refresh: getUserInfo,
+                              title: 'رقم الهاتف',
                             ),
                           ),
                         );
@@ -114,13 +117,15 @@ class _EditInfoViewState extends State<EditInfoView> {
                       title: 'كلمة السر',
                       trailing: "تغيير",
                       icon: Icons.compare_arrows,
-                      trailingColor: blueColor,
+                      trailingColor: appDesign.colorPrimaryDark,
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditPasswordView(
+                            builder: (context) => EditDataView(
+                              type: 4,
                               userInfo: userInfo!,
                               refresh: getUserInfo,
+                              title: 'كلمة المرور الجديدة',
                             ),
                           ),
                         );
@@ -129,7 +134,7 @@ class _EditInfoViewState extends State<EditInfoView> {
                       title: 'الحساب',
                       trailing: "حذف",
                       icon: Icons.delete_outline,
-                      trailingColor: redColor,
+                      trailingColor: appDesign.red,
                       onPressed: () {}),
                 ],
               ),

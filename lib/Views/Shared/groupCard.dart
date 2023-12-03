@@ -5,11 +5,7 @@ import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class GroupCard extends StatefulWidget {
@@ -42,7 +38,7 @@ class _GroupCardState extends State<GroupCard> {
             children: [
               Container(
                 width: double.infinity,
-                child: AspectRatio(
+                child: const AspectRatio(
                   aspectRatio: 20 / 10,
                   child: Image(
                     image: AssetImage("images/placeholder.png"),
@@ -70,11 +66,11 @@ class _GroupCardState extends State<GroupCard> {
                         ? Image.network(widget.groupInfo.user!.userImage!)
                         : Image.asset("images/person.png"),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Text(
                     widget.groupInfo.user!.displayName,
-                    style: TextStyle(
-                      color: appDesign.colorAccent,
+                    style: const TextStyle(
+                      color: appDesign.colorAccentDarker,
                       fontWeight: FontWeight.normal,
                       fontSize: 14,
                     ),
@@ -86,7 +82,7 @@ class _GroupCardState extends State<GroupCard> {
                 thickness: 1, // Specify the thickness of the line
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     Expanded(
@@ -110,7 +106,7 @@ class _GroupCardState extends State<GroupCard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

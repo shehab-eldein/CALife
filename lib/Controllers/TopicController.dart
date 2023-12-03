@@ -1,6 +1,7 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/NetworkManager.dart';
 import 'package:canadianslife/Models/TopicComment.dart';
+import 'package:canadianslife/Models/TopicImage.dart';
 
 import '../Models/Topic.dart';
 
@@ -122,6 +123,21 @@ class TopicController {
           "userId": userId,
           "topicId": topicId,
         },
+        fromJson: (json) => (json),
+      );
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> topicImageAdd(int topicId, String image) async {
+    try {
+      bool res = await _networkManager.postRequest(
+        endpoint: '${Constant.topic}TopicImageAdd',
+        body: TopicImage(id: 2, topicId: topicId, topicImage: image),
         fromJson: (json) => (json),
       );
       print(res);

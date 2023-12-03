@@ -1,6 +1,7 @@
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,9 +45,11 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return Scaffold(
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: EdgeInsets.symmetric(
+            horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
         children: [
           topics != null
               ? topics!.isEmpty

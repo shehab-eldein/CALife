@@ -5,7 +5,6 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AddPostPopup extends StatefulWidget {
@@ -49,6 +48,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
       widget.refresh();
       Navigator.pop(context);
     });
+    // await TopicController().topicImageAdd(17, imageFiles[0]);
   }
 
   @override

@@ -1,11 +1,11 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:canadianslife/Views/signup.dart';
-import 'package:canadianslife/Views/splash.dart';
+// import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Views/Shared/authTextField.dart';
 import 'package:canadianslife/Views/Shared/passTextField.dart';
-import 'package:canadianslife/Views/Shared/phoneTextField.dart';
+// import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -24,8 +24,8 @@ class LoginView extends StatefulWidget {
 class _LoginState extends State<LoginView> {
   final RoundedLoadingButtonController _loginBtnController =
       RoundedLoadingButtonController();
-  final RoundedLoadingButtonController _googleBtnController =
-      RoundedLoadingButtonController();
+  // final RoundedLoadingButtonController _googleBtnController =
+  //     RoundedLoadingButtonController();
   var email;
   var pass;
   final _authController = AuthenticationController();
@@ -96,7 +96,7 @@ class _LoginState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "ليس لديك حساب؟",
                     style: TextStyle(
                       fontSize: 14,
@@ -108,8 +108,8 @@ class _LoginState extends State<LoginView> {
                     onPressed: () {
                       context.navigateTo(SignUpView());
                     },
-                    child: Text("إنشاء حساب جديد",
-                        style: const TextStyle(
+                    child: const Text("إنشاء حساب جديد",
+                        style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                             color: appDesign.colorPrimary,

@@ -1,4 +1,3 @@
-import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';

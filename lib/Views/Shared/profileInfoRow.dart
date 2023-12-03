@@ -1,6 +1,5 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
-import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,14 +48,16 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                       : 'مهتم بالهجرة لكندا',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Color(0xFF04BFDB),
+                    color: appDesign.colorAccent,
                     fontSize: 15,
                     fontFamily: '.SF Arabic',
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  userData.userInfo.email,
+                  userData.userInfo.email.length < 22
+                      ? userData.userInfo.email
+                      : '...${userData.userInfo.email.substring(0, 22)}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Color(0x7F474B51),

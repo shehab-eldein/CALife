@@ -1,15 +1,9 @@
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
-import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
-import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
-import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +90,7 @@ class _PostState extends State<Post> {
                   Text(
                     topicInfo.user!.displayName,
                     style: const TextStyle(
-                      color: appDesign.colorAccent,
+                      color: appDesign.colorAccentDarker,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -211,13 +205,13 @@ class _PostState extends State<Post> {
                     children: [
                       const Icon(
                         Icons.groups,
-                        color: Color(0xFF088395),
+                        color: appDesign.colorAccentDarker,
                       ),
                       const SizedBox(width: 15),
                       Text(
                         topicInfo.group!.name,
                         style: const TextStyle(
-                          color: Color(0xFF088395),
+                          color: appDesign.colorAccentDarker,
                           fontSize: 13,
                           fontFamily: '.SF Arabic',
                           fontWeight: FontWeight.w600,
@@ -230,7 +224,7 @@ class _PostState extends State<Post> {
               ),
               Divider(
                 color: Colors.grey.shade300,
-                thickness: 1, // Specify the thickness of the line
+                thickness: 1,
               ),
               // ---------OLD-------------
               // Padding(
@@ -270,7 +264,7 @@ class _PostState extends State<Post> {
                         icon: topicInfo.isUserLikedTopic == true
                             ? const Icon(Icons.thumb_up_alt)
                             : const Icon(Icons.thumb_up_alt_outlined),
-                        color: const Color(0xFF0A4D68),
+                        color: appDesign.colorPrimaryDark,
                       ),
                       Text(
                         topicInfo.likesNo.toString(),
@@ -291,7 +285,7 @@ class _PostState extends State<Post> {
                           context.navigateTo(TopicView(topicInfo: topicInfo));
                         },
                         icon: const Icon(Icons.message_outlined),
-                        color: const Color(0xFF0A4D68),
+                        color: appDesign.colorPrimaryDark,
                       ),
                       Text(
                         topicInfo.commentsNo.toString(),
@@ -310,7 +304,7 @@ class _PostState extends State<Post> {
                       IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.share),
-                        color: const Color(0xFF0A4D68),
+                        color: appDesign.colorPrimaryDark,
                       ),
                       const Text(
                         '99',

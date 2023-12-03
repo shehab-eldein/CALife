@@ -1,5 +1,6 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/myAccountTile.dart';
 import 'package:canadianslife/Views/Shared/outlinedButton.dart';
 import 'package:canadianslife/Views/Shared/profileInfoRow.dart';
@@ -18,8 +19,10 @@ class MyAccountView extends StatefulWidget {
 class _MyAccountViewState extends State<MyAccountView> {
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      padding: EdgeInsets.symmetric(
+          horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
       children: [
         const ProfileInfoRow(),
         const SizedBox(height: 25),

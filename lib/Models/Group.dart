@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'User.dart';
 
 class Group {
@@ -16,8 +14,9 @@ class Group {
     this.topicsNo,
     required this.userId,
     this.user,
+    this.guide,
+    this.description,
   });
-
   int id;
   String name;
   int groupType;
@@ -30,6 +29,8 @@ class Group {
   int? topicsNo;
   int userId;
   User? user;
+  String? guide;
+  String? description;
 
   factory Group.fromJson(Map<String, dynamic> json) => Group(
         id: json["id"],
@@ -44,6 +45,8 @@ class Group {
         topicsNo: json["topicsNo"],
         userId: json["userId"],
         user: json["user"] != null ? User.fromJson(json["user"]) : null,
+        guide: json["guide"],
+        description: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +62,7 @@ class Group {
         'topicsNo': topicsNo,
         'userId': userId,
         'user': user,
+        'guide': guide,
+        'description': description,
       };
 }

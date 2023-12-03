@@ -1,6 +1,6 @@
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../Helper/responsive.dart';
-import '../../colors.dart';
 
 class UserImage extends StatefulWidget {
   const UserImage({super.key});
@@ -28,7 +28,7 @@ class _UserImageState extends State<UserImage> {
             padding: const EdgeInsets.all(.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(90.0),
-              color: lightBlueColor,
+              color: appDesign.colorAccent,
             ),
             child: Icon(
               Icons.add,
