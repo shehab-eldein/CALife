@@ -1,4 +1,3 @@
-import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';

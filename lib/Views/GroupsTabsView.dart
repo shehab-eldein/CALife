@@ -6,6 +6,7 @@ import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 
 import 'package:canadianslife/Views/Shared/groupCard.dart';
+import 'package:canadianslife/Views/noPostsView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -178,8 +179,8 @@ class GroupsViewState extends State<GroupsTabsView>
               child: tabSelected == 1
                   ? isLoadingUser == false
                       ? userGroups!.isEmpty
-                          ? const Center(
-                              child: Text('لم نجد مجموعات!'),
+                          ? const NotFoundView(
+                              isNoGroups: true,
                             )
                           : ListView(
                               children: [

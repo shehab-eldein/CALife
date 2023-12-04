@@ -137,7 +137,42 @@ class TopicController {
     try {
       bool res = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicImageAdd',
-        body: TopicImage(id: 2, topicId: topicId, topicImage: image),
+        body: TopicImage(id: 0, topicId: topicId, topicImage: image),
+        fromJson: (json) => (json),
+      );
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<List<TopicImage>?> topicImagesGetByTopicId(int topicId) async {
+    try {
+      List<TopicImage> res = await _networkManager.getRequest(
+        endpoint: '${Constant.topic}TopicImagesGetByTopicId?topicId=$topicId',
+        body: null,
+        fromJson: (json) => List<TopicImage>.from(
+          json.map(
+            (item) => TopicImage.fromJson(item),
+          ),
+        ),
+      );
+      print(res.toList());
+      return res;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<bool> topicImageDelete(int topicImageId, int userId) async {
+    try {
+      bool res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.topic}TopicImageDelete?topicImageId=$topicImageId',
+        body: null,
         fromJson: (json) => (json),
       );
       print(res);

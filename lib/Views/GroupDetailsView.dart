@@ -65,8 +65,13 @@ class _GroupDetailsState extends State<GroupDetails> {
           AspectRatio(
             aspectRatio:
                 layoutManager.valuesHandler(20 / 7, 20 / 7, 40 / 7, 40 / 7),
-            child: const Image(
-              image: AssetImage("images/placeholder.png"),
+            child: FadeInImage(
+              image: NetworkImage(
+                  '${Constant.baseURL}imggroupcovers/${widget.groupInfo.id}.jpg'),
+              placeholder: const AssetImage('images/placeholder.png'),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Image.asset('images/placeholder.png', fit: BoxFit.cover);
+              },
               fit: BoxFit.cover,
             ),
           ),

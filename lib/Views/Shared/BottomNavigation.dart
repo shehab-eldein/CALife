@@ -62,8 +62,9 @@ class BottomNavigation extends StatelessWidget {
         const HomeView(),
         const GroupsTabsView(),
         const ConsultancyView(),
-        const GroupCreateView(),
+        // const GroupCreateView(),
         // OnboardingScreen(),
+        SelectPurposeView(),
         const MyAccountView(),
       ];
     }

@@ -3,6 +3,7 @@ import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
+import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -17,12 +18,13 @@ class AddPostPopup extends StatefulWidget {
 }
 
 class _AddPostPopupState extends State<AddPostPopup> {
-  TextEditingController _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   RoundedLoadingButtonController controller = RoundedLoadingButtonController();
   ImagePickerManager imagePickerManager = ImagePickerManager();
   // List<Asset>? _selectedImages = [];
 
   List<String> imageFiles = [];
+
   void chooseMuliImages() async {
     List<String>? images = await imagePickerManager.pickImages();
     if (images != null) {
@@ -42,13 +44,23 @@ class _AddPostPopupState extends State<AddPostPopup> {
   }
 
   submitPost() async {
-    await TopicController()
-        .topicAdd(widget.groupId, _textController.text, _textController.text)
-        .then((value) {
-      widget.refresh();
-      Navigator.pop(context);
-    });
-    // await TopicController().topicImageAdd(17, imageFiles[0]);
+    Topic? newTopic = await TopicController()
+        .topicAdd(widget.groupId, _textController.text, _textController.text);
+    if (newTopic != null) {
+      addTopicImgaes(newTopic.id);
+      print(newTopic.id);
+    }
+  }
+
+  addTopicImgaes(topicId) async {
+    if (imageFiles.isNotEmpty) {
+      for (String image in imageFiles) {
+        await TopicController().topicImageAdd(topicId, image);
+      }
+    }
+    widget.refresh();
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
+import 'package:canadianslife/Views/noPostsView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Shared/postCard.dart';
@@ -53,7 +54,11 @@ class _HomeViewState extends State<HomeView> {
         children: [
           topics != null
               ? topics!.isEmpty
-                  ? const Center(child: Text('لا يوجد منشورات'))
+                  ? Center(
+                      child: NotFoundView(
+                        isNoGroups: false,
+                      ),
+                    )
                   : Column(
                       children: [
                         ...topics!.map((e) => Post(
@@ -64,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
               : SizedBox(
                   height: Dimensions.screenHeight(context),
                   child: const Center(child: CircularProgressIndicator())),
-          topics != null
+          topics != null && topics!.isNotEmpty
               ? MaterialButton(
                   onPressed: () {
                     loadMore();

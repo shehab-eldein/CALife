@@ -5,7 +5,7 @@ import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class Post extends StatefulWidget {
@@ -106,75 +106,90 @@ class _PostState extends State<Post> {
                   maxLines: 4,
                 ),
               ),
-              //todo handel many image case
-              SizedBox(
-                height: 300,
-                width: double.infinity,
-                child: StaggeredGrid.count(
-                  crossAxisCount: 5,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 2,
-                  children: [
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: 3,
-                      child: GestureDetector(
-                        child: Container(
-                          color: Colors.red,
-                        ),
-                        onTap: () {
-                          print("Click on red one");
+              widget.topicInfo.images!.isNotEmpty
+                  ? AspectRatio(
+                      aspectRatio: 9 / 6,
+                      child: FadeInImage(
+                        image: NetworkImage(
+                            '${Constant.baseURL}imgtopics/${widget.topicInfo.images![0].id}.jpg'),
+                        placeholder: const AssetImage('images/placeholder.png'),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset('images/placeholder.png',
+                              fit: BoxFit.cover);
                         },
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 3,
-                      mainAxisCellCount: 2,
-                      child: Container(
-                        color: Colors.green,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 3,
-                      mainAxisCellCount: 1,
-                      child: Container(
-                        color: Colors.yellow,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                        crossAxisCellCount: 2,
-                        mainAxisCellCount: 2,
-                        child: Container(
-                          color: Colors.purple,
-                          child: const Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                                child: Center(
-                                  child: Text(
-                                    "2+",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 3,
-                      mainAxisCellCount: 2,
-                      child: Container(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-                // child: Image(image: AssetImage("images/placeholder.png")),
-              ),
+                    )
+                  : const SizedBox(),
+              // SizedBox(
+              //   height: 300,
+              //   width: double.infinity,
+              //   child: StaggeredGrid.count(
+              //     crossAxisCount: 5,
+              //     mainAxisSpacing: 5,
+              //     crossAxisSpacing: 2,
+              //     children: [
+              //       StaggeredGridTile.count(
+              //         crossAxisCellCount: 2,
+              //         mainAxisCellCount: 3,
+              //         child: GestureDetector(
+              //           child: Container(
+              //             color: Colors.red,
+              //           ),
+              //           onTap: () {
+              //             print("Click on red one");
+              //           },
+              //         ),
+              //       ),
+              //       StaggeredGridTile.count(
+              //         crossAxisCellCount: 3,
+              //         mainAxisCellCount: 2,
+              //         child: Container(
+              //           color: Colors.green,
+              //         ),
+              //       ),
+              //       StaggeredGridTile.count(
+              //         crossAxisCellCount: 3,
+              //         mainAxisCellCount: 1,
+              //         child: Container(
+              //           color: Colors.yellow,
+              //         ),
+              //       ),
+              //       StaggeredGridTile.count(
+              //           crossAxisCellCount: 2,
+              //           mainAxisCellCount: 2,
+              //           child: Container(
+              //             color: Colors.purple,
+              //             child: const Stack(
+              //               children: [
+              //                 Padding(
+              //                   padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+              //                   child: Center(
+              //                     child: Text(
+              //                       "2+",
+              //                       style: TextStyle(
+              //                         color: Colors.white,
+              //                         fontSize: 30,
+              //                         fontWeight: FontWeight.bold,
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //           )),
+              //       StaggeredGridTile.count(
+              //         crossAxisCellCount: 3,
+              //         mainAxisCellCount: 2,
+              //         child: Container(
+              //           color: Colors.grey,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              //   // child: Image(image: AssetImage("images/placeholder.png")),
+              // ),
+
               // const Padding(
               //   padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
               //   child: Row(
@@ -226,32 +241,6 @@ class _PostState extends State<Post> {
                 color: Colors.grey.shade300,
                 thickness: 1,
               ),
-              // ---------OLD-------------
-              // Padding(
-              //   padding: EdgeInsets.symmetric(
-              //       horizontal: layoutManager.valuesHandler(0, 0, 20, 20)),
-              //   child: Row(
-              //     children: [
-              //       Expanded(
-              //           child: InteractiveIcon(
-              //               icon: Icons.thumb_up_alt_outlined, text: "50")),
-              //       Spacer(
-              //           flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
-              //       Expanded(
-              //         child: InteractiveIcon(
-              //           icon: Icons.message_outlined,
-              //           text: "20",
-              //           onPressed: () {},
-              //         ),
-              //       ),
-              //       Spacer(
-              //           flex: layoutManager.valuesHandler(2, 1, 2, 2).toInt()),
-              //       Expanded(
-              //           child: InteractiveIcon(
-              //               icon: Icons.bookmark_border_outlined, text: "")),
-              //     ],
-              //   ),
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

@@ -4,9 +4,11 @@ import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Models/TopicComment.dart';
+import 'package:canadianslife/Models/TopicImage.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/commentCard.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
 
@@ -31,21 +33,36 @@ class _TopicViewState extends State<TopicView> {
   void initState() {
     super.initState();
     topicInfo = widget.topicInfo;
+    images = topicInfo.images;
     getTopicComments();
+    // getTopicImages();
   }
 
   List<TopicComment>? comments = [];
-  bool isLoading = true;
+  List<TopicImage>? images = [];
+  bool isLoadingComments = true;
+
+  // getTopicImages() async {
+  //   setState(() {
+  //     isLoadingImages = true;
+  //   });
+  //   List<TopicImage>? res =
+  //       await TopicController().topicImagesGetByTopicId(topicInfo.id);
+  //   setState(() {
+  //     images = res;
+  //     isLoadingImages = false;
+  //   });
+  // }
 
   getTopicComments() async {
     setState(() {
-      isLoading = true;
+      isLoadingComments = true;
     });
     List<TopicComment>? res =
         await TopicController().topicCommentsGetByTopicId(topicInfo.id, 0);
     setState(() {
       comments = res;
-      isLoading = false;
+      isLoadingComments = false;
     });
   }
 
@@ -170,10 +187,83 @@ class _TopicViewState extends State<TopicView> {
               ],
             ),
           ),
-          AspectRatio(
-            aspectRatio: 3 / 2,
-            child: Image.asset("images/placeholder.png"),
+          SizedBox(
+            child: images!.isEmpty
+                ? null
+                : AspectRatio(
+                    aspectRatio: 3 / 2,
+                    child: Image.network(
+                        '${Constant.baseURL}imgtopics/${images![0].id}.jpg'),
+                  ),
           ),
+
+          // SizedBox(
+          //   height: 300,
+          //   width: double.infinity,
+          //   child: StaggeredGrid.count(
+          //     crossAxisCount: 5,
+          //     mainAxisSpacing: 5,
+          //     crossAxisSpacing: 2,
+          //     children: [
+          //       StaggeredGridTile.count(
+          //         crossAxisCellCount: 2,
+          //         mainAxisCellCount: 3,
+          //         child: GestureDetector(
+          //           child: Container(
+          //             color: Colors.red,
+          //           ),
+          //           onTap: () {
+          //             print("Click on red one");
+          //           },
+          //         ),
+          //       ),
+          //       StaggeredGridTile.count(
+          //         crossAxisCellCount: 3,
+          //         mainAxisCellCount: 2,
+          //         child: Container(
+          //           color: Colors.green,
+          //         ),
+          //       ),
+          //       StaggeredGridTile.count(
+          //         crossAxisCellCount: 3,
+          //         mainAxisCellCount: 1,
+          //         child: Container(
+          //           color: Colors.yellow,
+          //         ),
+          //       ),
+          //       StaggeredGridTile.count(
+          //           crossAxisCellCount: 2,
+          //           mainAxisCellCount: 2,
+          //           child: Container(
+          //             color: Colors.purple,
+          //             child: const Stack(
+          //               children: [
+          //                 Padding(
+          //                   padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+          //                   child: Center(
+          //                     child: Text(
+          //                       "2+",
+          //                       style: TextStyle(
+          //                         color: Colors.white,
+          //                         fontSize: 30,
+          //                         fontWeight: FontWeight.bold,
+          //                       ),
+          //                     ),
+          //                   ),
+          //                 )
+          //               ],
+          //             ),
+          //           )),
+          //       StaggeredGridTile.count(
+          //         crossAxisCellCount: 3,
+          //         mainAxisCellCount: 2,
+          //         child: Container(
+          //           color: Colors.grey,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           InkWell(
             onTap: () {
               context.navigateTo(GroupDetails(groupInfo: topicInfo.group!));
@@ -308,7 +398,7 @@ class _TopicViewState extends State<TopicView> {
           //     ],
           //   ),
           // ),
-          !isLoading
+          !isLoadingComments
               ? Column(
                   children: [
                     ...comments!.map(
