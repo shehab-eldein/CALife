@@ -9,12 +9,16 @@ import 'package:canadianslife/Helper/Constants.dart';
 class InteractiveIcon extends StatelessWidget {
   final IconData icon;
   Color? color;
+  double? fontSize;
+  double? iconSize;
   String text;
   Function? onPressed;
   InteractiveIcon(
       {Key? key,
       required this.icon,
       this.color,
+        this.fontSize,
+        this.iconSize,
       required this.text,
       this.onPressed})
       : super(key: key);
@@ -30,7 +34,7 @@ class InteractiveIcon extends StatelessWidget {
           Icon(
             icon,
             color: color ?? appDesign.colorAccent,
-            size: 20,
+            size: iconSize ?? 20,
           ),
           SizedBox(width: 4),
           Text(
@@ -38,7 +42,7 @@ class InteractiveIcon extends StatelessWidget {
             style: TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.normal,
-              fontSize: 11,
+              fontSize: fontSize ?? 11,
             ),
           ),
         ],

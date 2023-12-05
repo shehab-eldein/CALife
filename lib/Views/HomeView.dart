@@ -44,6 +44,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Widgeet in Home  ${context.widget}");
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

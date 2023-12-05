@@ -20,7 +20,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
 
       automaticallyImplyLeading: false,
-      backgroundColor: appDesign.colorPrimaryLight,
+      backgroundColor: Colors.white,
       leading: InkWell(
 
         onTap: () {},
@@ -35,6 +35,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           maintainAnimation: true,
           maintainState: true,
           visible: showBackButton!,
+         // visible: true,
         ),
       ),
       centerTitle: true,

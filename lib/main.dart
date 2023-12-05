@@ -1,4 +1,5 @@
 import 'package:canadianslife/Helper/Authentication.dart';
+import 'package:canadianslife/Views/myGroups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -6,9 +7,7 @@ import 'package:provider/provider.dart';
 import 'Views/Shared/appBar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
+
 
 void main() {
   runApp(
@@ -27,12 +26,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+
   @override
   Widget build(BuildContext context) {
+    print("Widgeet ${context.widget}");
+
     return FlutterBootstrap5(
       builder: (ctx) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: Locale(UserData.language),
@@ -45,9 +47,9 @@ class _MyAppState extends State<MyApp> {
           appBar: BaseAppBar(
             appBar: AppBar(),
             widgetContext: context,
-            showBackButton: false,
+            showBackButton: true,
           ),
-          body: const AuthenticationService(),
+          body: const MyGroups(),
         ),
       ),
     );

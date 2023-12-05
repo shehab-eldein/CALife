@@ -4,6 +4,7 @@ import 'package:canadianslife/Views/Shared/myAccountTile.dart';
 import 'package:canadianslife/Views/Shared/outlinedButton.dart';
 import 'package:canadianslife/Views/Shared/profileInfoRow.dart';
 import 'package:canadianslife/Views/editInfoView.dart';
+import 'package:canadianslife/Views/myGroups.dart';
 import 'package:canadianslife/Views/myPosts.dart';
 import 'package:canadianslife/Views/mySettings.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,10 @@ class _MyAccountViewState extends State<MyAccountView> {
               context.navigateTo(const EditInfoView());
             }),
         const SizedBox(height: 12),
-        AppListTile(title: "مجموعاتي", icon: Icons.groups, onPressed: () {}),
+        AppListTile(title: "مجموعاتي", icon: Icons.groups, onPressed: () {
+          
+          context.navigateTo(MyGroups());
+        }),
         const SizedBox(height: 12),
         AppListTile(
             title: "منشوراتي",

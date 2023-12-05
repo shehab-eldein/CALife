@@ -66,13 +66,13 @@ class _GroupCardState extends State<GroupCard> {
                   CircleAvatar(
                     radius: 14,
                     backgroundColor: Colors.grey,
-                    child: widget.groupInfo.user!.userImage != null
+                    child: widget.groupInfo.user?.userImage != null
                         ? Image.network(widget.groupInfo.user!.userImage!)
                         : Image.asset("images/person.png"),
                   ),
                   SizedBox(width: 5),
                   Text(
-                    widget.groupInfo.user!.displayName,
+                    widget.groupInfo.user?.displayName ?? "",
                     style: TextStyle(
                       color: appDesign.colorAccent,
                       fontWeight: FontWeight.normal,
