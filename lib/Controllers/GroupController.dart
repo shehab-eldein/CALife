@@ -50,7 +50,25 @@ class GroupController {
     }
   }
 
-  //
+  Future<List<Group>?> getUserGroups(int userId) async {
+    try {
+      final res = await _networkManager.getRequest(
+        endpoint: '${Constant.group}GetMyGroups?userID=$userId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      final List<dynamic> data = res;
+      print(data.toString());
+      final List<Group> groups =
+          data.map((item) => Group.fromJson(item)).toList();
+      return groups;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  // ----old----
 
   Future<List<Group>> getSubscribedGroups(int userId, String searchWord) async {
     final finalUri =

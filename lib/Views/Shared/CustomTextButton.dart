@@ -7,14 +7,17 @@ class CustomTextButton extends StatelessWidget {
   final Color? textColor;
   final IconData? icon;
   final Color? iconColor;
+  final double? width;
 
-  const CustomTextButton(
-      {required this.backgroundColor,
-      required this.text,
-      required this.onPressed,
-      this.textColor,
-      this.icon,
-      this.iconColor});
+  const CustomTextButton({
+    required this.backgroundColor,
+    required this.text,
+    required this.onPressed,
+    this.textColor,
+    this.icon,
+    this.iconColor,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class CustomTextButton extends StatelessWidget {
       color: backgroundColor,
       child: Container(
         height: 45,
-        width: 150,
+        width: width ?? 150,
         child: TextButton(
           onPressed: onPressed,
           child: Row(

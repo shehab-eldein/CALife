@@ -7,10 +7,14 @@ class InteractiveIcon extends StatelessWidget {
   Color? color;
   String text;
   Function? onPressed;
+  double? fontSize;
+  double? iconSize;
   InteractiveIcon(
       {Key? key,
       required this.icon,
       this.color,
+      this.fontSize,
+      this.iconSize,
       required this.text,
       this.onPressed})
       : super(key: key);
@@ -26,15 +30,15 @@ class InteractiveIcon extends StatelessWidget {
           Icon(
             icon,
             color: color ?? appDesign.colorAccentDarker,
-            size: 20,
+            size: iconSize ?? 20,
           ),
           const SizedBox(width: 4),
           Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.normal,
-              fontSize: 11,
+              fontSize: fontSize ?? 11,
             ),
           ),
         ],

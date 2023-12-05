@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           appBar: BaseAppBar(
             appBar: AppBar(),
             widgetContext: context,
-            showBackButton: false,
+            showBackButton: true,
           ),
           body: const SplashView(),
         ),

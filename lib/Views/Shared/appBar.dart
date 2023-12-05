@@ -21,7 +21,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     // TODO: implement build
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: appDesign.colorPrimaryLight,
+      backgroundColor: Colors.white,
       leading: InkWell(
         onTap: () {},
         child: Visibility(

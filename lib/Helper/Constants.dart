@@ -23,7 +23,7 @@ class Constant {
 class appDesign {
   static const colorPrimary = Color(0xff030F2E);
   static const colorPrimaryDark = Color(0xff0A4D68);
-  static const colorPrimaryLight = Color(0xfff6f6f6);
+  static const colorPrimaryLight = Color(0xff04BFDB);
   static const colorAccent = Color(0xff04BFDB);
   static const colorAccentDarker = Color(0xFF088395);
   static const colorUnhighlighted = Color(0xff818796);

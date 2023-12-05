@@ -46,6 +46,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Widgeet in Home  ${context.widget}");
     final layoutManager = LayoutManager(context);
     return Scaffold(
       body: ListView(

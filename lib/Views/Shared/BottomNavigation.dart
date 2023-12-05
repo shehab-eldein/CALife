@@ -1,4 +1,5 @@
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Views/GroupAdminView.dart';
 import 'package:canadianslife/Views/GroupCreateView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:canadianslife/Views/HomeView.dart';
@@ -6,6 +7,7 @@ import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:canadianslife/Views/myAccount.dart';
 import 'package:canadianslife/Views/onBoarding.dart';
 import 'package:canadianslife/Views/selectPurpose.dart';
+import 'package:canadianslife/Views/testView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,7 +66,9 @@ class BottomNavigation extends StatelessWidget {
         const ConsultancyView(),
         // const GroupCreateView(),
         // OnboardingScreen(),
-        SelectPurposeView(),
+        // SelectPurposeView(),
+        // TestView(),
+        GroupAdminView(),
         const MyAccountView(),
       ];
     }

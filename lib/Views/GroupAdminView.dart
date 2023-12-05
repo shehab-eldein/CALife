@@ -2,17 +2,24 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
+import 'package:canadianslife/Views/Shared/memberTile.dart';
 import 'package:flutter/material.dart';
 
-class TestView extends StatefulWidget {
-  TestView({super.key, this.groupInfo});
+class GroupAdminView extends StatefulWidget {
+  GroupAdminView({super.key, this.groupInfo});
   Group? groupInfo;
 
   @override
-  State<TestView> createState() => _TestViewState();
+  State<GroupAdminView> createState() => _GroupAdminViewState();
 }
 
-class _TestViewState extends State<TestView> {
+class _GroupAdminViewState extends State<GroupAdminView> {
+  List pages = [
+    const ControlPage(),
+    const MembersPage(),
+    const TopicsPage(),
+    const GuidePage()
+  ];
   int selection = 0;
   List<String> chips = ['التحكم', 'الاعضاء', 'المنشورات', 'الارشادات'];
   @override
@@ -135,6 +142,7 @@ class _TestViewState extends State<TestView> {
             ],
           ),
         ),
+        pages[selection],
         // Padding(
         //   padding: EdgeInsets.symmetric(
         //       horizontal: layoutManager.mainHorizontalPadding()),
@@ -179,5 +187,121 @@ class _TestViewState extends State<TestView> {
         // ),
       ],
     );
+  }
+}
+
+class Pages extends StatelessWidget {
+  final text;
+  Pages({this.text});
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+          ]),
+    );
+  }
+}
+
+class ControlPage extends StatefulWidget {
+  const ControlPage({super.key});
+
+  @override
+  State<ControlPage> createState() => _ControlPageState();
+}
+
+class _ControlPageState extends State<ControlPage> {
+  @override
+  Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: layoutManager.mainHorizontalPadding()),
+          child: const Row(
+            children: [
+              Text(
+                'طلبات الإنضمام',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Color(0xFF1C1C1C),
+                  fontSize: 18,
+                  fontFamily: '.SF Arabic',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
+                ),
+              ),
+              SizedBox(width: 10),
+              Text(
+                '(4)',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Color(0xFF04BFDB),
+                  fontSize: 18,
+                  fontFamily: '.SF Arabic',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
+                ),
+              )
+            ],
+          ),
+        ),
+        Divider(),
+        MemberTile(),
+        MemberTile(),
+        MemberTile(),
+        MemberTile(),
+      ],
+    );
+  }
+}
+
+class TopicsPage extends StatefulWidget {
+  const TopicsPage({super.key});
+
+  @override
+  State<TopicsPage> createState() => _TopicsPageState();
+}
+
+class _TopicsPageState extends State<TopicsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Topics'));
+  }
+}
+
+class MembersPage extends StatefulWidget {
+  const MembersPage({super.key});
+
+  @override
+  State<MembersPage> createState() => _MembersPageState();
+}
+
+class _MembersPageState extends State<MembersPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Members'));
+  }
+}
+
+class GuidePage extends StatefulWidget {
+  const GuidePage({super.key});
+
+  @override
+  State<GuidePage> createState() => _GuidePageState();
+}
+
+class _GuidePageState extends State<GuidePage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Guide'));
   }
 }
