@@ -1,4 +1,5 @@
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/GroupAdminView.dart';
 import 'package:canadianslife/Views/GroupCreateView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
@@ -68,7 +69,18 @@ class BottomNavigation extends StatelessWidget {
         // OnboardingScreen(),
         // SelectPurposeView(),
         // TestView(),
-        GroupAdminView(),
+        GroupAdminView(
+          groupInfo: Group(
+              id: 100000,
+              name: 'الحياة في تورنتو',
+              groupType: 0,
+              locationX: 20,
+              locationY: 20,
+              visibility: 0,
+              userId: 20,
+              guide:
+                  'هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص.'),
+        ),
         const MyAccountView(),
       ];
     }

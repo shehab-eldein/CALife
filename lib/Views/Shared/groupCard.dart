@@ -1,6 +1,7 @@
 import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Models/Group.dart';
+import 'package:canadianslife/Views/GroupAdminView.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
@@ -9,11 +10,12 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
 
 class GroupCard extends StatefulWidget {
-  final bool subscribeBtnIsHidden;
+  final bool hideSub;
   final Group groupInfo;
+  final bool? isAdmin;
 
   GroupCard(
-      {Key? key, required this.subscribeBtnIsHidden, required this.groupInfo})
+      {Key? key, required this.hideSub, required this.groupInfo, this.isAdmin})
       : super(key: key);
 
   @override
@@ -40,10 +42,10 @@ class _GroupCardState extends State<GroupCard> {
                 width: double.infinity,
                 child: AspectRatio(
                   aspectRatio: 20 / 10,
-                  child: FadeInImage(
-                    image: NetworkImage(
-                        '${Constant.baseURL}imggroups/${widget.groupInfo.id}.jpg'),
-                    placeholder: const AssetImage('images/placeholder.png'),
+                  child: FadeInImage.assetNetwork(
+                    image:
+                        '${Constant.baseURL}imggroups/${widget.groupInfo.id}.jpg',
+                    placeholder: 'images/placeholder.png',
                     imageErrorBuilder: (context, error, stackTrace) {
                       return Image.asset('images/placeholder.png',
                           fit: BoxFit.cover);
@@ -117,7 +119,7 @@ class _GroupCardState extends State<GroupCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Visibility(
-                      visible: widget.subscribeBtnIsHidden,
+                      visible: widget.hideSub,
                       child: Expanded(
                         child: CustomTextButton(
                           backgroundColor: appDesign.colorPrimaryDark,
@@ -133,16 +135,24 @@ class _GroupCardState extends State<GroupCard> {
                         ),
                       ),
                     ),
-                    SizedBox(width: widget.subscribeBtnIsHidden ? 8 : 0),
+                    SizedBox(width: widget.hideSub ? 8 : 0),
                     Expanded(
                       child: CustomTextButton(
                         backgroundColor: Colors.white,
                         text: "زيارة المجموعة",
                         textColor: appDesign.colorPrimaryDark,
                         onPressed: () {
-                          context.navigateTo(GroupDetails(
-                            groupInfo: widget.groupInfo,
-                          ));
+                          widget.isAdmin != null && widget.isAdmin == true
+                              ? context.navigateTo(
+                                  GroupAdminView(
+                                    groupInfo: widget.groupInfo,
+                                  ),
+                                )
+                              : context.navigateTo(
+                                  GroupDetails(
+                                    groupInfo: widget.groupInfo,
+                                  ),
+                                );
                         },
                         icon: Icons.keyboard_double_arrow_left_sharp,
                         iconColor: appDesign.colorPrimaryDark,

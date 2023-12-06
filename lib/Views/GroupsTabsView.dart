@@ -186,7 +186,7 @@ class GroupsViewState extends State<GroupsTabsView>
                               children: [
                                 ...userGroups!.map(
                                   (e) => GroupCard(
-                                    subscribeBtnIsHidden: false,
+                                    hideSub: false,
                                     groupInfo: e,
                                   ),
                                 ),
@@ -202,7 +202,7 @@ class GroupsViewState extends State<GroupsTabsView>
                               children: [
                                 ...newGroups!.map(
                                   (e) => GroupCard(
-                                    subscribeBtnIsHidden: true,
+                                    hideSub: true,
                                     groupInfo: e,
                                   ),
                                 ),

@@ -8,24 +8,27 @@ import '../Models/Topic.dart';
 class TopicController {
   final _networkManager = NetworkManager();
 
-  Future<Topic?> topicAdd(int groupId, String title, String details) async {
+  Future<Topic?> topicAdd(
+      int groupId, String title, String details, userId) async {
+    // var imgs = [
+    //   ...images.map(
+    //     (e) => {"id": 0, "topicId": 0, "topicImage": images[images.indexOf(e)]},
+    //   ),
+    // ];
     try {
       Topic topic = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicAdd',
-        body: {
-          "id": 0,
-          "title": title,
-          "details": details,
-          "userId": Constant.currentUserId,
-          "groupId": groupId,
-          "isPinned": true,
-          "images": [
-            {"id": 0, "topicId": 0, "topicImage": "string"}
-          ]
-        },
+        body: Topic(
+          id: 0,
+          title: title,
+          details: details,
+          isPinned: true,
+          groupId: groupId,
+          userId: userId,
+        ).toJson(),
         fromJson: (json) => Topic.fromJson(json),
       );
-      print(topic.toString());
+      print('Topic ${topic.id} Created');
       return topic;
     } catch (e) {
       print(e);

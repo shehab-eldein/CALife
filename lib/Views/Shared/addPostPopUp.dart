@@ -6,6 +6,7 @@ import 'package:canadianslife/Managers/ImagePickerManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AddPostPopup extends StatefulWidget {
@@ -27,7 +28,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
 
   void chooseMuliImages() async {
     List<String>? images = await imagePickerManager.pickImages();
-    if (images != null) {
+    if (images != null && images.isNotEmpty) {
       setState(() {
         imageFiles = images;
       });
@@ -44,8 +45,12 @@ class _AddPostPopupState extends State<AddPostPopup> {
   }
 
   submitPost() async {
-    Topic? newTopic = await TopicController()
-        .topicAdd(widget.groupId, _textController.text, _textController.text);
+    Topic? newTopic = await TopicController().topicAdd(
+      widget.groupId,
+      _textController.text,
+      _textController.text,
+      Provider.of<UserData>(context, listen: false).userInfo.id,
+    );
     if (newTopic != null) {
       addTopicImgaes(newTopic.id);
       print(newTopic.id);

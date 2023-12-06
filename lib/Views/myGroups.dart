@@ -28,7 +28,6 @@ class _MyGroupsState extends State<MyGroups> {
   bool isLoading = true;
 
   getUserGroups() async {
-    print("Getting user groups ...");
     groups = await GroupController().getUserGroups(
         Provider.of<UserData>(context, listen: false).userInfo.id);
     setState(() {
@@ -72,7 +71,10 @@ class _MyGroupsState extends State<MyGroups> {
                   children: [
                     ...groups!.map((e) {
                       return GroupCard(
-                          subscribeBtnIsHidden: true, groupInfo: e);
+                        isAdmin: true,
+                        hideSub: false,
+                        groupInfo: e,
+                      );
                     })
                   ],
                 ),

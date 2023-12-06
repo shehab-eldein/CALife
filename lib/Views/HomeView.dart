@@ -37,16 +37,15 @@ class _HomeViewState extends State<HomeView> {
     List<Topic>? groupTopics = await TopicController().topicsGetByTimeLine(
         Provider.of<UserData>(context, listen: false).userInfo.id, lastLoaded);
     setState(() {
-      groupTopics!.forEach((element) {
+      for (var element in groupTopics!) {
         topics!.add(element);
-      });
+      }
       // topics = groupTopics;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Widgeet in Home  ${context.widget}");
     final layoutManager = LayoutManager(context);
     return Scaffold(
       body: ListView(

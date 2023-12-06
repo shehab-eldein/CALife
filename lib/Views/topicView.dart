@@ -192,8 +192,16 @@ class _TopicViewState extends State<TopicView> {
                 ? null
                 : AspectRatio(
                     aspectRatio: 3 / 2,
-                    child: Image.network(
-                        '${Constant.baseURL}imgtopics/${images![0].id}.jpg'),
+                    child: FadeInImage.assetNetwork(
+                      image:
+                          '${Constant.baseURL}imgtopics/${images![0].id}.jpg',
+                      placeholder: 'images/placeholder.png',
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset('images/placeholder.png',
+                            fit: BoxFit.contain);
+                      },
+                      fit: BoxFit.contain,
+                    ),
                   ),
           ),
 

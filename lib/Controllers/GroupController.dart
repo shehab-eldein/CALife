@@ -68,6 +68,56 @@ class GroupController {
     }
   }
 
+  Future<List<GroupSubscriber>> getGroupSubscribersByIdAndStatus(
+      int groupId, int groupSubscribeStatus) async {
+    try {
+      final res = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.group}GetGroupSubscribersByGroupIdAndStatus?groupId=$groupId&groupSubscribeStatus=$groupSubscribeStatus',
+        body: null,
+        fromJson: (json) => json,
+      );
+      final List<dynamic> data = res;
+      print(data.toString());
+      final List<GroupSubscriber> groups =
+          data.map((item) => GroupSubscriber.fromJson(item)).toList();
+      return groups;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<bool> approveGroupSubRequest(int groupSubscriberId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.group}ApproveGroupSubscriber?groupSubscriberId=$groupSubscriberId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> rejectGroupSubRequest(int groupSubscriberId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.group}DeleteGroupSubscriber?groupSubscriberId=$groupSubscriberId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   // ----old----
 
   Future<List<Group>> getSubscribedGroups(int userId, String searchWord) async {
