@@ -8,6 +8,7 @@ import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddPostPopup extends StatefulWidget {
   const AddPostPopup({super.key, required this.groupId, required this.refresh});
@@ -104,7 +105,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText: 'ابدأ بالنشر الآن...',
+                    hintText: AppLocalizations.of(context)!.startPosting,
                     border: InputBorder.none,
                   ),
                 ),

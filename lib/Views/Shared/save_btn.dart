@@ -1,6 +1,7 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../Helper/responsive.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class SaveBtn extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SaveBtnState extends State<SaveBtn> {
               ),
             )
           : Text(
-              "حفظ",
+              AppLocalizations.of(context)!.save,
               style: TextStyle(
                   fontFamily: '.SF Arabic',
                   color: Colors.white,

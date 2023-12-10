@@ -2,6 +2,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileInfoRow extends StatefulWidget {
   const ProfileInfoRow({super.key});
@@ -44,8 +45,8 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                 const SizedBox(height: 4),
                 Text(
                   userData.userInfo.userType == 0
-                      ? 'مقيم او مهاجر جديد لكندا'
-                      : 'مهتم بالهجرة لكندا',
+                      ? AppLocalizations.of(context)!.userType0
+                      : AppLocalizations.of(context)!.userType1,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: appDesign.colorAccent,

@@ -40,6 +40,18 @@ class UserData extends ChangeNotifier {
   // static int userId = 0;
   // static int userType = 0;
 
+  String get userLanguage => language;
+  setLanguage(value) {
+    language = value;
+    saveLanguage();
+    notifyListeners();
+  }
+
+  saveLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('language', language);
+  }
+
   User _userInfo = User(
     id: 0,
     displayName: "",
@@ -66,6 +78,7 @@ class UserData extends ChangeNotifier {
           "userImage": "",
           "userType": 0,
         }.toString()));
+    language = prefs.getString('language') ?? "ar";
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }

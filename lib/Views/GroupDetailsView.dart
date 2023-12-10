@@ -1,16 +1,10 @@
-import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/Group.dart';
-import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/GroupInfoPage.dart';
 import 'package:canadianslife/Views/GroupTopicsPage.dart';
-import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../Managers/LayoutManager.dart';
-import 'Shared/addPostPopUp.dart';
-import 'Shared/postCard.dart';
 
 class GroupDetails extends StatefulWidget {
   const GroupDetails({Key? key, required this.groupInfo}) : super(key: key);
@@ -21,10 +15,14 @@ class GroupDetails extends StatefulWidget {
 
 class _GroupDetailsState extends State<GroupDetails> {
   int selection = 0;
-  List<String> chips = ['المنشورات', 'الارشادات', 'عن المجموعة'];
 
   @override
   Widget build(BuildContext context) {
+    List<String> chips = [
+      AppLocalizations.of(context)!.posts,
+      AppLocalizations.of(context)!.guide,
+      AppLocalizations.of(context)!.about
+    ];
     final layoutManager = LayoutManager(context);
     List pages = [
       GroupTopicsPage(
@@ -90,7 +88,7 @@ class _GroupDetailsState extends State<GroupDetails> {
             padding: EdgeInsets.symmetric(
                 horizontal: layoutManager.mainHorizontalPadding(), vertical: 5),
             child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
+              alignment: WrapAlignment.spaceAround,
               children: [
                 ...chips.map((e) {
                   return MaterialButton(

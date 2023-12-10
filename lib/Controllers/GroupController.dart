@@ -15,7 +15,7 @@ class GroupController {
     try {
       final res = await _networkManager.getRequest(
         endpoint:
-            '${Constant.group}GetUnsubscribedGroups??groupsType=$type&userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
+            '${Constant.group}GetUnsubscribedGroups?groupsType=$type&userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
         body: null,
         fromJson: (json) => json,
       );
@@ -108,6 +108,34 @@ class GroupController {
       final res = await _networkManager.postRequest(
         endpoint:
             '${Constant.group}DeleteGroupSubscriber?groupSubscriberId=$groupSubscriberId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> removeUserFromGroup(int groupId, int userId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint: '${Constant.group}ExitGroup?groupId=$groupId&userId=$userId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> blockUserFromGroup(int groupId, int userId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint: '${Constant.group}BlockUser?groupId=$groupId&userId=$userId',
         body: null,
         fromJson: (json) => json,
       );
@@ -265,7 +293,7 @@ class GroupController {
       String description,
       String guide,
       int creatorUserId,
-      String groupImage) async {
+      String groupCoverImage) async {
     Group subscriber = Group(
       id: 0,
       name: name,
@@ -274,7 +302,7 @@ class GroupController {
       locationY: 0,
       visibility: visibility,
       userId: creatorUserId,
-      groupImage: groupImage,
+      groupCoverImage: groupCoverImage,
       creationDate: '2023-01-01',
       subscribersNo: 0,
       topicsNo: 0,

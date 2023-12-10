@@ -49,7 +49,7 @@ class _MemberTileState extends State<MemberTile> {
                 color: const Color(0xFFFF0000)),
             child: InkWell(
               onTap: () {
-                widget.reject!(widget.subscriber.id);
+                widget.reject!(widget.subscriber);
               },
               child: const Icon(
                 Icons.close,

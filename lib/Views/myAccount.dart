@@ -10,6 +10,7 @@ import 'package:canadianslife/Views/mySettings.dart';
 import 'package:canadianslife/Views/myGroups.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAccountView extends StatefulWidget {
   const MyAccountView({super.key});
@@ -28,35 +29,35 @@ class _MyAccountViewState extends State<MyAccountView> {
         const ProfileInfoRow(),
         const SizedBox(height: 25),
         AppListTile(
-            title: "تعديل البيانات",
+            title: AppLocalizations.of(context)!.editInfo,
             icon: Icons.edit,
             onPressed: () {
               context.navigateTo(const EditInfoView());
             }),
         const SizedBox(height: 12),
         AppListTile(
-            title: "مجموعاتي",
+            title: AppLocalizations.of(context)!.myGroups,
             icon: Icons.groups,
             onPressed: () {
               context.navigateTo(MyGroups());
             }),
         const SizedBox(height: 12),
         AppListTile(
-            title: "منشوراتي",
+            title: AppLocalizations.of(context)!.myPosts,
             icon: Icons.share,
             onPressed: () {
               context.navigateTo(const MyPostsView());
             }),
         const SizedBox(height: 12),
         AppListTile(
-            title: "الاعدادات",
+            title: AppLocalizations.of(context)!.mySettings,
             icon: Icons.settings,
             onPressed: () {
               context.navigateTo(const MySettingsView());
             }),
         const SizedBox(height: 12),
         AppOutlinedButton(
-            title: "تسجيل الخروج",
+            title: AppLocalizations.of(context)!.signOut,
             icon: Icons.exit_to_app,
             color: appDesign.colorPrimaryDark,
             onPressed: () {

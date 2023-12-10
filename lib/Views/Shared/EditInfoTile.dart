@@ -39,7 +39,7 @@ class _AppEditInfoTileState extends State<AppEditInfoTile> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Text(
-              ' ${widget.trailing.length < 24 ? widget.trailing : '...${widget.trailing.substring(0, 18)}'}',
+              ' ${widget.trailing.length < 24 ? widget.trailing : '${widget.trailing.substring(0, 18)}...'}',
               style: TextStyle(
                 fontFamily: '.SF Arabic',
                 color: const Color(0xFF484C52),

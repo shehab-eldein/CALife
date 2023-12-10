@@ -21,8 +21,12 @@ class _GroupCreateViewState extends State<GroupCreateView> {
   final TextEditingController guideController = TextEditingController();
   bool isPublic = true;
   String? image;
+  bool isPressed = false;
 
   void createGroup() async {
+    setState(() {
+      isPressed = true;
+    });
     await GroupController().createGroup(
       nameController.text,
       0,
@@ -32,6 +36,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
       Provider.of<UserData>(context, listen: false).userInfo.id,
       image ?? "image",
     );
+    Navigator.pop(context);
   }
 
   ImagePickerManager imagePickerManager = ImagePickerManager();
@@ -285,14 +290,21 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             onPressed: () {
               createGroup();
             },
-            child: Text(
-              "إنشاء المجموعة",
-              style: TextStyle(
-                  fontFamily: '.SF Arabic',
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: Dimensions.fontSize(context, 1.4)),
-            ),
+            child: isPressed
+                ? const Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(
+                    "إنشاء المجموعة",
+                    style: TextStyle(
+                        fontFamily: '.SF Arabic',
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: Dimensions.fontSize(context, 1.4)),
+                  ),
           ),
         ),
         const SizedBox(height: 25),

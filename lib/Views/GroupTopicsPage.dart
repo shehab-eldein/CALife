@@ -7,6 +7,7 @@ import 'package:canadianslife/Views/Shared/addPostPopUp.dart';
 import 'package:canadianslife/Views/Shared/postCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupTopicsPage extends StatefulWidget {
   const GroupTopicsPage({super.key, required this.groupId});
@@ -61,7 +62,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
           horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
       child: Column(
         children: [
-          const CustomSearchBar(hintText: "البحث في المجموعة"),
+          CustomSearchBar(hintText: AppLocalizations.of(context)!.searchTopics),
           const SizedBox(height: 10),
           SizedBox(
             height: 50,
@@ -76,8 +77,8 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
                 Expanded(
                   child: TextField(
                     readOnly: true,
-                    decoration: const InputDecoration(
-                      hintText: 'ابدأ بالنشر الآن...',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.startPosting,
                       border: InputBorder.none,
                     ),
                     onTap: () {
@@ -91,7 +92,8 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : topics!.isEmpty
-                  ? const Center(child: Text('لا يوجد منشورات'))
+                  ? Center(
+                      child: Text(AppLocalizations.of(context)!.noPostsFound))
                   : Column(
                       children: [
                         ...topics!.map((e) => Post(

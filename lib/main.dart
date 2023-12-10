@@ -37,27 +37,30 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return FlutterBootstrap5(
-      builder: (ctx) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale(UserData.language),
-        theme: ThemeData(
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: appDesign.colorPrimaryDark),
-          useMaterial3: true,
-        ),
-        home: Scaffold(
-          appBar: BaseAppBar(
-            appBar: AppBar(),
-            widgetContext: context,
-            showBackButton: true,
+    return Consumer<UserData>(builder: (context, userData, child) {
+      return FlutterBootstrap5(
+        builder: (ctx) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Candaians Life',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: Locale(
+              Provider.of<UserData>(context, listen: false).userLanguage),
+          theme: ThemeData(
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: appDesign.colorPrimaryDark),
+            useMaterial3: true,
           ),
-          body: const SplashView(),
+          home: Scaffold(
+            appBar: BaseAppBar(
+              appBar: AppBar(),
+              widgetContext: context,
+              showBackButton: true,
+            ),
+            body: const SplashView(),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

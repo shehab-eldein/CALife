@@ -55,6 +55,7 @@ class _AppListTileBtnState extends State<AppListTileBtn> {
           },
           child: Wrap(
             alignment: WrapAlignment.center,
+            spacing: 5,
             children: [
               Icon(
                 widget.icon,

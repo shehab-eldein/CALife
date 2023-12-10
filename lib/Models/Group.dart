@@ -10,6 +10,7 @@ class Group {
     required this.visibility,
     this.creationDate,
     this.groupImage,
+    this.groupCoverImage,
     this.subscribersNo,
     this.topicsNo,
     required this.userId,
@@ -25,6 +26,7 @@ class Group {
   int visibility;
   String? creationDate;
   String? groupImage;
+  String? groupCoverImage;
   int? subscribersNo;
   int? topicsNo;
   int userId;
@@ -41,6 +43,7 @@ class Group {
         visibility: json["visibility"],
         creationDate: json["creationDate"],
         groupImage: json["groupImage"],
+        groupCoverImage: json["groupCoverImage"],
         subscribersNo: json["subscribersNo"],
         topicsNo: json["topicsNo"],
         userId: json["userId"],
@@ -58,6 +61,7 @@ class Group {
         'visibility': visibility,
         'creationDate': creationDate,
         'groupImage': groupImage,
+        'groupCoverImage': groupCoverImage,
         'subscribersNo': subscribersNo,
         'topicsNo': topicsNo,
         'userId': userId,

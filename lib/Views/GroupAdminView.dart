@@ -6,6 +6,7 @@ import 'package:canadianslife/Views/GroupAdminMembersPage.dart';
 import 'package:canadianslife/Views/GroupInfoPage.dart';
 import 'package:canadianslife/Views/GroupTopicsPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupAdminView extends StatefulWidget {
   const GroupAdminView({super.key, required this.groupInfo});
@@ -17,7 +18,6 @@ class GroupAdminView extends StatefulWidget {
 
 class _GroupAdminViewState extends State<GroupAdminView> {
   int selection = 0;
-  List<String> chips = ['التحكم', 'الاعضاء', 'المنشورات', 'الارشادات'];
   @override
   Widget build(BuildContext context) {
     List pages = [
@@ -33,6 +33,12 @@ class _GroupAdminViewState extends State<GroupAdminView> {
       GroupInfoPage(info: widget.groupInfo.guide ?? "No Info")
     ];
     final layoutManager = LayoutManager(context);
+    List<String> chips = [
+      AppLocalizations.of(context)!.control,
+      AppLocalizations.of(context)!.members,
+      AppLocalizations.of(context)!.posts,
+      AppLocalizations.of(context)!.guide
+    ];
     return Scaffold(
       body: ListView(
         children: [
@@ -145,48 +151,6 @@ class _GroupAdminViewState extends State<GroupAdminView> {
             ),
           ),
           pages[selection],
-          // Padding(
-          //   padding: EdgeInsets.symmetric(
-          //       horizontal: layoutManager.mainHorizontalPadding()),
-          //   child: Column(
-          //     children: [
-
-          //       const SizedBox(
-          //         height: 7,
-          //       ),
-          //       const CustomSearchBar(hintText: "البحث في المجموعة"),
-          //       const SizedBox(
-          //         height: 7,
-          //       ),
-          //       SizedBox(
-          //         height: 50,
-          //         child: Row(
-          //           children: [
-          //             const CircleAvatar(
-          //               backgroundImage: AssetImage("images/defultPerson.png"),
-          //             ),
-          //             const SizedBox(
-          //               width: 10,
-          //             ),
-          //             Expanded(
-          //               child: TextField(
-          //                 readOnly: true,
-          //                 decoration: const InputDecoration(
-          //                   hintText: 'ابدأ بالنشر الآن...',
-          //                   border: InputBorder.none,
-          //                 ),
-          //                 onTap: () {
-          //                   // showAddPostPopup(context);
-          //                   print("Tapped");
-          //                 },
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

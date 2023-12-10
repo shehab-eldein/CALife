@@ -8,6 +8,7 @@ import '../Helper/responsive.dart';
 import 'package:canadianslife/views/shared/EditInfoTile.dart';
 import 'package:canadianslife/views/shared/EditInfoTileBtn.dart';
 import 'package:canadianslife/views/shared/user_img.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditInfoView extends StatefulWidget {
   const EditInfoView({super.key});
@@ -37,107 +38,104 @@ class _EditInfoViewState extends State<EditInfoView> {
   Widget build(BuildContext context) {
     return isLoading == false && userInfo != null
         ? Scaffold(
-            body: Directionality(
-              textDirection: TextDirection.rtl,
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: Dimensions.heightPercentage(context, 5),
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: UserImage(),
-                  ),
-                  SizedBox(
-                    height: Dimensions.heightPercentage(context, 5),
-                  ),
-                  AppEditInfoTile(
-                      title: 'اسم المستخدم',
-                      trailing: userInfo!.displayName,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditDataView(
-                              type: 0,
-                              userInfo: userInfo!,
-                              refresh: getUserInfo,
-                              title: 'اسم المستخدم',
-                            ),
+            body: ListView(
+              children: [
+                SizedBox(
+                  height: Dimensions.heightPercentage(context, 5),
+                ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: UserImage(),
+                ),
+                SizedBox(
+                  height: Dimensions.heightPercentage(context, 5),
+                ),
+                AppEditInfoTile(
+                    title: AppLocalizations.of(context)!.userName,
+                    trailing: userInfo!.displayName,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditDataView(
+                            type: 0,
+                            userInfo: userInfo!,
+                            refresh: getUserInfo,
+                            title: AppLocalizations.of(context)!.userName,
                           ),
-                        );
-                      }),
-                  AppEditInfoTile(
-                      title: 'الحالة',
-                      trailing: userInfo!.userType == 0
-                          ? 'مقيم او مهاجر جديد لكندا'
-                          : 'مهتم بالهجرة لكندا',
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditDataView(
-                              type: 1,
-                              userInfo: userInfo!,
-                              refresh: getUserInfo,
-                              title: '',
-                            ),
+                        ),
+                      );
+                    }),
+                AppEditInfoTile(
+                    title: AppLocalizations.of(context)!.statue,
+                    trailing: userInfo!.userType == 0
+                        ? AppLocalizations.of(context)!.userType0
+                        : AppLocalizations.of(context)!.userType1,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditDataView(
+                            type: 1,
+                            userInfo: userInfo!,
+                            refresh: getUserInfo,
+                            title: '',
                           ),
-                        );
-                      }),
-                  AppEditInfoTile(
-                      title: 'البريد الالكترونى',
-                      trailing: userInfo!.email,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditDataView(
-                              type: 2,
-                              userInfo: userInfo!,
-                              refresh: getUserInfo,
-                              title: 'البريد الالكترونى',
-                            ),
+                        ),
+                      );
+                    }),
+                AppEditInfoTile(
+                    title: AppLocalizations.of(context)!.email,
+                    trailing: userInfo!.email,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditDataView(
+                            type: 2,
+                            userInfo: userInfo!,
+                            refresh: getUserInfo,
+                            title: AppLocalizations.of(context)!.email,
                           ),
-                        );
-                      }),
-                  AppEditInfoTile(
-                      title: 'رقم الهاتف',
-                      trailing: userInfo!.phone.toString(),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditDataView(
-                              type: 3,
-                              userInfo: userInfo!,
-                              refresh: getUserInfo,
-                              title: 'رقم الهاتف',
-                            ),
+                        ),
+                      );
+                    }),
+                AppEditInfoTile(
+                    title: AppLocalizations.of(context)!.phone,
+                    trailing: userInfo!.phone.toString(),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditDataView(
+                            type: 3,
+                            userInfo: userInfo!,
+                            refresh: getUserInfo,
+                            title: AppLocalizations.of(context)!.phone,
                           ),
-                        );
-                      }),
-                  AppListTileBtn(
-                      title: 'كلمة السر',
-                      trailing: "تغيير",
-                      icon: Icons.compare_arrows,
-                      trailingColor: appDesign.colorPrimaryDark,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditDataView(
-                              type: 4,
-                              userInfo: userInfo!,
-                              refresh: getUserInfo,
-                              title: 'كلمة المرور الجديدة',
-                            ),
+                        ),
+                      );
+                    }),
+                AppListTileBtn(
+                    title: AppLocalizations.of(context)!.password,
+                    trailing: AppLocalizations.of(context)!.change,
+                    icon: Icons.compare_arrows,
+                    trailingColor: appDesign.colorPrimaryDark,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditDataView(
+                            type: 4,
+                            userInfo: userInfo!,
+                            refresh: getUserInfo,
+                            title: 'كلمة المرور الجديدة',
                           ),
-                        );
-                      }),
-                  AppListTileBtn(
-                      title: 'الحساب',
-                      trailing: "حذف",
-                      icon: Icons.delete_outline,
-                      trailingColor: appDesign.red,
-                      onPressed: () {}),
-                ],
-              ),
+                        ),
+                      );
+                    }),
+                AppListTileBtn(
+                    title: AppLocalizations.of(context)!.account,
+                    trailing: AppLocalizations.of(context)!.delete,
+                    icon: Icons.delete_outline,
+                    trailingColor: appDesign.red,
+                    onPressed: () {}),
+              ],
             ),
           )
         : const Scaffold(body: Center(child: CircularProgressIndicator()));

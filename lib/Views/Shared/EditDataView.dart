@@ -5,6 +5,7 @@ import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/save_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditDataView extends StatefulWidget {
   const EditDataView(
@@ -150,7 +151,8 @@ class _EditDataViewState extends State<EditDataView> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "مهتم بالهجرة لكندا",
+                                    AppLocalizations.of(context)!.userType1,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontFamily: '.SF Arabic',
                                         color: appDesign.colorPrimary,
@@ -210,7 +212,7 @@ class _EditDataViewState extends State<EditDataView> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "مقيم او مهاجر جديد\n لكندا",
+                                    AppLocalizations.of(context)!.userType0,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontFamily: '.SF Arabic',

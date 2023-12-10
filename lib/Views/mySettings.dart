@@ -2,8 +2,10 @@ import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/myAccountTile.dart';
 import 'package:canadianslife/Views/Shared/profileInfoRow.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../Helper/Constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MySettingsView extends StatefulWidget {
   const MySettingsView({super.key});
@@ -13,6 +15,13 @@ class MySettingsView extends StatefulWidget {
 }
 
 class _MySettingsViewState extends State<MySettingsView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _langSelection();
+  }
+
   bool isEnglish = true;
 
   void _langSelection() {
@@ -24,9 +33,24 @@ class _MySettingsViewState extends State<MySettingsView> {
   }
 
   bool notifications = true;
-  void changeValue(value) {
+  void changeValue() {
     setState(() {
-      notifications == !value;
+      if (notifications == true) {
+        notifications == false;
+      } else {
+        notifications = true;
+      }
+    });
+  }
+
+  changeLanguage(String value) {
+    setState(() {
+      // Localizations.override(
+      //   context: context,
+      //   locale: Locale(value),
+      // );
+      Provider.of<UserData>(context, listen: false).setLanguage(value);
+      print(Provider.of<UserData>(context, listen: false).userLanguage);
     });
   }
 
@@ -41,19 +65,21 @@ class _MySettingsViewState extends State<MySettingsView> {
           const ProfileInfoRow(),
           const SizedBox(height: 25),
           AppListTile(
-            title: "الإشعارات",
+            title: AppLocalizations.of(context)!.mainNotifs,
             icon: Icons.notifications_outlined,
             onPressed: () {},
             isCustom: true,
             child: Switch(
-              activeTrackColor: const Color(0xFF04BFDB),
+              activeTrackColor: appDesign.colorAccent,
               value: notifications,
-              onChanged: changeValue,
+              onChanged: (value) {
+                changeValue();
+              },
             ),
           ),
           const SizedBox(height: 12),
           AppListTile(
-            title: "اللغة",
+            title: AppLocalizations.of(context)!.language,
             icon: Icons.language_outlined,
             onPressed: () {},
             isCustom: true,
@@ -83,12 +109,12 @@ class _MySettingsViewState extends State<MySettingsView> {
               onToggle: (index) {
                 if (index == 1) {
                   isEnglish = true;
-                  print("IS ENGLISH");
+                  changeLanguage("en");
                   // context.changeLanguageToEnglish();
                   // context.saveIsEnglish(true);
                 } else {
                   isEnglish = false;
-                  print("IS Arabic");
+                  changeLanguage("ar");
                   // context.changeLanguageToArabic();
                   //
                   // context.saveIsEnglish(false);

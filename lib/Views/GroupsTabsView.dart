@@ -41,7 +41,10 @@ class GroupsViewState extends State<GroupsTabsView>
       isLoadingNew = true;
     });
     newGroups = await GroupController().getUnsubedGroups(
-        userInfo.userType!, userInfo.id, searchController.text, 0);
+        Provider.of<UserData>(context, listen: false).userInfo.userType!,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        searchController.text,
+        0);
     setState(() {
       isLoadingNew = false;
     });
@@ -51,8 +54,10 @@ class GroupsViewState extends State<GroupsTabsView>
     setState(() {
       isLoadingUser = true;
     });
-    userGroups = await GroupController()
-        .getSubedGroups(userInfo.id, searchController.text, 0);
+    userGroups = await GroupController().getSubedGroups(
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        searchController.text,
+        0);
     setState(() {
       isLoadingUser = false;
     });

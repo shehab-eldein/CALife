@@ -9,6 +9,7 @@ import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:canadianslife/Views/Shared/groupCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyGroups extends StatefulWidget {
   const MyGroups({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _MyGroupsState extends State<MyGroups> {
           InteractiveIcon(
             icon: Icons.group,
             iconSize: 25,
-            text: "My Groups",
+            text: AppLocalizations.of(context)!.myGroups,
             fontSize: 20,
             color: appDesign.colorPrimary,
           ),
@@ -56,7 +57,7 @@ class _MyGroupsState extends State<MyGroups> {
           CustomTextButton(
             width: double.infinity,
             backgroundColor: appDesign.colorPrimaryLight,
-            text: "create new group",
+            text: AppLocalizations.of(context)!.createGroup,
             onPressed: () {
               context.navigateTo(const GroupCreateView());
             },

@@ -97,6 +97,27 @@ class TopicController {
     }
   }
 
+  Future<List<Topic>?> topicsGetAdilAwdah(
+      int groupType, int userId, int loadingId) async {
+    try {
+      List<Topic> topics = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.topic}TopicsGetAdilAwdah?groupType=$groupType&userId=$userId&loadingId=$loadingId',
+        body: null,
+        fromJson: (json) => List<Topic>.from(
+          json.map(
+            (item) => Topic.fromJson(item),
+          ),
+        ),
+      );
+      print(topics.toString());
+      return topics;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future<List<Topic>?> topicsGetByTimeLine(int userId, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(

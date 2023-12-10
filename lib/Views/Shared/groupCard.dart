@@ -8,6 +8,7 @@ import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupCard extends StatefulWidget {
   final bool hideSub;
@@ -99,17 +100,19 @@ class _GroupCardState extends State<GroupCard> {
                           ? Icons.lock_open_rounded
                           : Icons.lock_rounded,
                       text: widget.groupInfo.visibility == 0
-                          ? "مجموعة عامة"
-                          : "مجموعة خاصة",
+                          ? AppLocalizations.of(context)!.publicGroup
+                          : AppLocalizations.of(context)!.privateGroup,
                     )),
                     Expanded(
                         child: InteractiveIcon(
                             icon: Icons.person,
-                            text: "${widget.groupInfo.subscribersNo} عضواً")),
+                            text:
+                                "${widget.groupInfo.subscribersNo} ${AppLocalizations.of(context)!.member}")),
                     Expanded(
                         child: InteractiveIcon(
                             icon: Icons.share,
-                            text: "${widget.groupInfo.topicsNo} منشور")),
+                            text:
+                                "${widget.groupInfo.topicsNo} ${AppLocalizations.of(context)!.posts}")),
                   ],
                 ),
               ),
@@ -123,7 +126,7 @@ class _GroupCardState extends State<GroupCard> {
                       child: Expanded(
                         child: CustomTextButton(
                           backgroundColor: appDesign.colorPrimaryDark,
-                          text: "اشتراك",
+                          text: AppLocalizations.of(context)!.subscribe,
                           onPressed: () {
                             GroupController().subscribeToGroup(
                                 widget.groupInfo.id,
@@ -139,7 +142,7 @@ class _GroupCardState extends State<GroupCard> {
                     Expanded(
                       child: CustomTextButton(
                         backgroundColor: Colors.white,
-                        text: "زيارة المجموعة",
+                        text: AppLocalizations.of(context)!.visitGroup,
                         textColor: appDesign.colorPrimaryDark,
                         onPressed: () {
                           widget.isAdmin != null && widget.isAdmin == true
