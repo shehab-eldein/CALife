@@ -4,6 +4,7 @@ import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Consultancy1 extends StatefulWidget {
   const Consultancy1({super.key, required this.nextPage});
@@ -59,10 +60,10 @@ class _Consultancy1State extends State<Consultancy1> {
     return ListView(
       children: [
         const SizedBox(height: 20),
-        const Align(
+        Align(
           alignment: Alignment.center,
           child: Text(
-            "البيانات الشخصية",
+            AppLocalizations.of(context)!.personalInfo,
             style: TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,

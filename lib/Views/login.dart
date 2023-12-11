@@ -60,12 +60,13 @@ class _LoginState extends State<LoginView> {
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
     return Scaffold(
-      appBar: null,
       body: SingleChildScrollView(
         child: Padding(
           // add space for all padding container
           padding: EdgeInsets.symmetric(
-              horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
+            horizontal: layoutManager.mainHorizontalPadding(),
+            vertical: 60,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,

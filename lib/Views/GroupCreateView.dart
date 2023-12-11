@@ -7,6 +7,7 @@ import 'package:canadianslife/Managers/ImagePickerManager.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupCreateView extends StatefulWidget {
   const GroupCreateView({super.key});
@@ -91,10 +92,10 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    const Text(
-                      'إضافة صورة غلاف',
+                    Text(
+                      AppLocalizations.of(context)!.addCoverImage,
                       textAlign: TextAlign.right,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF030F2E),
                         fontSize: 17,
                         fontFamily: '.SF Arabic',
@@ -113,7 +114,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "اسم المجموعة",
+                AppLocalizations.of(context)!.groupName,
                 style: TextStyle(
                   fontFamily: '.SF Arabic',
                   color: const Color(0xFF030F2E),
@@ -143,7 +144,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
           padding: EdgeInsets.symmetric(
               horizontal: layoutManager.mainHorizontalPadding()),
           child: Text(
-            "الخصوصية",
+            AppLocalizations.of(context)!.privacy,
             style: TextStyle(
               fontFamily: '.SF Arabic',
               color: const Color(0xFF030F2E),
@@ -155,12 +156,12 @@ class _GroupCreateViewState extends State<GroupCreateView> {
         ),
         const SizedBox(height: 5),
         ListTile(
-          title: const Row(
+          title: Row(
             children: [
               Text(
-                'مجموعة عامة',
+                AppLocalizations.of(context)!.publicGroup,
                 textAlign: TextAlign.right,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
                   fontFamily: '.SF Arabic',
@@ -168,8 +169,8 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                   height: 0.08,
                 ),
               ),
-              SizedBox(width: 25),
-              Icon(Icons.lock_open_rounded)
+              const SizedBox(width: 25),
+              const Icon(Icons.lock_open_rounded)
             ],
           ),
           leading: Radio<bool>(
@@ -184,12 +185,12 @@ class _GroupCreateViewState extends State<GroupCreateView> {
           ),
         ),
         ListTile(
-          title: const Row(
+          title: Row(
             children: [
               Text(
-                'مجموعة خاصة',
+                AppLocalizations.of(context)!.privateGroup,
                 textAlign: TextAlign.right,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
                   fontFamily: '.SF Arabic',
@@ -197,8 +198,8 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                   height: 0.08,
                 ),
               ),
-              SizedBox(width: 15),
-              Icon(Icons.lock_rounded)
+              const SizedBox(width: 15),
+              const Icon(Icons.lock_rounded)
             ],
           ),
           leading: Radio<bool>(
@@ -219,7 +220,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "عن المجموعة",
+                AppLocalizations.of(context)!.about,
                 style: TextStyle(
                   fontFamily: '.SF Arabic',
                   color: const Color(0xFF030F2E),
@@ -252,7 +253,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "الإرشادات",
+                AppLocalizations.of(context)!.guide,
                 style: TextStyle(
                   fontFamily: '.SF Arabic',
                   color: const Color(0xFF030F2E),
@@ -298,7 +299,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                     ),
                   )
                 : Text(
-                    "إنشاء المجموعة",
+                    AppLocalizations.of(context)!.createGroup,
                     style: TextStyle(
                         fontFamily: '.SF Arabic',
                         color: Colors.white,

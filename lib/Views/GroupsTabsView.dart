@@ -15,7 +15,8 @@ import 'package:provider/provider.dart';
 import '../Managers/LayoutManager.dart';
 
 class GroupsTabsView extends StatefulWidget {
-  const GroupsTabsView({super.key});
+  const GroupsTabsView({super.key, this.index});
+  final int? index;
 
   @override
   State<GroupsTabsView> createState() => GroupsViewState();
@@ -66,11 +67,15 @@ class GroupsViewState extends State<GroupsTabsView>
   @override
   void initState() {
     super.initState();
+    tabSelected = widget.index ?? 1;
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_onTabChanged);
+    setState(() {
+      _tabController.index = widget.index != null ? 1 : 0;
+    });
     userInfo = Provider.of<UserData>(context, listen: false).userInfo;
     getUserGroups();
     getNewGroups();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_onTabChanged);
   }
 
   @override
@@ -191,7 +196,7 @@ class GroupsViewState extends State<GroupsTabsView>
                               children: [
                                 ...userGroups!.map(
                                   (e) => GroupCard(
-                                    hideSub: false,
+                                    isNotSubed: false,
                                     groupInfo: e,
                                   ),
                                 ),
@@ -207,7 +212,7 @@ class GroupsViewState extends State<GroupsTabsView>
                               children: [
                                 ...newGroups!.map(
                                   (e) => GroupCard(
-                                    hideSub: true,
+                                    isNotSubed: true,
                                     groupInfo: e,
                                   ),
                                 ),

@@ -1,11 +1,8 @@
 import 'package:canadianslife/Helper/Authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
-
-import 'onBoarding.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -86,7 +83,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         isLoaded = true;
       });
@@ -98,15 +95,14 @@ class _SplashViewState extends State<SplashView> {
     });
 
     return isLoaded
-        ? AuthenticationService()
+        ? const AuthenticationService()
         : Scaffold(
             backgroundColor: appDesign.backGround,
-            body: Container(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(30),
-                  child: Image.asset("images/applogo.png"),
-                ),
+            body: Center(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+                child: Image.asset("images/applogo.png"),
               ),
             ));
   }

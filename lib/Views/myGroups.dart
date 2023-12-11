@@ -73,7 +73,7 @@ class _MyGroupsState extends State<MyGroups> {
                     ...groups!.map((e) {
                       return GroupCard(
                         isAdmin: true,
-                        hideSub: false,
+                        isNotSubed: false,
                         groupInfo: e,
                       );
                     })

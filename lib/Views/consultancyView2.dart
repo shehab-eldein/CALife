@@ -3,6 +3,7 @@ import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Consultancy2 extends StatefulWidget {
   const Consultancy2(
@@ -60,10 +61,10 @@ class _Consultancy2State extends State<Consultancy2> {
     return ListView(
       children: [
         const SizedBox(height: 20),
-        const Align(
+        Align(
           alignment: Alignment.center,
           child: Text(
-            "المهارات و الدراسة",
+            AppLocalizations.of(context)!.skillsEducation,
             style: TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,

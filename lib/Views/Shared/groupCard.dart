@@ -11,12 +11,15 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupCard extends StatefulWidget {
-  final bool hideSub;
+  final bool isNotSubed;
   final Group groupInfo;
   final bool? isAdmin;
 
   GroupCard(
-      {Key? key, required this.hideSub, required this.groupInfo, this.isAdmin})
+      {Key? key,
+      required this.isNotSubed,
+      required this.groupInfo,
+      this.isAdmin})
       : super(key: key);
 
   @override
@@ -24,6 +27,7 @@ class GroupCard extends StatefulWidget {
 }
 
 class _GroupCardState extends State<GroupCard> {
+  bool isPressed = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,27 +69,29 @@ class _GroupCardState extends State<GroupCard> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 14,
-                    backgroundColor: Colors.grey,
-                    child: widget.groupInfo.user?.userImage != null
-                        ? Image.network(widget.groupInfo.user!.userImage!)
-                        : Image.asset("images/person.png"),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    widget.groupInfo.user?.displayName ?? "",
-                    style: const TextStyle(
-                      color: appDesign.colorAccentDarker,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
+              widget.isAdmin == null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 14,
+                          backgroundColor: Colors.grey,
+                          child: widget.groupInfo.user?.userImage != null
+                              ? Image.network(widget.groupInfo.user!.userImage!)
+                              : Image.asset("images/person.png"),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          widget.groupInfo.user?.displayName ?? "",
+                          style: const TextStyle(
+                            color: appDesign.colorAccentDarker,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
               Divider(
                 color: Colors.grey.shade300,
                 thickness: 1, // Specify the thickness of the line
@@ -122,43 +128,88 @@ class _GroupCardState extends State<GroupCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Visibility(
-                      visible: widget.hideSub,
+                      visible: widget.isNotSubed,
                       child: Expanded(
-                        child: CustomTextButton(
-                          backgroundColor: appDesign.colorPrimaryDark,
-                          text: AppLocalizations.of(context)!.subscribe,
-                          onPressed: () {
-                            GroupController().subscribeToGroup(
+                        child: MaterialButton(
+                          height: 45,
+                          color: appDesign.colorPrimaryDark,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          onPressed: () async {
+                            setState(() {
+                              isPressed = true;
+                            });
+                            await GroupController().subscribeToGroup(
                                 widget.groupInfo.id,
                                 Provider.of<UserData>(context, listen: false)
                                     .userInfo
                                     .id);
+                            setState(() {
+                              isPressed = false;
+                            });
                           },
-                          icon: Icons.add_box_rounded,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: widget.hideSub ? 8 : 0),
-                    Expanded(
-                      child: CustomTextButton(
-                        backgroundColor: Colors.white,
-                        text: AppLocalizations.of(context)!.visitGroup,
-                        textColor: appDesign.colorPrimaryDark,
-                        onPressed: () {
-                          widget.isAdmin != null && widget.isAdmin == true
-                              ? context.navigateTo(
-                                  GroupAdminView(
-                                    groupInfo: widget.groupInfo,
+                          child: isPressed
+                              ? const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
                                   ),
                                 )
-                              : context.navigateTo(
-                                  GroupDetails(
-                                    groupInfo: widget.groupInfo,
+                              : Text(
+                                  AppLocalizations.of(context)!.subscribe,
+                                  style: const TextStyle(
+                                    fontFamily: '.SF Arabic',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                );
-                        },
-                        icon: Icons.keyboard_double_arrow_left_sharp,
-                        iconColor: appDesign.colorPrimaryDark,
+                                ),
+                        ),
+                        // child: CustomTextButton(
+                        //   backgroundColor: appDesign.colorPrimaryDark,
+                        //   text: AppLocalizations.of(context)!.subscribe,
+                        //   onPressed: () {
+                        //     GroupController().subscribeToGroup(
+                        //         widget.groupInfo.id,
+                        //         Provider.of<UserData>(context, listen: false)
+                        //             .userInfo
+                        //             .id);
+                        //   },
+                        //   icon: Icons.add_box_rounded,
+                        // ),
+                      ),
+                    ),
+                    SizedBox(width: widget.isNotSubed ? 8 : 0),
+                    Visibility(
+                      visible: widget.groupInfo.visibility == 0 ||
+                              widget.isNotSubed == false
+                          ? true
+                          : widget.isAdmin != null
+                              ? widget.isAdmin!
+                                  ? true
+                                  : false
+                              : false,
+                      child: Expanded(
+                        child: CustomTextButton(
+                          backgroundColor: Colors.white,
+                          text: AppLocalizations.of(context)!.visitGroup,
+                          textColor: appDesign.colorPrimaryDark,
+                          onPressed: () {
+                            widget.isAdmin != null && widget.isAdmin == true
+                                ? context.navigateTo(
+                                    GroupAdminView(
+                                      groupInfo: widget.groupInfo,
+                                    ),
+                                  )
+                                : context.navigateTo(
+                                    GroupDetails(
+                                      groupInfo: widget.groupInfo,
+                                    ),
+                                  );
+                          },
+                          icon: Icons.keyboard_double_arrow_left_sharp,
+                          iconColor: appDesign.colorPrimaryDark,
+                        ),
                       ),
                     ),
                   ],

@@ -47,11 +47,11 @@ class _AddPostPopupState extends State<AddPostPopup> {
 
   submitPost() async {
     Topic? newTopic = await TopicController().topicAdd(
-      widget.groupId,
-      _textController.text,
-      _textController.text,
-      Provider.of<UserData>(context, listen: false).userInfo.id,
-    );
+        widget.groupId,
+        _textController.text,
+        _textController.text,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        imageFiles);
     if (newTopic != null) {
       addTopicImgaes(newTopic.id);
       print(newTopic.id);
@@ -59,13 +59,13 @@ class _AddPostPopupState extends State<AddPostPopup> {
   }
 
   addTopicImgaes(topicId) async {
-    if (imageFiles.isNotEmpty) {
-      for (String image in imageFiles) {
-        await TopicController().topicImageAdd(topicId, image);
-      }
-    }
+    // if (imageFiles.isNotEmpty) {
+    // for (String image in imageFiles) {
+    // print("adding Image ${imageFiles.indexOf(image)}");
+    // await TopicController().topicImageAdd(topicId, image);
+    // }
+    // }
     widget.refresh();
-    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 

@@ -1,5 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/Shared/BottomNavigation.dart';
+import 'package:canadianslife/Views/Shared/appBar.dart';
 import 'package:canadianslife/Views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,13 @@ class _AuthenticationServiceState extends State<AuthenticationService> {
       builder: (context, userData, child) {
         return userData.userInfo.id == 0
             ? const LoginView()
-            : const BottomNavigation();
+            : Scaffold(
+                appBar: BaseAppBar(
+                  appBar: AppBar(),
+                  widgetContext: context,
+                  showBackButton: true,
+                ),
+                body: BottomNavigation());
       },
     );
   }

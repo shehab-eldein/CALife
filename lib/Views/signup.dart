@@ -165,7 +165,7 @@ class _SignUp extends State<SignUpView> {
         child: Padding(
           // add space for all padding container
           padding: EdgeInsets.symmetric(
-              horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
+              horizontal: layoutManager.mainHorizontalPadding(), vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

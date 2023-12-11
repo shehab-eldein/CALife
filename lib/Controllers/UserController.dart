@@ -1,6 +1,7 @@
 import '../Helper/Constants.dart';
 import '../Managers/NetworkManager.dart';
 import '../Models/User.dart';
+import '../Models/Notification.dart';
 
 class UserController {
   final _networkManager = NetworkManager();
@@ -19,6 +20,43 @@ class UserController {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Future<List<AppNotification>> getUserNotifications(int userId) async {
+    try {
+      final List<AppNotification> res = await _networkManager.getRequest(
+        endpoint: '${Constant.user}GetNotificationsByUserID?userID=$userId',
+        body: null,
+        fromJson: (json) => List<AppNotification>.from(
+          json.map(
+            (item) => AppNotification.fromJson(item),
+          ),
+        ),
+      );
+      print(res.toString());
+
+      return res;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<bool> notify(int notificationID) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint: '${Constant.user}Notify?notificationID=$notificationID',
+        body: null,
+        fromJson: (dynamic res) {
+          return res;
+        },
+      );
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 

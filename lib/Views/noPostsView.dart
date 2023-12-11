@@ -1,5 +1,8 @@
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotFoundView extends StatefulWidget {
   const NotFoundView({super.key, this.isNoGroups});
@@ -16,15 +19,17 @@ class _NotFoundViewState extends State<NotFoundView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         widget.isNoGroups == false
-            ? SizedBox(height: 150)
-            : SizedBox(height: 0),
+            ? const SizedBox(height: 150)
+            : const SizedBox(height: 0),
         const Image(
           image: AssetImage("images/none.png"),
         ),
         Text(
-          widget.isNoGroups == false ? 'لا توجد منشورات' : 'لا توجد مجموعات',
+          widget.isNoGroups == false
+              ? AppLocalizations.of(context)!.noPostsFound
+              : AppLocalizations.of(context)!.noGroupsFound,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xBF030F2E),
             fontSize: 22,
             fontFamily: '.SF Arabic',
@@ -34,10 +39,10 @@ class _NotFoundViewState extends State<NotFoundView> {
         ),
         Text(
           widget.isNoGroups == false
-              ? 'اشترك في مجموعات لتري آخر تحديث'
-              : 'انت غير مشترك في اي مجموعة',
+              ? AppLocalizations.of(context)!.subToSee
+              : AppLocalizations.of(context)!.notSubed,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0x7F030F2E),
             fontSize: 17,
             fontFamily: '.SF Arabic',
@@ -45,10 +50,10 @@ class _NotFoundViewState extends State<NotFoundView> {
             height: 0,
           ),
         ),
-        const Text(
-          'استكشف المجموعات',
+        Text(
+          AppLocalizations.of(context)!.exploreGroups,
           textAlign: TextAlign.right,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontFamily: '.SF Arabic',
@@ -59,21 +64,25 @@ class _NotFoundViewState extends State<NotFoundView> {
         const SizedBox(height: 20),
         MaterialButton(
           color: appDesign.colorPrimary,
-          onPressed: () {},
+          onPressed: () {
+            context.navigateTo(const GroupsTabsView(
+              index: 0,
+            ));
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Padding(
-            padding: EdgeInsets.all(10.0),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Wrap(
               spacing: 5,
               alignment: WrapAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'استكشف المجموعات',
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.exploreGroups,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontFamily: '.SF Arabic',
@@ -82,7 +91,7 @@ class _NotFoundViewState extends State<NotFoundView> {
                     ),
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.groups_2,
                   color: Colors.white,
                 )

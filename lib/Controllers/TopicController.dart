@@ -9,12 +9,15 @@ class TopicController {
   final _networkManager = NetworkManager();
 
   Future<Topic?> topicAdd(
-      int groupId, String title, String details, userId) async {
-    // var imgs = [
-    //   ...images.map(
-    //     (e) => {"id": 0, "topicId": 0, "topicImage": images[images.indexOf(e)]},
-    //   ),
-    // ];
+      int groupId, String title, String details, int userId, images) async {
+    List<TopicImage> imgs = [
+      ...images.map(
+        (e) => {
+          TopicImage(id: 0, topicId: 0, topicImage: images[images.indexOf(e)])
+          // "id": 0, "topicId": 0, "topicImage": images[images.indexOf(e)]
+        },
+      ),
+    ];
     try {
       Topic topic = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicAdd',
@@ -25,6 +28,7 @@ class TopicController {
           isPinned: true,
           groupId: groupId,
           userId: userId,
+          images: [...imgs],
         ).toJson(),
         fromJson: (json) => Topic.fromJson(json),
       );

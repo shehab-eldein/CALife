@@ -51,14 +51,7 @@ class _MyAppState extends State<MyApp> {
                 ColorScheme.fromSeed(seedColor: appDesign.colorPrimaryDark),
             useMaterial3: true,
           ),
-          home: Scaffold(
-            appBar: BaseAppBar(
-              appBar: AppBar(),
-              widgetContext: context,
-              showBackButton: true,
-            ),
-            body: const SplashView(),
-          ),
+          home: SplashView(),
         ),
       );
     });
