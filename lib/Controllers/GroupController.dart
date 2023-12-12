@@ -302,6 +302,7 @@ class GroupController {
       locationY: 0,
       visibility: visibility,
       userId: creatorUserId,
+      groupImage: groupCoverImage,
       groupCoverImage: groupCoverImage,
       creationDate: '2023-01-01',
       subscribersNo: 0,

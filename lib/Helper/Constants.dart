@@ -52,7 +52,7 @@ class UserData extends ChangeNotifier {
     prefs.setString('language', language);
   }
 
-  User _userInfo = User(
+  static User _userInfo = User(
     id: 0,
     displayName: "",
     fullName: "",
@@ -64,6 +64,10 @@ class UserData extends ChangeNotifier {
   );
 
   User get userInfo => _userInfo;
+
+  int getId() {
+    return _userInfo.id;
+  }
 
   loadUserData() async {
     final prefs = await SharedPreferences.getInstance();

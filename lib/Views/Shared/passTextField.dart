@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PassTextField extends StatefulWidget {
   final Function(String)? onChanged;
@@ -8,14 +8,13 @@ class PassTextField extends StatefulWidget {
   final String? labelText;
   final Function()? onEditeComplete;
 
-  const PassTextField({
-    Key? key,
-    this.onChanged,
-    this.controller,
-    this.labelText,
-    this.onEditeComplete
-
-  }) : super(key: key);
+  const PassTextField(
+      {Key? key,
+      this.onChanged,
+      this.controller,
+      this.labelText,
+      this.onEditeComplete})
+      : super(key: key);
 
   @override
   _PassTextFieldState createState() => _PassTextFieldState();
@@ -38,44 +37,47 @@ class _PassTextFieldState extends State<PassTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-           "كلمة المرور",
-
+            AppLocalizations.of(context)!.password,
             style: TextStyle(
                 fontSize: 17,
                 color: appDesign.colorPrimary,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8),
-           Container(
-             height: 50 ,
+          Container(
+            height: 50,
             child: TextField(
               textAlignVertical: TextAlignVertical.top,
               cursorHeight: 17,
-            textInputAction: TextInputAction.done,
-            onEditingComplete: widget.onEditeComplete ,
-            cursorColor: appDesign.colorPrimary, // Replace with your desired cursor color
-            onChanged: widget.onChanged,
-            obscureText: _obscureText,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(color:Colors.grey ), // Border color when not focused
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(color: appDesign.colorPrimary),
-              ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ?  Icons.visibility_off_outlined: Icons.visibility_outlined ,
-                  color: appDesign.colorPrimary, // Replace with your desired icon color
+              textInputAction: TextInputAction.done,
+              onEditingComplete: widget.onEditeComplete,
+              cursorColor: appDesign
+                  .colorPrimary, // Replace with your desired cursor color
+              onChanged: widget.onChanged,
+              obscureText: _obscureText,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                      color: Colors.grey), // Border color when not focused
                 ),
-                onPressed: _toggleObscureText,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: appDesign.colorPrimary),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureText
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    color: appDesign
+                        .colorPrimary, // Replace with your desired icon color
+                  ),
+                  onPressed: _toggleObscureText,
+                ),
               ),
+              controller: widget.controller,
             ),
-            controller: widget.controller,
-        ),
           )
         ],
       ),

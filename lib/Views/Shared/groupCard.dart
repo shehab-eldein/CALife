@@ -73,12 +73,26 @@ class _GroupCardState extends State<GroupCard> {
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 14,
-                          backgroundColor: Colors.grey,
-                          child: widget.groupInfo.user?.userImage != null
-                              ? Image.network(widget.groupInfo.user!.userImage!)
-                              : Image.asset("images/person.png"),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(200),
+                          child: FadeInImage(
+                            height: 30,
+                            width: 30,
+                            image: NetworkImage(
+                                '${Constant.baseURL}imgusers/${widget.groupInfo.user!.id}.jpg'),
+                            placeholder: const AssetImage(
+                              'images/person.png',
+                            ),
+                            imageErrorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                'images/person.png',
+                                fit: BoxFit.fill,
+                                height: 30,
+                                width: 30,
+                              );
+                            },
+                            fit: BoxFit.fill,
+                          ),
                         ),
                         const SizedBox(width: 5),
                         Text(

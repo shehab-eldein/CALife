@@ -186,8 +186,15 @@ class UserController {
     }
   }
 
-  Future<User?> editUser(int userId, String displayName, String fullName,
-      String email, String password, String phone, int userType) async {
+  Future<User?> editUser(
+      int userId,
+      String displayName,
+      String fullName,
+      String email,
+      String password,
+      String phone,
+      int userType,
+      String? userImage) async {
     User userBody = User(
         displayName: displayName,
         fullName: fullName,
@@ -200,7 +207,7 @@ class UserController {
         registerationDate: '2023-01-01',
         userType: userType,
         isActive: true,
-        userImage: "userImage");
+        userImage: userImage);
     try {
       User user = await _networkManager.postRequest(
         endpoint: '${Constant.user}EditUser',

@@ -43,10 +43,7 @@ class _EditInfoViewState extends State<EditInfoView> {
                 SizedBox(
                   height: Dimensions.heightPercentage(context, 5),
                 ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: UserImage(),
-                ),
+                const Align(alignment: Alignment.center, child: UserImage()),
                 SizedBox(
                   height: Dimensions.heightPercentage(context, 5),
                 ),

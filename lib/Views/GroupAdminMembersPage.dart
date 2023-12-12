@@ -1,4 +1,5 @@
 import 'package:canadianslife/Controllers/GroupController.dart';
+import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/GroupSubscriber.dart';
 import 'package:canadianslife/Views/Shared/memberTile.dart';
@@ -64,9 +65,26 @@ class _GroupMembersPageState extends State<GroupMembersPage> {
                   width: double.infinity,
                   child: ListTile(
                     title: Text(subscriber.user!.displayName),
-                    leading: const CircleAvatar(
-                      backgroundImage: AssetImage("images/person.png"),
-                      radius: 25,
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: FadeInImage(
+                        height: 50,
+                        width: 50,
+                        image: NetworkImage(
+                            '${Constant.baseURL}imgusers/${subscriber.user!.id}.jpg'),
+                        placeholder: const AssetImage(
+                          'images/person.png',
+                        ),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'images/person.png',
+                            fit: BoxFit.fill,
+                            height: 50,
+                            width: 50,
+                          );
+                        },
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),

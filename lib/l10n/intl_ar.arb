@@ -67,5 +67,11 @@
   "pendingN": "بانتظار قبول الطلب",
   "joinedN": "انضم الى مجموعتك",
   "loggedN": "تم تسجيل الدخول",
+  "usernameEmail":"إسم المستخدم/البريد الإلكتروني",
+  "logIn": "تسجيل الدخول",
+  "dontHaveAccount" : "ليس لديك حساب؟",
+  "haveAccount" : "هل لديك حساب؟",
+  "createNewAccount" : "إنشاء حساب جديد",
+  "displayName": "الاسم المعروض داخل التطبيق",
   "language": "اللغة"
 }

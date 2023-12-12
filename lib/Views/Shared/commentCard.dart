@@ -30,9 +30,26 @@ class _CommentCardState extends State<CommentCard> {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 25,
-                  child: Image.asset("images/person.png"),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(200),
+                  child: FadeInImage(
+                    height: 50,
+                    width: 50,
+                    image: NetworkImage(
+                        '${Constant.baseURL}imgusers/${widget.commentInfo.userId}.jpg'),
+                    placeholder: const AssetImage(
+                      'images/person.png',
+                    ),
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'images/person.png',
+                        fit: BoxFit.fill,
+                        height: 50,
+                        width: 50,
+                      );
+                    },
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 const SizedBox(
                   width: 16,

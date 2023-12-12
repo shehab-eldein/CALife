@@ -12,16 +12,30 @@ class ProfileInfoRow extends StatefulWidget {
 }
 
 class _ProfileInfoRowState extends State<ProfileInfoRow> {
+  int userId = UserData().getId();
   @override
   Widget build(BuildContext context) {
     return Consumer<UserData>(
       builder: (context, userData, child) {
         return Row(
           children: [
-            CircleAvatar(
-              backgroundColor: Colors.grey,
-              backgroundImage: const AssetImage("images/person.png"),
-              radius: Dimensions.radius(context, 4),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(200),
+              child: FadeInImage(
+                height: Dimensions.widthPercentage(context, 25),
+                width: Dimensions.widthPercentage(context, 25),
+                image: NetworkImage('${Constant.baseURL}imgusers/$userId.jpg'),
+                placeholder: const AssetImage('images/person.png'),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'images/person.png',
+                    fit: BoxFit.fill,
+                    height: Dimensions.widthPercentage(context, 25),
+                    width: Dimensions.widthPercentage(context, 25),
+                  );
+                },
+                fit: BoxFit.fill,
+              ),
             ),
             const SizedBox(
               width: 8,

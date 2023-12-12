@@ -23,7 +23,6 @@ class _AddPostPopupState extends State<AddPostPopup> {
   final TextEditingController _textController = TextEditingController();
   RoundedLoadingButtonController controller = RoundedLoadingButtonController();
   ImagePickerManager imagePickerManager = ImagePickerManager();
-  // List<Asset>? _selectedImages = [];
 
   List<String> imageFiles = [];
 
@@ -34,24 +33,15 @@ class _AddPostPopupState extends State<AddPostPopup> {
         imageFiles = images;
       });
     }
-    // imagePickerManager.selectMultiImage().then((images) {
-    //   if (images != null) {
-    //     setState(() {
-    //       _selectedImages = images;
-    //     });
-    //   } else {
-    //     _selectedImages = null;
-    //   }
-    // });
   }
 
   submitPost() async {
     Topic? newTopic = await TopicController().topicAdd(
-        widget.groupId,
-        _textController.text,
-        _textController.text,
-        Provider.of<UserData>(context, listen: false).userInfo.id,
-        imageFiles);
+      widget.groupId,
+      _textController.text,
+      _textController.text,
+      Provider.of<UserData>(context, listen: false).userInfo.id,
+    );
     if (newTopic != null) {
       addTopicImgaes(newTopic.id);
       print(newTopic.id);
@@ -59,12 +49,12 @@ class _AddPostPopupState extends State<AddPostPopup> {
   }
 
   addTopicImgaes(topicId) async {
-    // if (imageFiles.isNotEmpty) {
-    // for (String image in imageFiles) {
-    // print("adding Image ${imageFiles.indexOf(image)}");
-    // await TopicController().topicImageAdd(topicId, image);
-    // }
-    // }
+    if (imageFiles.isNotEmpty) {
+      for (String image in imageFiles) {
+        print("adding Image ${imageFiles.indexOf(image)}");
+        await TopicController().topicImageAdd(topicId, image);
+      }
+    }
     widget.refresh();
     Navigator.pop(context);
   }

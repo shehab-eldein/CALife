@@ -56,6 +56,8 @@ class _Consultancy3State extends State<Consultancy3> {
     });
   }
 
+  bool isPressed = false;
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -261,23 +263,33 @@ class _Consultancy3State extends State<Consultancy3> {
               height: 45,
               minWidth: Dimensions.widthPercentage(context, 45),
               onPressed: () {
+                setState(() {
+                  isPressed = true;
+                });
                 widget.submit();
               },
               color: appDesign.colorPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'ارسال',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                ),
-              ),
+              child: isPressed
+                  ? const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Text(
+                      'ارسال',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: '.SF Arabic',
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                      ),
+                    ),
             ),
           ],
         ),

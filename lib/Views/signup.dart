@@ -179,7 +179,7 @@ class _SignUp extends State<SignUpView> {
               SizedBox(height: 5),
               AuthTextField(
                 controller: _nameController,
-                labelText: "إسم المستخدم",
+                labelText: AppLocalizations.of(context)!.userName,
                 obscureText: false,
                 onChanged: (text) {
                   name = text;
@@ -190,7 +190,7 @@ class _SignUp extends State<SignUpView> {
               ),
               AuthTextField(
                 controller: _nameInAppController,
-                labelText: "الإسم المعروض داخل التطبيق",
+                labelText: AppLocalizations.of(context)!.displayName,
                 obscureText: false,
                 onChanged: (text) {
                   nameInApp = text;
@@ -210,7 +210,7 @@ class _SignUp extends State<SignUpView> {
               ),
               AuthTextField(
                 controller: _emailController,
-                labelText: "البريد الإلكتروني (إختياري)",
+                labelText: AppLocalizations.of(context)!.email,
                 hintText: "123456abcdefgh@linkyou.com",
                 obscureText: false,
                 onChanged: (text) {
@@ -218,13 +218,13 @@ class _SignUp extends State<SignUpView> {
                 },
               ),
               PhoneTextField(
-                labelText: "رقم التليفون (إختياري)",
+                labelText: AppLocalizations.of(context)!.phone,
                 onChanged: (text) {
                   number = text.substring(1);
                 },
               ),
               CustomLoadingButton(
-                text: "إنشاء حساب",
+                text: AppLocalizations.of(context)!.createNewAccount,
                 controller: _signUpBtnController,
                 onPressed: () => signUpValidation(_signUpBtnController),
               ),
@@ -234,7 +234,7 @@ class _SignUp extends State<SignUpView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "هل لديك حساب؟",
+                      AppLocalizations.of(context)!.haveAccount,
                       style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
@@ -244,7 +244,7 @@ class _SignUp extends State<SignUpView> {
                       onPressed: () {
                         context.navigateTo(LoginView());
                       },
-                      child: Text("تسجيل الدخول",
+                      child: Text(AppLocalizations.of(context)!.logIn,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 14,

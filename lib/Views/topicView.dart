@@ -7,6 +7,7 @@ import 'package:canadianslife/Models/TopicComment.dart';
 import 'package:canadianslife/Models/TopicImage.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/commentCard.dart';
+import 'package:canadianslife/Views/Shared/topicImages.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -36,24 +37,11 @@ class _TopicViewState extends State<TopicView> {
     topicInfo = widget.topicInfo;
     images = topicInfo.images;
     getTopicComments();
-    // getTopicImages();
   }
 
   List<TopicComment>? comments = [];
   List<TopicImage>? images = [];
   bool isLoadingComments = true;
-
-  // getTopicImages() async {
-  //   setState(() {
-  //     isLoadingImages = true;
-  //   });
-  //   List<TopicImage>? res =
-  //       await TopicController().topicImagesGetByTopicId(topicInfo.id);
-  //   setState(() {
-  //     images = res;
-  //     isLoadingImages = false;
-  //   });
-  // }
 
   getTopicComments() async {
     setState(() {
@@ -147,9 +135,26 @@ class _TopicViewState extends State<TopicView> {
                   ),
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 25,
-                        child: Image.asset("images/person.png"),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(200),
+                        child: FadeInImage(
+                          height: 50,
+                          width: 50,
+                          image: NetworkImage(
+                              '${Constant.baseURL}imgusers/${topicInfo.userId}.jpg'),
+                          placeholder: const AssetImage(
+                            'images/person.png',
+                          ),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'images/person.png',
+                              fit: BoxFit.fill,
+                              height: 50,
+                              width: 50,
+                            );
+                          },
+                          fit: BoxFit.fill,
+                        ),
                       ),
                       const SizedBox(
                         width: 16,
@@ -195,19 +200,7 @@ class _TopicViewState extends State<TopicView> {
             SizedBox(
               child: images!.isEmpty
                   ? null
-                  : AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: FadeInImage.assetNetwork(
-                        image:
-                            '${Constant.baseURL}imgtopics/${images![0].id}.jpg',
-                        placeholder: 'images/placeholder.png',
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset('images/placeholder.png',
-                              fit: BoxFit.contain);
-                        },
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  : TopicImages(images: topicInfo.images!),
             ),
 
             // SizedBox(

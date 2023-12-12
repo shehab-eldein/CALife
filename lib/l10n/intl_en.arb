@@ -67,6 +67,12 @@
   "pendingN": "Pending request",
   "joinedN": "joined your group",
   "loggedN": "You logged in",
+  "usernameEmail":"Username / Email",
+  "logIn": "Sign in",
+  "dontHaveAccount" : "Don't have an account?",
+  "haveAccount" : "Already have an account?",
+  "createNewAccount" : "Create account",
+  "displayName": "In app display name",
   "language": "Language"
 }
 

@@ -52,6 +52,7 @@ class _EditDataViewState extends State<EditDataView> {
                   ? 0
                   : 1
               : userInfo.userType!,
+          null,
         )
         .then((value) =>
             Provider.of<UserData>(context, listen: false).logUser(value));

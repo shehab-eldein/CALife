@@ -92,11 +92,80 @@ class _NotificationTileState extends State<NotificationTile> {
                   ),
                 )
               : null,
-      leading: const CircleAvatar(
-        backgroundColor: Colors.grey,
-        backgroundImage: AssetImage("images/person.png"),
-        radius: 25,
-      ),
+      leading: widget.notification.notifType == 5
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(200),
+              child: FadeInImage(
+                height: 40,
+                width: 40,
+                image: NetworkImage(
+                    '${Constant.baseURL}imgusers/${UserData().getId()}.jpg'),
+                placeholder: const AssetImage(
+                  'images/person.png',
+                ),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'images/person.png',
+                    fit: BoxFit.fill,
+                    height: 40,
+                    width: 40,
+                  );
+                },
+                fit: BoxFit.fill,
+              ),
+            )
+          : widget.notification.notifType == 0 ||
+                  widget.notification.notifType == 1 ||
+                  widget.notification.notifType == 4
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(200),
+                  child: FadeInImage(
+                    height: 45,
+                    width: 45,
+                    image: NetworkImage(
+                        '${Constant.baseURL}imgusers/${widget.notification.fromUserName}.jpg'),
+                    placeholder: const AssetImage(
+                      'images/person.png',
+                    ),
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'images/person.png',
+                        fit: BoxFit.fill,
+                        height: 40,
+                        width: 40,
+                      );
+                    },
+                    fit: BoxFit.fill,
+                  ),
+                )
+              : widget.notification.notifType == 2 ||
+                      widget.notification.notifType == 3
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: FadeInImage(
+                        height: 45,
+                        width: 45,
+                        image: NetworkImage(
+                            '${Constant.baseURL}imggroups/${widget.notification.groupId}.jpg'),
+                        placeholder: const AssetImage(
+                          'images/person.png',
+                        ),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'images/person.png',
+                            fit: BoxFit.fill,
+                            height: 40,
+                            width: 40,
+                          );
+                        },
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      backgroundImage: AssetImage("images/person.png"),
+                      radius: 25,
+                    ),
       trailing: const Text(
         '10 د',
         style: TextStyle(

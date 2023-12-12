@@ -83,6 +83,7 @@ class _ConsultancyViewState extends State<ConsultancyView> {
       },
     );
     print(json.decode(res.body));
+    Navigator.of(context).pop();
   }
 
   @override

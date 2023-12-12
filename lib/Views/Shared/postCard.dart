@@ -84,10 +84,31 @@ class _PostState extends State<Post> {
                 ),
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      child: Image.asset("images/person.png"),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: FadeInImage(
+                        height: 45,
+                        width: 45,
+                        image: NetworkImage(
+                            '${Constant.baseURL}imgusers/${topicInfo.user!.id}.jpg'),
+                        placeholder: const AssetImage(
+                          'images/person.png',
+                        ),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'images/person.png',
+                            fit: BoxFit.fill,
+                            height: 45,
+                            width: 45,
+                          );
+                        },
+                        fit: BoxFit.fill,
+                      ),
                     ),
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.grey,
+                    //   child: Image.asset("images/person.png"),
+                    // ),
                     const SizedBox(width: 16),
                     Text(
                       topicInfo.user!.displayName,

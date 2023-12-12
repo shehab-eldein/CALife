@@ -22,20 +22,20 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
-      leading: InkWell(
-        onTap: () {},
-        child: Visibility(
-          child: BackButton(
-              color: appDesign.colorPrimaryDark,
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          visible: showBackButton!,
-        ),
-      ),
+      // leading: InkWell(
+      //   onTap: () {},
+      //   child: Visibility(
+      //     child: BackButton(
+      //         color: appDesign.colorPrimaryDark,
+      //         onPressed: () {
+      //           Navigator.pop(context);
+      //         }),
+      //     maintainSize: true,
+      //     maintainAnimation: true,
+      //     maintainState: true,
+      //     visible: showBackButton!,
+      //   ),
+      // ),
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),

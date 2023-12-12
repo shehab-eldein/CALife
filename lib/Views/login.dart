@@ -80,7 +80,7 @@ class _LoginState extends State<LoginView> {
               ),
               SizedBox(height: layoutManager.valuesHandler(30, 10, 10, 10)),
               AuthTextField(
-                  labelText: "إسم المستخدم/البريد الإلكتروني",
+                  labelText: AppLocalizations.of(context)!.usernameEmail,
                   obscureText: false,
                   onChanged: (text) {
                     email = text;
@@ -92,14 +92,14 @@ class _LoginState extends State<LoginView> {
               ),
               CustomLoadingButton(
                   controller: _loginBtnController,
-                  text: "تسجيل الدخول",
+                  text: AppLocalizations.of(context)!.logIn,
                   onPressed: () => loginValidation(_loginBtnController)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "ليس لديك حساب؟",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.dontHaveAccount,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: appDesign.colorPrimary,
@@ -109,9 +109,9 @@ class _LoginState extends State<LoginView> {
                     onPressed: () {
                       context.navigateTo(SignUpView());
                     },
-                    child: const Text("إنشاء حساب جديد",
-                        style: TextStyle(
-                            fontSize: 11,
+                    child: Text(AppLocalizations.of(context)!.createNewAccount,
+                        style: const TextStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.normal,
                             color: appDesign.colorPrimary,
                             decoration: TextDecoration.underline)),

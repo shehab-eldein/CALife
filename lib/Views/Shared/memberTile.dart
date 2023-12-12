@@ -26,7 +26,6 @@ class _MemberTileState extends State<MemberTile> {
       ),
       title: Text(
         widget.subscriber.user!.displayName,
-        textAlign: TextAlign.right,
         style: const TextStyle(
           color: Color(0xFF323438),
           fontSize: 17,
@@ -35,10 +34,26 @@ class _MemberTileState extends State<MemberTile> {
           height: 0.08,
         ),
       ),
-      leading: const CircleAvatar(
-        backgroundColor: Colors.grey,
-        backgroundImage: AssetImage("images/person.png"),
-        radius: 25,
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(200),
+        child: FadeInImage(
+          height: 50,
+          width: 50,
+          image: NetworkImage(
+              '${Constant.baseURL}imgusers/${widget.subscriber.user!.id}.jpg'),
+          placeholder: const AssetImage(
+            'images/person.png',
+          ),
+          imageErrorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              'images/person.png',
+              fit: BoxFit.fill,
+              height: 50,
+              width: 50,
+            );
+          },
+          fit: BoxFit.fill,
+        ),
       ),
       trailing: Wrap(
         spacing: 16,

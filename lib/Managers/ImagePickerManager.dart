@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,6 +16,18 @@ class ImagePickerManager {
         imageFiles.add(base64Image);
       }
       return imageFiles;
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> pickOneImage() async {
+    final ImagePicker picker = ImagePicker();
+    XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
+    if (imageFile != null) {
+      Uint8List img = File(imageFile.path).readAsBytesSync();
+      String base64Image = base64Encode(img);
+      return base64Image;
     } else {
       return null;
     }
