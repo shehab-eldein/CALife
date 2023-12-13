@@ -71,7 +71,7 @@ class _NotificationTileState extends State<NotificationTile> {
       subtitle: widget.notification.notifType == 0 ||
               widget.notification.notifType == 1
           ? Text(
-              widget.notification.topic!.title,
+              '${widget.notification.topic!.title.substring(0, 21)}...',
               style: const TextStyle(
                 color: appDesign.colorAccentDarker,
                 fontFamily: '.SF Arabic',

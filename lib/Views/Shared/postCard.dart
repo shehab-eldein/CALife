@@ -138,9 +138,9 @@ class _PostState extends State<Post> {
                           placeholder: 'images/placeholder.png',
                           imageErrorBuilder: (context, error, stackTrace) {
                             return Image.asset('images/placeholder.png',
-                                fit: BoxFit.contain);
+                                fit: BoxFit.cover);
                           },
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       )
                     : const SizedBox(),

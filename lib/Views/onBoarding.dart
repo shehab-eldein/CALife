@@ -3,6 +3,7 @@ import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/login.dart';
+import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: EdgeInsets.fromLTRB(
                 // layoutManager.valuesHandler(48, 38, 220, 220)
                 0,
-                layoutManager.valuesHandler(40, 40, 20, 20),
+                layoutManager.valuesHandler(50, 50, 25, 25),
                 0,
                 0),
             child: Container(
@@ -120,7 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           if (_currentPage == _onboardingData.length - 1) {
                             // Handle sign up button action
                             // e.g., navigate to sign up screen or perform any other desired action
-                            context.navigateTo(const LoginView());
+                            context.navigateTo(const SplashView());
                           } else {
                             _currentPage++;
                             _pageController.animateToPage(

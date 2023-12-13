@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupCreateView extends StatefulWidget {
-  const GroupCreateView({super.key});
+  const GroupCreateView({super.key, this.refresh});
+  final Function? refresh;
 
   @override
   State<GroupCreateView> createState() => _GroupCreateViewState();
@@ -31,7 +32,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
     await GroupController().createGroup(
       nameController.text,
       0,
-      isPublic ? 1 : 0,
+      isPublic ? 0 : 1,
       descriptionController.text,
       guideController.text,
       Provider.of<UserData>(context, listen: false).userInfo.id,
@@ -290,6 +291,9 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             ),
             onPressed: () {
               createGroup();
+              if (widget.refresh != null) {
+                widget.refresh!();
+              }
             },
             child: isPressed
                 ? const Padding(

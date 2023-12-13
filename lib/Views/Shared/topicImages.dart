@@ -17,7 +17,7 @@ class _TopicImagesState extends State<TopicImages> {
     return AspectRatio(
         aspectRatio: 3 / 2,
         child: PageView.builder(
-          controller: PageController(viewportFraction: 0.8),
+          controller: PageController(viewportFraction: 1),
           itemCount: images.length,
           itemBuilder: (BuildContext context, int itemIndex) {
             return AspectRatio(
@@ -28,9 +28,9 @@ class _TopicImagesState extends State<TopicImages> {
                 placeholder: 'images/placeholder.png',
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Image.asset('images/placeholder.png',
-                      fit: BoxFit.contain);
+                      fit: BoxFit.cover);
                 },
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             );
           },

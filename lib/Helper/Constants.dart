@@ -37,6 +37,7 @@ class UserData extends ChangeNotifier {
   static String userNumber = "";
   static String userName = "";
   static String deviceToken = "";
+  static bool firstRun = true;
   // static int userId = 0;
   // static int userType = 0;
 
@@ -64,6 +65,7 @@ class UserData extends ChangeNotifier {
   );
 
   User get userInfo => _userInfo;
+  bool get isFirstRun => firstRun;
 
   int getId() {
     return _userInfo.id;
@@ -83,6 +85,7 @@ class UserData extends ChangeNotifier {
           "userType": 0,
         }.toString()));
     language = prefs.getString('language') ?? "ar";
+    firstRun = prefs.getBool('firstRun') ?? true;
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }
@@ -90,6 +93,14 @@ class UserData extends ChangeNotifier {
   void saveUserData(user) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('userInfo', jsonEncode(user.toJson()));
+    if (firstRun == true) {
+      updateFirstRun();
+    }
+  }
+
+  void updateFirstRun() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstRun', false);
   }
 
   bool isLoggedIn() {

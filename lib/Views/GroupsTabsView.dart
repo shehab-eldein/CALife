@@ -96,6 +96,11 @@ class GroupsViewState extends State<GroupsTabsView>
     });
   }
 
+  refresh() {
+    getNewGroups();
+    getUserGroups();
+  }
+
   @override
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
@@ -214,6 +219,7 @@ class GroupsViewState extends State<GroupsTabsView>
                                   (e) => GroupCard(
                                     isNotSubed: true,
                                     groupInfo: e,
+                                    refresh: refresh,
                                   ),
                                 ),
                               ],

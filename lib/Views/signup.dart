@@ -170,13 +170,13 @@ class _SignUp extends State<SignUpView> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Center(
-                child: Container(
+                child: SizedBox(
                   height: 225,
                   width: 130,
                   child: Image.asset("images/applogo.png"),
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               AuthTextField(
                 controller: _nameController,
                 labelText: AppLocalizations.of(context)!.userName,
@@ -229,20 +229,20 @@ class _SignUp extends State<SignUpView> {
                 onPressed: () => signUpValidation(_signUpBtnController),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppLocalizations.of(context)!.haveAccount,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                           color: appDesign.colorPrimary),
                     ),
                     TextButton(
                       onPressed: () {
-                        context.navigateTo(LoginView());
+                        context.navigateTo(const LoginView());
                       },
                       child: Text(AppLocalizations.of(context)!.logIn,
                           style: const TextStyle(

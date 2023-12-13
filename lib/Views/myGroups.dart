@@ -59,7 +59,9 @@ class _MyGroupsState extends State<MyGroups> {
             backgroundColor: appDesign.colorPrimaryLight,
             text: AppLocalizations.of(context)!.createGroup,
             onPressed: () {
-              context.navigateTo(const GroupCreateView());
+              context.navigateTo(GroupCreateView(
+                refresh: getUserGroups,
+              ));
             },
             icon: Icons.add_box_rounded,
           ),

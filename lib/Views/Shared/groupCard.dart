@@ -14,12 +14,14 @@ class GroupCard extends StatefulWidget {
   final bool isNotSubed;
   final Group groupInfo;
   final bool? isAdmin;
+  final Function? refresh;
 
   GroupCard(
       {Key? key,
       required this.isNotSubed,
       required this.groupInfo,
-      this.isAdmin})
+      this.isAdmin,
+      this.refresh})
       : super(key: key);
 
   @override
@@ -159,6 +161,9 @@ class _GroupCardState extends State<GroupCard> {
                                 Provider.of<UserData>(context, listen: false)
                                     .userInfo
                                     .id);
+                            if (widget.refresh != null) {
+                              widget.refresh!();
+                            }
                             setState(() {
                               isPressed = false;
                             });
