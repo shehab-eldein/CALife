@@ -1,3 +1,4 @@
+import 'package:canadianslife/Views/Shared/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,11 +11,15 @@ extension NavigationExtension on BuildContext {
 
   // Navigation
   void navigateTo(Widget screen) {
-    Navigator.push(
-      this,
+    Navigator.of(Constant.navigatorKey.currentState!.context).push(
       PageRouteBuilder(
         transitionDuration: Duration(milliseconds: 400),
-        pageBuilder: (context, animation, secondaryAnimation) => screen,
+        pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+            appBar: BaseAppBar(
+                appBar: AppBar(),
+                widgetContext: Constant.navigatorKey.currentState!.context,
+                showBackButton: true),
+            body: screen),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = Offset(1.0, 0.0);
           var end = Offset.zero;
@@ -30,6 +35,26 @@ extension NavigationExtension on BuildContext {
         },
       ),
     );
+    // Navigator.push(
+    // this,
+    // PageRouteBuilder(
+    //   transitionDuration: Duration(milliseconds: 400),
+    //   pageBuilder: (context, animation, secondaryAnimation) => screen,
+    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //     var begin = Offset(1.0, 0.0);
+    //     var end = Offset.zero;
+    //     var curve = Curves.easeInCirc;
+
+    //     var tween =
+    //         Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+    //     return SlideTransition(
+    //       position: animation.drive(tween),
+    //       child: child,
+    //     );
+    //   },
+    // ),
+    // );
   }
 
   void routeTo(String name) {

@@ -33,7 +33,7 @@ class _AuthenticationServiceState extends State<AuthenticationService> {
                 appBar: BaseAppBar(
                   appBar: AppBar(),
                   widgetContext: context,
-                  showBackButton: true,
+                  showBackButton: false,
                 ),
                 body: BottomNavigation());
       },

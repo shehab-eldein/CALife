@@ -19,6 +19,8 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     getTopics();
+    // getTopics(100012);
+    // getTopics(100013);
   }
 
   List<Topic>? topics;
@@ -30,6 +32,22 @@ class _HomeViewState extends State<HomeView> {
       topics = groupTopics;
     });
   }
+
+  // getTopics(int grouId) async {
+  //   var t = await TopicController().topicsGetByGroupId(
+  //       grouId, Provider.of<UserData>(context, listen: false).userInfo.id, 0);
+  //   setState(() {
+  //     if (topics == null) {
+  //       topics = t;
+  //     } else {
+  //       if (t != null) {
+  //         for (var e in t) {
+  //           topics!.add(e);
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
 
   loadMore() async {
     int lastLoaded = topics![topics!.length - 1].id;
@@ -69,17 +87,17 @@ class _HomeViewState extends State<HomeView> {
               : SizedBox(
                   height: Dimensions.screenHeight(context),
                   child: const Center(child: CircularProgressIndicator())),
-          topics != null && topics!.isNotEmpty
-              ? MaterialButton(
-                  onPressed: () {
-                    loadMore();
-                  },
-                  child: const Text(
-                    'Load More',
-                    style: TextStyle(color: Color(0xFF0A4D68)),
-                  ),
-                )
-              : const SizedBox()
+          // topics != null && topics!.isNotEmpty
+          //     ? MaterialButton(
+          //         onPressed: () {
+          //           loadMore();
+          //         },
+          //         child: const Text(
+          //           'Load More',
+          //           style: TextStyle(color: Color(0xFF0A4D68)),
+          //         ),
+          //       )
+          //     : const SizedBox()
         ],
       ),
     );

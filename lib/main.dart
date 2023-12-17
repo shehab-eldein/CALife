@@ -54,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     return Consumer<UserData>(builder: (context, userData, child) {
       return FlutterBootstrap5(
         builder: (ctx) => MaterialApp(
+          navigatorKey: Constant.navigatorKey,
           debugShowCheckedModeBanner: false,
           title: 'Canadians Life',
           localizationsDelegates: AppLocalizations.localizationsDelegates,

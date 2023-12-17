@@ -1,5 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,7 @@ class _Consultancy3State extends State<Consultancy3> {
 
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return ListView(
       children: [
         const SizedBox(height: 20),
@@ -67,7 +69,7 @@ class _Consultancy3State extends State<Consultancy3> {
           alignment: Alignment.center,
           child: Text(
             AppLocalizations.of(context)!.generalInfo,
-            style: TextStyle(
+            style: const TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -83,19 +85,19 @@ class _Consultancy3State extends State<Consultancy3> {
         const SizedBox(height: 20),
         cYesNo(
           context,
-          "هل لديك عرض عمل موثق من صاحب عمل كندي؟",
+          AppLocalizations.of(context)!.jobOffer,
           hasOffer,
           setHasOffer,
         ),
         cYesNo(
           context,
-          "هل لديك صديق مقرب يعيش في كندا يبلغ من العمر 18 عامًا أو أكبر؟",
+          AppLocalizations.of(context)!.hasFriend,
           hasFriend,
           setHasFriend,
         ),
         cYesNo(
           context,
-          "هل لديك أفراد أسرة أو أقارب يعيشون في كندا وتبلغ أعمارهم 18 عامًا أو أكثر؟",
+          AppLocalizations.of(context)!.hasFamily,
           hasFamily,
           setHasFamily,
         ),
@@ -103,9 +105,11 @@ class _Consultancy3State extends State<Consultancy3> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: layoutManager.mainHorizontalPadding()),
               child: Text(
-                "صافي ثروتك الشخصية (بالدولار الأمريكي)",
+                AppLocalizations.of(context)!.netWorth,
                 style: TextStyle(
                   fontFamily: '.SF Arabic',
                   color: appDesign.colorPrimary,
@@ -117,8 +121,7 @@ class _Consultancy3State extends State<Consultancy3> {
             ),
             ListTile(
               title: const Text(
-                'بين 10,000 \$ و 25,000 \$',
-                textAlign: TextAlign.right,
+                '10,000\$ - 25,000\$',
                 style: TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
@@ -138,8 +141,7 @@ class _Consultancy3State extends State<Consultancy3> {
             ),
             ListTile(
               title: const Text(
-                'بين 25,000 \$ و 100,000 \$',
-                textAlign: TextAlign.right,
+                '25,000\$ - 100,000\$',
                 style: TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
@@ -159,8 +161,7 @@ class _Consultancy3State extends State<Consultancy3> {
             ),
             ListTile(
               title: const Text(
-                'بين 100,000 \$ و 500,000 \$',
-                textAlign: TextAlign.right,
+                '100,000\$ - 500,000\$',
                 style: TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
@@ -180,8 +181,7 @@ class _Consultancy3State extends State<Consultancy3> {
             ),
             ListTile(
               title: const Text(
-                'بين 500,000 \$ و 1,000,000 \$',
-                textAlign: TextAlign.right,
+                '500,000\$ - 1,000,000\$',
                 style: TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
@@ -201,8 +201,7 @@ class _Consultancy3State extends State<Consultancy3> {
             ),
             ListTile(
               title: const Text(
-                'أكثر من 1,000,000 \$',
-                textAlign: TextAlign.right,
+                '1,000,000\$+',
                 style: TextStyle(
                   color: Color(0xFF474B51),
                   fontSize: 20,
@@ -224,7 +223,7 @@ class _Consultancy3State extends State<Consultancy3> {
         ),
         cYesNo(
           context,
-          "رسوم الاستشارة 200 دولار، هل أنت متأكد أنك تريد المتابعة؟",
+          AppLocalizations.of(context)!.fees,
           isAgree,
           setIsAgree,
         ),
@@ -243,8 +242,8 @@ class _Consultancy3State extends State<Consultancy3> {
                 // side: const BorderSide(color: Color(0x3F474B51), width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'السابق',
+              child: Text(
+                AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: appDesign.colorPrimary,

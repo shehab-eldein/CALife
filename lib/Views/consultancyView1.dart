@@ -78,32 +78,34 @@ class _Consultancy1State extends State<Consultancy1> {
           width: 50,
         ),
         const SizedBox(height: 20),
+        cTextField(context, fullName, AppLocalizations.of(context)!.fullName,
+            "", false),
         cTextField(
-            context, fullName, "الاسم بالكامل", "ادخل اسمك بالكامل", false),
-        cTextField(context, email, "البريد الإلكتروني",
-            "123456abcdefgh@linkyou.ca", true),
-        cTextField(context, age, "العمر (سنة)", "ادخل عمرك هنا", false),
-        cTextField(context, phone, "رقم التليفون", "1111111111111", true),
+            context, email, AppLocalizations.of(context)!.email, "", true),
+        cTextField(context, age, AppLocalizations.of(context)!.age, "", false),
         cTextField(
-            context, passportNo, "رقم جواز السفر", "ادخل رقم جواز سفرك", false),
-        cTextField(context, passportSource, "صادر من",
-            "ادخل جهة اصدار جواز سفرك هنا", false),
-        cTextField(context, passportCopy, "نسخة من جواز السفر",
-            "قم بالتقاط او تحميل صورة من جواز سفرك", false),
+            context, phone, AppLocalizations.of(context)!.phone, "", true),
+        cTextField(context, passportNo,
+            AppLocalizations.of(context)!.passportNumber, "", false),
+        cTextField(context, passportSource,
+            AppLocalizations.of(context)!.passportSource, "", false),
+        cTextField(context, passportCopy,
+            AppLocalizations.of(context)!.passportCopy, "", false),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 40),
+              minWidth: Dimensions.widthPercentage(context, 45),
               onPressed: () {},
               color: appDesign.colorPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'التقاط صورة',
+                    AppLocalizations.of(context)!.takePicture,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -125,7 +127,7 @@ class _Consultancy1State extends State<Consultancy1> {
               width: 15,
             ),
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 40),
+              minWidth: Dimensions.widthPercentage(context, 45),
               onPressed: () {},
               color: Colors.white,
               shape: RoundedRectangleBorder(
@@ -133,10 +135,10 @@ class _Consultancy1State extends State<Consultancy1> {
                 // side: const BorderSide(color: appDesign.colorUnhighlighted, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
-                    'رفع ملف',
+                    AppLocalizations.of(context)!.uploadFile,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: appDesign.colorPrimary,
@@ -156,10 +158,10 @@ class _Consultancy1State extends State<Consultancy1> {
             ),
           ],
         ),
-        cTextField(context, country, "بلد الإقامة",
-            "ادخل اسم البلد المقيم بها حالياً هنا", false),
-        cTextField(context, statue, "الحالة الإجتماعية",
-            "ادخل حالتك الإجتماعية هنا", false),
+        cTextField(context, country,
+            AppLocalizations.of(context)!.countryOfResidence, "", false),
+        cTextField(context, statue, AppLocalizations.of(context)!.martialStatus,
+            "", false),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -175,8 +177,8 @@ class _Consultancy1State extends State<Consultancy1> {
                     color: appDesign.colorUnhighlighted, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'السابق',
+              child: Text(
+                AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   // color: appDesign.colorPrimary,
@@ -202,8 +204,8 @@ class _Consultancy1State extends State<Consultancy1> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'التالي',
+              child: Text(
+                AppLocalizations.of(context)!.next,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,

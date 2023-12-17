@@ -81,15 +81,18 @@ class _Consultancy2State extends State<Consultancy2> {
         const SizedBox(height: 20),
         cYesNo(
           context,
-          "هل حصلت علي درجة البكالوريوس",
+          AppLocalizations.of(context)!.gotBachelor,
           hasBachelor,
           setHasBachelor,
         ),
-        cRate(context, "مهاراتك في اللغة الانجليزية:", writing, setWriting,
-            "الكتابة"),
-        cRate(context, "القراءة", reading, setReading, null),
-        cRate(context, "التحدث", speaking, setSpeaking, null),
-        cRate(context, "الاستماع", listening, setListening, null),
+        cRate(context, AppLocalizations.of(context)!.englishSkills, writing,
+            setWriting, AppLocalizations.of(context)!.writing),
+        cRate(context, AppLocalizations.of(context)!.reading, reading,
+            setReading, null),
+        cRate(context, AppLocalizations.of(context)!.speaking, speaking,
+            setSpeaking, null),
+        cRate(context, AppLocalizations.of(context)!.listening, listening,
+            setListening, null),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -104,8 +107,8 @@ class _Consultancy2State extends State<Consultancy2> {
                 side: const BorderSide(color: appDesign.colorPrimary, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'السابق',
+              child: Text(
+                AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: appDesign.colorPrimary,
@@ -129,8 +132,8 @@ class _Consultancy2State extends State<Consultancy2> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'التالي',
+              child: Text(
+                AppLocalizations.of(context)!.next,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,

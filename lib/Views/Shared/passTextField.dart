@@ -32,19 +32,19 @@ class _PassTextFieldState extends State<PassTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             AppLocalizations.of(context)!.password,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 17,
                 color: appDesign.colorPrimary,
                 fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
-          Container(
+          const SizedBox(height: 8),
+          SizedBox(
             height: 50,
             child: TextField(
               textAlignVertical: TextAlignVertical.top,
@@ -58,12 +58,12 @@ class _PassTextFieldState extends State<PassTextField> {
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                       color: Colors.grey), // Border color when not focused
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(color: appDesign.colorPrimary),
+                  borderSide: const BorderSide(color: appDesign.colorPrimary),
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(

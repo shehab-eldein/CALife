@@ -2,6 +2,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget cTextField(
   BuildContext context,
@@ -20,7 +21,7 @@ Widget cTextField(
           Text(
             title,
             style: TextStyle(
-              fontFamily: '.SF Arabic',
+              fontFamily: ".SF Arabic",
               color: appDesign.colorPrimary,
               fontSize: Dimensions.fontSize(context, 1.7),
               fontWeight: FontWeight.w600,
@@ -30,7 +31,7 @@ Widget cTextField(
           Text(
             isRequired ? "*" : "",
             style: TextStyle(
-              fontFamily: '.SF Arabic',
+              fontFamily: ".SF Arabic",
               color: Colors.red,
               fontSize: Dimensions.fontSize(context, 1.7),
               fontWeight: FontWeight.w600,
@@ -44,7 +45,7 @@ Widget cTextField(
         keyboardType: TextInputType.text,
         controller: controller,
         style: TextStyle(
-          fontFamily: '.SF Arabic',
+          fontFamily: ".SF Arabic",
           fontSize: Dimensions.fontSize(context, 1.2),
         ),
         decoration: InputDecoration(
@@ -69,7 +70,7 @@ Widget cYesNo(
         child: Text(
           title,
           style: TextStyle(
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             color: appDesign.colorPrimary,
             fontSize: Dimensions.fontSize(context, 1.7),
             fontWeight: FontWeight.w600,
@@ -79,13 +80,12 @@ Widget cYesNo(
       ),
       const SizedBox(height: 15),
       ListTile(
-        title: const Text(
-          'نعم',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.yes,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -100,13 +100,12 @@ Widget cYesNo(
         ),
       ),
       ListTile(
-        title: const Text(
-          'لا',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.no,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -136,7 +135,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         child: Text(
           title,
           style: TextStyle(
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             color: appDesign.colorPrimary,
             fontSize: Dimensions.fontSize(context, 1.7),
             fontWeight: FontWeight.w600,
@@ -152,7 +151,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
               child: Text(
                 subTitle,
                 style: TextStyle(
-                  fontFamily: '.SF Arabic',
+                  fontFamily: ".SF Arabic",
                   color: appDesign.colorPrimary,
                   fontSize: Dimensions.fontSize(context, 1.7),
                   fontWeight: FontWeight.w600,
@@ -163,13 +162,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
           : const SizedBox(),
       const SizedBox(height: 0),
       ListTile(
-        title: const Text(
-          'خبير',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option5,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -184,13 +182,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
-        title: const Text(
-          'جيد جداً',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option4,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -205,13 +202,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
-        title: const Text(
-          'جيد',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option3,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -226,13 +222,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
-        title: const Text(
-          'متواضع',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option2,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -247,13 +242,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
-        title: const Text(
-          'محدود',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option1,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),
@@ -268,13 +262,12 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
-        title: const Text(
-          'لا شئ علي الإطلاق',
-          textAlign: TextAlign.right,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.option0,
+          style: const TextStyle(
             color: Color(0xFF474B51),
             fontSize: 20,
-            fontFamily: '.SF Arabic',
+            fontFamily: ".SF Arabic",
             fontWeight: FontWeight.w500,
             height: 0.08,
           ),

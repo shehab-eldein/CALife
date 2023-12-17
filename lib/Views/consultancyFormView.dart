@@ -91,71 +91,68 @@ class _ConsultancyViewState extends State<ConsultancyView> {
     final layoutManager = LayoutManager(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                  // layoutManager.valuesHandler(48, 38, 220, 220)
-                  0,
-                  layoutManager.valuesHandler(40, 40, 20, 20),
-                  0,
-                  0),
-              child: SizedBox(
-                height: 10,
-                width: context.screenWidth,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: context.screenWidth * 0.3,
-                      height: 10,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(5),
-                          color: _currentPage == index
-                              ? appDesign.colorPrimary
-                              : Colors.white,
-                          border: Border.all(
-                              color: appDesign.colorPrimary, width: 1)),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              child: PageView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+                // layoutManager.valuesHandler(48, 38, 220, 220)
+                0,
+                layoutManager.valuesHandler(40, 40, 20, 20),
+                0,
+                0),
+            child: SizedBox(
+              height: 10,
+              width: context.screenWidth,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
                 itemCount: 3,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
                 itemBuilder: (context, index) {
-                  return index == 0
-                      ? Consultancy1(
-                          nextPage: nextPage,
-                        )
-                      : index == 1
-                          ? Consultancy2(
-                              nextPage: nextPage,
-                              prevPage: prevPage,
-                            )
-                          : Consultancy3(
-                              submit: submit,
-                              prevPage: prevPage,
-                            );
+                  return Container(
+                    width: context.screenWidth * 0.3,
+                    height: 10,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5),
+                        color: _currentPage == index
+                            ? appDesign.colorPrimary
+                            : Colors.white,
+                        border: Border.all(
+                            color: appDesign.colorPrimary, width: 1)),
+                  );
                 },
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              itemCount: 3,
+              onPageChanged: (int page) {
+                setState(() {
+                  _currentPage = page;
+                });
+              },
+              itemBuilder: (context, index) {
+                return index == 0
+                    ? Consultancy1(
+                        nextPage: nextPage,
+                      )
+                    : index == 1
+                        ? Consultancy2(
+                            nextPage: nextPage,
+                            prevPage: prevPage,
+                          )
+                        : Consultancy3(
+                            submit: submit,
+                            prevPage: prevPage,
+                          );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

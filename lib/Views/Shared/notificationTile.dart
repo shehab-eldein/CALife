@@ -71,7 +71,7 @@ class _NotificationTileState extends State<NotificationTile> {
       subtitle: widget.notification.notifType == 0 ||
               widget.notification.notifType == 1
           ? Text(
-              '${widget.notification.topic!.title.substring(0, 21)}...',
+              '${widget.notification.topic!.title.length > 21 ? widget.notification.topic!.title.substring(0, 21) : widget.notification.topic!.title}...',
               style: const TextStyle(
                 color: appDesign.colorAccentDarker,
                 fontFamily: '.SF Arabic',
@@ -122,8 +122,9 @@ class _NotificationTileState extends State<NotificationTile> {
                   child: FadeInImage(
                     height: 45,
                     width: 45,
-                    image: NetworkImage(
-                        '${Constant.baseURL}imgusers/${widget.notification.fromUserName}.jpg'),
+                    image: const AssetImage('images/person.png'),
+                    // image: NetworkImage(
+                    //     '${Constant.baseURL}imgusers/${widget.notification.fromUserName}.jpg'),
                     placeholder: const AssetImage(
                       'images/person.png',
                     ),

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../Managers/LayoutManager.dart';
-import 'Shared/addPostPopUp.dart';
 import 'Shared/postCard.dart';
 
 class AdilAwdah extends StatefulWidget {
@@ -29,11 +28,11 @@ class _AdilAwdahState extends State<AdilAwdah> {
       const AdilAwdahTopicsPage(),
       const GroupInfoPage(
         info:
-            'هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص.',
+            'ارشادات الجروب الرسمى للحياة فى كندا مع عادل عوضة ستجد النصائح التى تحاجها عن كندا',
       ),
       const GroupInfoPage(
         info:
-            'هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص.',
+            'الجروب الرسمى للحياة فى كندا مع عادل عوضة ستجد النصائح التى تحاجها عن كندا',
       )
     ];
     List<String> chips = [
@@ -82,7 +81,7 @@ class _AdilAwdahState extends State<AdilAwdah> {
                   horizontal: layoutManager.mainHorizontalPadding(),
                 ),
                 child: const Text(
-                  'الحياة في كندا مع عادل عوضة',
+                  'الحياة في كندا مع عادل عوضه',
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: Color(0xFF474B51),
@@ -97,8 +96,8 @@ class _AdilAwdahState extends State<AdilAwdah> {
             padding: EdgeInsets.symmetric(
                 horizontal: layoutManager.mainHorizontalPadding(), vertical: 5),
             child: const Text(
-              'هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص، هنا يظهر النص.',
-              textAlign: TextAlign.right,
+              'الجروب الرسمى للحياة فى كندا مع عادل عوضة ستجد النصائح التى تحاجها عن كندا',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color(0xBF474B51),
                   fontSize: 17,
@@ -175,11 +174,18 @@ class _AdilAwdahTopicsPageState extends State<AdilAwdahTopicsPage> {
   List<Topic>? topics;
   bool isLoading = true;
 
+  // getTopics() async {
+  //   topics = await TopicController().topicsGetAdilAwdah(
+  //       Provider.of<UserData>(context, listen: false).userInfo.userType ?? 1,
+  //       Provider.of<UserData>(context, listen: false).userInfo.id,
+  //       0);
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  // }
   getTopics() async {
-    topics = await TopicController().topicsGetAdilAwdah(
-        Provider.of<UserData>(context, listen: false).userInfo.userType ?? 1,
-        Provider.of<UserData>(context, listen: false).userInfo.id,
-        0);
+    topics = await TopicController().topicsGetByGroupId(
+        100013, Provider.of<UserData>(context, listen: false).userInfo.id, 0);
     setState(() {
       isLoading = false;
     });
@@ -202,9 +208,11 @@ class _AdilAwdahTopicsPageState extends State<AdilAwdahTopicsPage> {
                       child: Text(AppLocalizations.of(context)!.noPostsFound))
                   : Column(
                       children: [
-                        ...topics!.map((e) => Post(
-                              topicInfo: e,
-                            )),
+                        ...topics!.map(
+                          (e) => Post(
+                            topicInfo: e,
+                          ),
+                        ),
                       ],
                     ),
         ],
