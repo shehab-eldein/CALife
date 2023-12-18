@@ -109,11 +109,13 @@ class _AddPostPopupState extends State<AddPostPopup> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            ...imageFiles.map((e) => Image.memory(
-                                  base64Decode(e),
-                                  width: 150,
-                                  height: 200,
-                                ))
+                            ...imageFiles.map(
+                              (e) => Image.memory(
+                                base64Decode(e),
+                                height: 200,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            )
                           ],
                         ),
                         // child: ListView.builder(

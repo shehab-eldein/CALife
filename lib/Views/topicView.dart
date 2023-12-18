@@ -7,9 +7,8 @@ import 'package:canadianslife/Models/TopicComment.dart';
 import 'package:canadianslife/Models/TopicImage.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/commentCard.dart';
-import 'package:canadianslife/Views/Shared/topicImages.dart';
+import 'package:canadianslife/Views/Shared/staggeredGridImages.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -197,12 +196,14 @@ class _TopicViewState extends State<TopicView> {
                 ],
               ),
             ),
-            SizedBox(
-              child: images!.isEmpty
-                  ? null
-                  : TopicImages(images: topicInfo.images!),
+            // SizedBox(
+            //   child: images!.isEmpty
+            //       ? null
+            //       : TopicImages(images: topicInfo.images!),
+            // ),
+            StaggeredGridImages(
+              images: topicInfo.images!,
             ),
-
             // SizedBox(
             //   height: 300,
             //   width: double.infinity,
@@ -215,8 +216,18 @@ class _TopicViewState extends State<TopicView> {
             //         crossAxisCellCount: 2,
             //         mainAxisCellCount: 3,
             //         child: GestureDetector(
-            //           child: Container(
-            //             color: Colors.red,
+            //           child: AspectRatio(
+            //             aspectRatio: 3 / 2,
+            //             child: FadeInImage.assetNetwork(
+            //               image:
+            //                   '${Constant.baseURL}imgtopics/${topicInfo.images![0].id}.jpg',
+            //               placeholder: 'images/placeholder.png',
+            //               imageErrorBuilder: (context, error, stackTrace) {
+            //                 return Image.asset('images/placeholder.png',
+            //                     fit: BoxFit.cover);
+            //               },
+            //               fit: BoxFit.cover,
+            //             ),
             //           ),
             //           onTap: () {
             //             print("Click on red one");

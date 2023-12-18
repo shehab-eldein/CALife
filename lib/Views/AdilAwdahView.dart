@@ -1,10 +1,8 @@
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
-import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/GroupInfoPage.dart';
-import 'package:canadianslife/Views/GroupTopicsPage.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

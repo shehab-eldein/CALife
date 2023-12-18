@@ -2,6 +2,7 @@ import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
+import 'package:canadianslife/Views/Shared/staggeredGridImages.dart';
 import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -130,20 +131,23 @@ class _PostState extends State<Post> {
                   ),
                 ),
                 widget.topicInfo.images!.isNotEmpty
-                    ? AspectRatio(
-                        aspectRatio: 9 / 6,
-                        child: FadeInImage.assetNetwork(
-                          image:
-                              '${Constant.baseURL}imgtopics/${widget.topicInfo.images![0].id}.jpg',
-                          placeholder: 'images/placeholder.png',
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return Image.asset('images/placeholder.png',
-                                fit: BoxFit.cover);
-                          },
-                          fit: BoxFit.cover,
-                        ),
-                      )
+                    ? StaggeredGridImages(images: widget.topicInfo.images!)
                     : const SizedBox(),
+                // widget.topicInfo.images!.isNotEmpty
+                //     ? AspectRatio(
+                //         aspectRatio: 9 / 6,
+                //         child: FadeInImage.assetNetwork(
+                //           image:
+                //               '${Constant.baseURL}imgtopics/${widget.topicInfo.images![0].id}.jpg',
+                //           placeholder: 'images/placeholder.png',
+                //           imageErrorBuilder: (context, error, stackTrace) {
+                //             return Image.asset('images/placeholder.png',
+                //                 fit: BoxFit.cover);
+                //           },
+                //           fit: BoxFit.cover,
+                //         ),
+                //       )
+                //     : const SizedBox(),
                 // SizedBox(
                 //   height: 300,
                 //   width: double.infinity,

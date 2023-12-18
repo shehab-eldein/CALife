@@ -92,8 +92,8 @@ class _MySettingsViewState extends State<MySettingsView> {
               ],
               borderColor: const [appDesign.colorAccent],
               borderWidth: 4,
-              minHeight: 35,
-              minWidth: 80.0,
+              minHeight: 25,
+              minWidth: 60.0,
               cornerRadius: 20.0,
               activeBgColors: const [
                 [appDesign.colorAccent],

@@ -4,6 +4,7 @@ import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -62,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       layoutManager.valuesHandler(50, 50, 25, 25),
                       0,
                       0),
-                  child: Container(
+                  child: SizedBox(
                     height: 10,
                     width: context.screenWidth,
                     child: ListView.builder(
@@ -72,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         return Container(
                           width: context.screenWidth * 0.3,
                           height: 10,
-                          margin: EdgeInsets.symmetric(horizontal: 4),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular(5),
@@ -103,7 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 50),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -112,7 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           visible: _currentPage != _onboardingData.length - 1,
                           child: CustomTextButton(
                             textColor: Colors.grey,
-                            text: "Skip",
+                            text: AppLocalizations.of(context)!.skip,
                             backgroundColor: Colors.white,
                             onPressed: () {
                               setState(() {
@@ -128,19 +129,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: CustomTextButton(
                             backgroundColor: appDesign.colorPrimary,
                             // text: _currentPage == _onboardingData.length - 1 ? 'Sign Up' : 'Next',
-                            text: 'Next',
+                            text: AppLocalizations.of(context)!.next,
                             onPressed: () {
                               setState(() {
                                 if (_currentPage ==
                                     _onboardingData.length - 1) {
                                   // Handle sign up button action
                                   // e.g., navigate to sign up screen or perform any other desired action
-                                  context.navigateTo(const SplashView());
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SplashView()));
+                                  // context.navigateTo(const SplashView());
                                 } else {
                                   _currentPage++;
                                   _pageController.animateToPage(
                                     _currentPage,
-                                    duration: Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
                                     curve: Curves.easeInOut,
                                   );
                                 }
@@ -180,7 +185,7 @@ class OnboardingPage extends StatelessWidget {
           height: 200,
           width: 200,
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
           data.title,
           style: const TextStyle(
