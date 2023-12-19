@@ -13,28 +13,31 @@ class TopicImages extends StatefulWidget {
 
 class _TopicImagesState extends State<TopicImages> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateIndex(widget.initial.toString());
+  }
+
+  String currentIndex = "";
+  updateIndex(String value) {
+    setState(() {
+      currentIndex = value;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     PageController controller = PageController(initialPage: widget.initial);
-    int currentIndex = widget.initial;
     List images = widget.images;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(
-          onPressed: () {
-            controller.previousPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeIn);
-          },
-          icon: const Icon(Icons.arrow_upward),
-        ),
         SizedBox(
           height: 300,
           child: PageView.builder(
             onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
+              updateIndex(index.toString());
             },
             scrollDirection: Axis.vertical,
             controller: controller,
@@ -60,14 +63,6 @@ class _TopicImagesState extends State<TopicImages> {
         Text(
           "$currentIndex / ${images.length}",
           textDirection: TextDirection.ltr,
-        ),
-        IconButton(
-          onPressed: () {
-            controller.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeIn);
-          },
-          icon: const Icon(Icons.arrow_downward),
         ),
       ],
     );

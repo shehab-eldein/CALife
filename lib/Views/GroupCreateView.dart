@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupCreateView extends StatefulWidget {
-  const GroupCreateView({super.key, this.refresh});
-  final Function? refresh;
+  const GroupCreateView({super.key, required this.refresh});
+  final Function refresh;
 
   @override
   State<GroupCreateView> createState() => _GroupCreateViewState();
@@ -25,7 +25,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
   String? image;
   bool isPressed = false;
 
-  void createGroup() async {
+  createGroup() async {
     setState(() {
       isPressed = true;
     });
@@ -38,6 +38,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
       Provider.of<UserData>(context, listen: false).userInfo.id,
       image ?? "image",
     );
+    widget.refresh();
     Navigator.pop(context);
   }
 
@@ -289,11 +290,8 @@ class _GroupCreateViewState extends State<GroupCreateView> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            onPressed: () {
+            onPressed: () async {
               createGroup();
-              if (widget.refresh != null) {
-                widget.refresh!();
-              }
             },
             child: isPressed
                 ? const Padding(

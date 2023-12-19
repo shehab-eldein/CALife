@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 
 class Post extends StatefulWidget {
   final Topic topicInfo;
+  final bool hideGroupBtn;
   Post({
     Key? key,
     required this.topicInfo,
+    this.hideGroupBtn = false,
   }) : super(key: key);
 
   @override
@@ -77,7 +79,7 @@ class _PostState extends State<Post> {
                 Align(
                   alignment: isArabic ? Alignment.topLeft : Alignment.topRight,
                   child: Text("10 ${isArabic ? "د" : "m"}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,
                         fontSize: 13,
@@ -133,89 +135,6 @@ class _PostState extends State<Post> {
                 widget.topicInfo.images!.isNotEmpty
                     ? StaggeredGridImages(images: widget.topicInfo.images!)
                     : const SizedBox(),
-                // widget.topicInfo.images!.isNotEmpty
-                //     ? AspectRatio(
-                //         aspectRatio: 9 / 6,
-                //         child: FadeInImage.assetNetwork(
-                //           image:
-                //               '${Constant.baseURL}imgtopics/${widget.topicInfo.images![0].id}.jpg',
-                //           placeholder: 'images/placeholder.png',
-                //           imageErrorBuilder: (context, error, stackTrace) {
-                //             return Image.asset('images/placeholder.png',
-                //                 fit: BoxFit.cover);
-                //           },
-                //           fit: BoxFit.cover,
-                //         ),
-                //       )
-                //     : const SizedBox(),
-                // SizedBox(
-                //   height: 300,
-                //   width: double.infinity,
-                //   child: StaggeredGrid.count(
-                //     crossAxisCount: 5,
-                //     mainAxisSpacing: 5,
-                //     crossAxisSpacing: 2,
-                //     children: [
-                //       StaggeredGridTile.count(
-                //         crossAxisCellCount: 2,
-                //         mainAxisCellCount: 3,
-                //         child: GestureDetector(
-                //           child: Container(
-                //             color: Colors.red,
-                //           ),
-                //           onTap: () {
-                //             print("Click on red one");
-                //           },
-                //         ),
-                //       ),
-                //       StaggeredGridTile.count(
-                //         crossAxisCellCount: 3,
-                //         mainAxisCellCount: 2,
-                //         child: Container(
-                //           color: Colors.green,
-                //         ),
-                //       ),
-                //       StaggeredGridTile.count(
-                //         crossAxisCellCount: 3,
-                //         mainAxisCellCount: 1,
-                //         child: Container(
-                //           color: Colors.yellow,
-                //         ),
-                //       ),
-                //       StaggeredGridTile.count(
-                //           crossAxisCellCount: 2,
-                //           mainAxisCellCount: 2,
-                //           child: Container(
-                //             color: Colors.purple,
-                //             child: const Stack(
-                //               children: [
-                //                 Padding(
-                //                   padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                //                   child: Center(
-                //                     child: Text(
-                //                       "2+",
-                //                       style: TextStyle(
-                //                         color: Colors.white,
-                //                         fontSize: 30,
-                //                         fontWeight: FontWeight.bold,
-                //                       ),
-                //                     ),
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           )),
-                //       StaggeredGridTile.count(
-                //         crossAxisCellCount: 3,
-                //         mainAxisCellCount: 2,
-                //         child: Container(
-                //           color: Colors.grey,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                //   // child: Image(image: AssetImage("images/placeholder.png")),
-                // ),
 
                 // const Padding(
                 //   padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -237,34 +156,37 @@ class _PostState extends State<Post> {
                 //     ],
                 //   ),
                 // ),
-                InkWell(
-                  onTap: () {
-                    context
-                        .navigateTo(GroupDetails(groupInfo: topicInfo.group!));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, right: 5, left: 5),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.groups,
-                          color: appDesign.colorAccentDarker,
-                        ),
-                        const SizedBox(width: 15),
-                        Text(
-                          topicInfo.group!.name,
-                          style: const TextStyle(
-                            color: appDesign.colorAccentDarker,
-                            fontSize: 13,
-                            fontFamily: '.SF Arabic',
-                            fontWeight: FontWeight.w600,
-                            height: 0.12,
+                widget.hideGroupBtn
+                    ? const SizedBox()
+                    : InkWell(
+                        onTap: () {
+                          context.navigateTo(
+                              GroupDetails(groupInfo: topicInfo.group!));
+                        },
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 8, right: 5, left: 5),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.groups,
+                                color: appDesign.colorAccentDarker,
+                              ),
+                              const SizedBox(width: 15),
+                              Text(
+                                topicInfo.group!.name,
+                                style: const TextStyle(
+                                  color: appDesign.colorAccentDarker,
+                                  fontSize: 13,
+                                  fontFamily: '.SF Arabic',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.12,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
                 Divider(
                   color: Colors.grey.shade300,
                   thickness: 1,
@@ -316,25 +238,25 @@ class _PostState extends State<Post> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.share),
-                          color: appDesign.colorPrimaryDark,
-                        ),
-                        const Text(
-                          '99',
-                          style: TextStyle(
-                            color: Color(0xFF676D7A),
-                            fontSize: 15,
-                            fontFamily: 'SF Pro',
-                            fontWeight: FontWeight.w500,
-                            height: 0.09,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     IconButton(
+                    //       onPressed: () {},
+                    //       icon: const Icon(Icons.share),
+                    //       color: appDesign.colorPrimaryDark,
+                    //     ),
+                    //     const Text(
+                    //       '99',
+                    //       style: TextStyle(
+                    //         color: Color(0xFF676D7A),
+                    //         fontSize: 15,
+                    //         fontFamily: 'SF Pro',
+                    //         fontWeight: FontWeight.w500,
+                    //         height: 0.09,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ],

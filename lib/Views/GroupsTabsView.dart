@@ -203,6 +203,7 @@ class GroupsViewState extends State<GroupsTabsView>
                                   (e) => GroupCard(
                                     isNotSubed: false,
                                     groupInfo: e,
+                                    refresh: refresh,
                                   ),
                                 ),
                               ],

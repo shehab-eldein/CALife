@@ -133,6 +133,26 @@ class TopicController {
     }
   }
 
+  Future<List<Topic>?> topicsGetByUserId(int userId, int loadingId) async {
+    try {
+      List<Topic> topics = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.topic}TopicsGetByUserId?userId=$userId&loadingId=$loadingId',
+        body: null,
+        fromJson: (json) => List<Topic>.from(
+          json.map(
+            (item) => Topic.fromJson(item),
+          ),
+        ),
+      );
+      print(topics.toString());
+      return topics;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future<bool> topicLikeAdd(int topicId, int userId) async {
     try {
       bool res = await _networkManager.postRequest(

@@ -1,20 +1,117 @@
+import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/GroupInfoPage.dart';
 import 'package:canadianslife/Views/GroupTopicsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../Managers/LayoutManager.dart';
 
 class GroupDetails extends StatefulWidget {
-  const GroupDetails({Key? key, required this.groupInfo}) : super(key: key);
+  const GroupDetails({Key? key, required this.groupInfo, this.refresh})
+      : super(key: key);
   final Group groupInfo;
+  final Function? refresh;
   @override
   State<GroupDetails> createState() => _GroupDetailsState();
 }
 
 class _GroupDetailsState extends State<GroupDetails> {
   int selection = 0;
+  bool isLoading = false;
+
+  showAppDialog() {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: 110,
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  onPressed: () async {
+                    if (isLoading == false) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await exitGroup();
+                      if (widget.refresh != null) {
+                        widget.refresh!();
+                      }
+                      setState(() {
+                        isLoading = false;
+                      });
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pop();
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: isLoading == true
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Wrap(
+                          spacing: 10,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.exit_to_app,
+                            ),
+                            Text(
+                              'الخروج من المجموعة',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF474B51),
+                                fontSize: 18,
+                                fontFamily: '.SF Arabic',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                ),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Text(
+                    'الغاء',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 18,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  exitGroup() async {
+    await GroupController().removeUserFromGroup(widget.groupInfo.id,
+        Provider.of<UserData>(context, listen: false).userInfo.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +174,9 @@ class _GroupDetailsState extends State<GroupDetails> {
                 CircleAvatar(
                   backgroundColor: const Color(0xFFF5F5F5),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showAppDialog();
+                    },
                     icon: const Icon(Icons.more_horiz),
                   ),
                 ),

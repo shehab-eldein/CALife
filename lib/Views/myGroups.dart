@@ -29,6 +29,10 @@ class _MyGroupsState extends State<MyGroups> {
   bool isLoading = true;
 
   getUserGroups() async {
+    print("Getting User Groups");
+    setState(() {
+      isLoading = true;
+    });
     groups = await GroupController().getUserGroups(
         Provider.of<UserData>(context, listen: false).userInfo.id);
     setState(() {

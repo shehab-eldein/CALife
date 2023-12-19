@@ -72,7 +72,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           topics != null
               ? topics!.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: NotFoundView(
                         isNoGroups: false,
                       ),

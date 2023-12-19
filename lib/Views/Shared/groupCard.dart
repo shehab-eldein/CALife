@@ -223,6 +223,7 @@ class _GroupCardState extends State<GroupCard> {
                                 : context.navigateTo(
                                     GroupDetails(
                                       groupInfo: widget.groupInfo,
+                                      refresh: widget.refresh,
                                     ),
                                   );
                           },

@@ -196,11 +196,6 @@ class _TopicViewState extends State<TopicView> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   child: images!.isEmpty
-            //       ? null
-            //       : TopicImages(images: topicInfo.images!),
-            // ),
             StaggeredGridImages(
               images: topicInfo.images!,
             ),
@@ -366,30 +361,30 @@ class _TopicViewState extends State<TopicView> {
                       ),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_outline_rounded),
-                    color: appDesign.colorPrimaryDark,
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.share),
-                        color: appDesign.colorPrimaryDark,
-                      ),
-                      const Text(
-                        '99',
-                        style: TextStyle(
-                          color: Color(0xFF676D7A),
-                          fontSize: 15,
-                          fontFamily: 'SF Pro',
-                          fontWeight: FontWeight.w500,
-                          height: 0.09,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: const Icon(Icons.bookmark_outline_rounded),
+                  //   color: appDesign.colorPrimaryDark,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     IconButton(
+                  //       onPressed: () {},
+                  //       icon: const Icon(Icons.share),
+                  //       color: appDesign.colorPrimaryDark,
+                  //     ),
+                  //     const Text(
+                  //       '99',
+                  //       style: TextStyle(
+                  //         color: Color(0xFF676D7A),
+                  //         fontSize: 15,
+                  //         fontFamily: 'SF Pro',
+                  //         fontWeight: FontWeight.w500,
+                  //         height: 0.09,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

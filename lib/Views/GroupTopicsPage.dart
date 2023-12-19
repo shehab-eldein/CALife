@@ -116,6 +116,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
                       children: [
                         ...topics!.map((e) => Post(
                               topicInfo: e,
+                              hideGroupBtn: true,
                             )),
                       ],
                     ),
