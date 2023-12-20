@@ -1,3 +1,4 @@
+import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
@@ -10,8 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GroupTopicsPage extends StatefulWidget {
-  const GroupTopicsPage({super.key, required this.groupId});
+  const GroupTopicsPage(
+      {super.key,
+      required this.groupId,
+      required this.isNotSubed,
+      this.refresh});
   final int groupId;
+  final Function? refresh;
+  final bool isNotSubed;
 
   @override
   State<GroupTopicsPage> createState() => _GroupTopicsPageState();
@@ -24,11 +31,21 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
     getTopics();
   }
 
-  refresh() {
+  refresh() async {
     setState(() {
       isLoading = true;
-      getTopics();
     });
+    if (widget.isNotSubed) {
+      await GroupController().subscribeToGroup(widget.groupId,
+          Provider.of<UserData>(context, listen: false).userInfo.id);
+      const snackBar = SnackBar(
+        content: Text('تم النشر و الاشتراك بالمجموعة'),
+      );
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      widget.refresh!();
+    }
+    getTopics();
   }
 
   void showAddPostPopup(BuildContext context) {
@@ -45,10 +62,17 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
 
   List<Topic>? topics;
   bool isLoading = true;
+  TextEditingController controller = TextEditingController();
 
   getTopics() async {
-    topics = await TopicController().topicsGetByGroupId(widget.groupId,
-        Provider.of<UserData>(context, listen: false).userInfo.id, 0);
+    setState(() {
+      isLoading = true;
+    });
+    topics = await TopicController().topicsGetByGroupId(
+        widget.groupId,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        controller.text,
+        0);
     setState(() {
       isLoading = false;
     });
@@ -62,7 +86,10 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
           horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
       child: Column(
         children: [
-          CustomSearchBar(hintText: AppLocalizations.of(context)!.searchTopics),
+          CustomSearchBar(
+              controller: controller,
+              onSearchPressed: getTopics,
+              hintText: AppLocalizations.of(context)!.searchTopics),
           const SizedBox(height: 10),
           SizedBox(
             height: 50,
@@ -109,7 +136,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
           ),
           isLoading
               ? const Center(child: CircularProgressIndicator())
-              : topics!.isEmpty
+              : topics != null && topics!.isEmpty
                   ? Center(
                       child: Text(AppLocalizations.of(context)!.noPostsFound))
                   : Column(

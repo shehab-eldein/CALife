@@ -224,6 +224,7 @@ class _GroupCardState extends State<GroupCard> {
                                     GroupDetails(
                                       groupInfo: widget.groupInfo,
                                       refresh: widget.refresh,
+                                      isNotSubed: widget.isNotSubed,
                                     ),
                                   );
                           },

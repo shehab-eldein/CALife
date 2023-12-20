@@ -9,10 +9,15 @@ import 'package:provider/provider.dart';
 import '../Managers/LayoutManager.dart';
 
 class GroupDetails extends StatefulWidget {
-  const GroupDetails({Key? key, required this.groupInfo, this.refresh})
+  const GroupDetails(
+      {Key? key,
+      required this.groupInfo,
+      this.refresh,
+      required this.isNotSubed})
       : super(key: key);
   final Group groupInfo;
   final Function? refresh;
+  final bool isNotSubed;
   @override
   State<GroupDetails> createState() => _GroupDetailsState();
 }
@@ -124,6 +129,8 @@ class _GroupDetailsState extends State<GroupDetails> {
     List pages = [
       GroupTopicsPage(
         groupId: widget.groupInfo.id,
+        isNotSubed: widget.isNotSubed,
+        refresh: widget.refresh,
       ),
       GroupInfoPage(info: widget.groupInfo.guide ?? "No Guide"),
       GroupInfoPage(info: widget.groupInfo.description ?? "No Description")

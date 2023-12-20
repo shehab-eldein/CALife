@@ -1,9 +1,9 @@
 import 'package:canadianslife/Controllers/UserController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Notification.dart';
 import 'package:canadianslife/Views/Shared/notificationTile.dart';
-import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,9 @@ class _NotificationsViewState extends State<NotificationsView> {
     notifications = await UserController().getUserNotifications(
         Provider.of<UserData>(context, listen: false).userInfo.id);
     for (var element in notifications) {
-      notify(element.id);
+      if (element.isNotified == false) {
+        notify(element.id);
+      }
     }
     setState(() {
       isLoading = false;
@@ -43,9 +45,9 @@ class _NotificationsViewState extends State<NotificationsView> {
     return ListView(
       children: [
         isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? SizedBox(
+                height: Dimensions.screenHeight(context),
+                child: const Center(child: CircularProgressIndicator()))
             : Column(
                 children: [
                   ...notifications.map((e) {
@@ -53,14 +55,6 @@ class _NotificationsViewState extends State<NotificationsView> {
                   })
                 ],
               ),
-        MaterialButton(
-          onPressed: () {
-            context.navigateTo(
-              const ConsultancyView(),
-            );
-          },
-          child: const Text("Consultancy View"),
-        ),
       ],
     );
   }

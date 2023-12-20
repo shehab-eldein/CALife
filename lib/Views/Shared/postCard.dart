@@ -57,6 +57,12 @@ class _PostState extends State<Post> {
           });
   }
 
+  updateCommentsNo(no) {
+    setState(() {
+      topicInfo.commentsNo = no;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // LayoutManager layoutManager = LayoutManager(context);
@@ -160,8 +166,10 @@ class _PostState extends State<Post> {
                     ? const SizedBox()
                     : InkWell(
                         onTap: () {
-                          context.navigateTo(
-                              GroupDetails(groupInfo: topicInfo.group!));
+                          context.navigateTo(GroupDetails(
+                            groupInfo: topicInfo.group!,
+                            isNotSubed: false,
+                          ));
                         },
                         child: Padding(
                           padding:
@@ -221,7 +229,11 @@ class _PostState extends State<Post> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            context.navigateTo(TopicView(topicInfo: topicInfo));
+                            context.navigateTo(TopicView(
+                              topicInfo: topicInfo,
+                              toggleLike: toggleLike,
+                              updateCommentsNo: updateCommentsNo,
+                            ));
                           },
                           icon: const Icon(Icons.message_outlined),
                           color: appDesign.colorPrimaryDark,

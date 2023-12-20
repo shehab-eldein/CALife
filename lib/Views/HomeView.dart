@@ -3,10 +3,12 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
+import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:canadianslife/Views/noPostsView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Shared/postCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -24,12 +26,19 @@ class _HomeViewState extends State<HomeView> {
   }
 
   List<Topic>? topics;
-
+  TextEditingController controller = TextEditingController();
+  bool isLoading = true;
   getTopics() async {
+    setState(() {
+      isLoading = true;
+    });
     List<Topic>? groupTopics = await TopicController().topicsGetByTimeLine(
-        Provider.of<UserData>(context, listen: false).userInfo.id, 0);
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        controller.text,
+        0);
     setState(() {
       topics = groupTopics;
+      isLoading = false;
     });
   }
 
@@ -51,14 +60,14 @@ class _HomeViewState extends State<HomeView> {
 
   loadMore() async {
     int lastLoaded = topics![topics!.length - 1].id;
-    print(lastLoaded);
     List<Topic>? groupTopics = await TopicController().topicsGetByTimeLine(
-        Provider.of<UserData>(context, listen: false).userInfo.id, lastLoaded);
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        controller.text,
+        lastLoaded);
     setState(() {
       for (var element in groupTopics!) {
         topics!.add(element);
       }
-      // topics = groupTopics;
     });
   }
 
@@ -70,34 +79,42 @@ class _HomeViewState extends State<HomeView> {
         padding: EdgeInsets.symmetric(
             horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
         children: [
-          topics != null
-              ? topics!.isEmpty
-                  ? const Center(
-                      child: NotFoundView(
-                        isNoGroups: false,
-                      ),
-                    )
-                  : Column(
-                      children: [
-                        ...topics!.map((e) => Post(
-                              topicInfo: e,
-                            )),
-                      ],
-                    )
-              : SizedBox(
+          CustomSearchBar(
+              onSearchPressed: getTopics,
+              controller: controller,
+              hintText: AppLocalizations.of(context)!.searchTopics),
+          isLoading == true
+              ? SizedBox(
                   height: Dimensions.screenHeight(context),
-                  child: const Center(child: CircularProgressIndicator())),
-          // topics != null && topics!.isNotEmpty
-          //     ? MaterialButton(
-          //         onPressed: () {
-          //           loadMore();
-          //         },
-          //         child: const Text(
-          //           'Load More',
-          //           style: TextStyle(color: Color(0xFF0A4D68)),
-          //         ),
-          //       )
-          //     : const SizedBox()
+                  child: const Center(child: CircularProgressIndicator()))
+              : topics != null
+                  ? topics!.isEmpty
+                      ? const Center(
+                          child: NotFoundView(
+                            isNoGroups: false,
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            ...topics!.map((e) => Post(
+                                  topicInfo: e,
+                                )),
+                          ],
+                        )
+                  : SizedBox(
+                      height: Dimensions.screenHeight(context),
+                      child: const Center(child: CircularProgressIndicator())),
+          topics != null && topics!.isNotEmpty && topics!.length % 30 == 0
+              ? MaterialButton(
+                  onPressed: () {
+                    loadMore();
+                  },
+                  child: const Text(
+                    'Load More',
+                    style: TextStyle(color: Color(0xFF0A4D68)),
+                  ),
+                )
+              : const SizedBox()
         ],
       ),
     );

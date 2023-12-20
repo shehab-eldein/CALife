@@ -38,7 +38,7 @@ class BottomNavigation extends StatelessWidget {
         inactiveColorPrimary: appDesign.colorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.notifications_outlined),
+        icon: const Icon(Icons.people_outline),
         title: (AppLocalizations.of(context)!.mainNotifs),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,

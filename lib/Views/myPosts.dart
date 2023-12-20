@@ -32,9 +32,16 @@ class _MyPostsViewState extends State<MyPostsView> {
   List<Topic>? topics;
   bool isLoading = true;
 
+  TextEditingController controller = TextEditingController();
+
   getTopics() async {
+    setState(() {
+      isLoading = true;
+    });
     topics = await TopicController().topicsGetByUserId(
-        Provider.of<UserData>(context, listen: false).userInfo.id, 0);
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        controller.text,
+        0);
     setState(() {
       isLoading = false;
     });
@@ -47,7 +54,10 @@ class _MyPostsViewState extends State<MyPostsView> {
       padding: EdgeInsets.symmetric(
           horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
       children: [
-        CustomSearchBar(hintText: AppLocalizations.of(context)!.searchTopics),
+        CustomSearchBar(
+            onSearchPressed: getTopics,
+            controller: controller,
+            hintText: AppLocalizations.of(context)!.searchTopics),
         const SizedBox(height: 10),
         isLoading
             ? const Center(child: CircularProgressIndicator())

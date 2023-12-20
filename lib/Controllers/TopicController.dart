@@ -72,11 +72,11 @@ class TopicController {
   }
 
   Future<List<Topic>?> topicsGetByGroupId(
-      int groupId, int userId, int loadingId) async {
+      int groupId, int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
         endpoint:
-            '${Constant.topic}TopicsGetByGroupId?groupId=$groupId&userId=$userId&loadingId=$loadingId',
+            '${Constant.topic}TopicsGetByGroupId?groupId=$groupId&userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
         body: null,
         fromJson: (json) => List<Topic>.from(
           json.map(
@@ -113,11 +113,12 @@ class TopicController {
     }
   }
 
-  Future<List<Topic>?> topicsGetByTimeLine(int userId, int loadingId) async {
+  Future<List<Topic>?> topicsGetByTimeLine(
+      int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
         endpoint:
-            '${Constant.topic}topicsGetByTimeLine?userId=$userId&loadingId=$loadingId',
+            '${Constant.topic}topicsGetByTimeLine?userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
         body: null,
         fromJson: (json) => List<Topic>.from(
           json.map(
@@ -133,11 +134,12 @@ class TopicController {
     }
   }
 
-  Future<List<Topic>?> topicsGetByUserId(int userId, int loadingId) async {
+  Future<List<Topic>?> topicsGetByUserId(
+      int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
         endpoint:
-            '${Constant.topic}TopicsGetByUserId?userId=$userId&loadingId=$loadingId',
+            '${Constant.topic}TopicsGetByUserId?userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
         body: null,
         fromJson: (json) => List<Topic>.from(
           json.map(

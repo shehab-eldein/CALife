@@ -1,3 +1,5 @@
+import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Views/notificationsView.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -23,20 +25,29 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
-      leading: InkWell(
-        onTap: () {},
-        child: Visibility(
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          visible: showBackButton!,
-          child: BackButton(
-              color: appDesign.colorPrimaryDark,
+      leading: showBackButton != null && showBackButton! == false
+          ? IconButton(
               onPressed: () {
-                Navigator.of(Constant.navigatorKey.currentState!.context).pop();
-              }),
-        ),
-      ),
+                context.navigateTo(const NotificationsView());
+              },
+              icon: const Icon(Icons.notifications_none_rounded),
+              color: appDesign.colorPrimaryDark,
+            )
+          : InkWell(
+              onTap: () {},
+              child: Visibility(
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                visible: showBackButton!,
+                child: BackButton(
+                    color: appDesign.colorPrimaryDark,
+                    onPressed: () {
+                      Navigator.of(Constant.navigatorKey.currentState!.context)
+                          .pop();
+                    }),
+              ),
+            ),
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),

@@ -182,8 +182,8 @@ class _AdilAwdahTopicsPageState extends State<AdilAwdahTopicsPage> {
   //   });
   // }
   getTopics() async {
-    topics = await TopicController().topicsGetByGroupId(
-        100013, Provider.of<UserData>(context, listen: false).userInfo.id, 0);
+    topics = await TopicController().topicsGetByGroupId(100013,
+        Provider.of<UserData>(context, listen: false).userInfo.id, "", 0);
     setState(() {
       isLoading = false;
     });

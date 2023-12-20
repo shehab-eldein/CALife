@@ -36,9 +36,11 @@ class _UserImageState extends State<UserImage> {
     setState(() {});
   }
 
-  String img = '${Constant.baseURL}imgusers/${UserData().getId()}.jpg';
   @override
   Widget build(BuildContext context) {
+    String img =
+        '${Constant.baseURL}imgusers/${UserData().getId()}.jpg?${DateTime.now().millisecondsSinceEpoch.toString()}';
+
     return Stack(children: [
       ClipRRect(
         borderRadius: BorderRadius.circular(200),

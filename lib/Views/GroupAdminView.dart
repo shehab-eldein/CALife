@@ -29,6 +29,7 @@ class _GroupAdminViewState extends State<GroupAdminView> {
       ),
       GroupTopicsPage(
         groupId: widget.groupInfo.id,
+        isNotSubed: false,
       ),
       GroupInfoPage(info: widget.groupInfo.guide ?? "No Info")
     ];

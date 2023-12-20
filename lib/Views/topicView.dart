@@ -17,9 +17,12 @@ class TopicView extends StatefulWidget {
   const TopicView({
     super.key,
     required this.topicInfo,
+    required this.toggleLike,
+    required this.updateCommentsNo,
   });
   final Topic topicInfo;
-
+  final Function toggleLike;
+  final Function updateCommentsNo;
   @override
   State<TopicView> createState() => _TopicViewState();
 }
@@ -51,6 +54,7 @@ class _TopicViewState extends State<TopicView> {
     setState(() {
       comments = res;
       isLoadingComments = false;
+      widget.updateCommentsNo(comments!.length);
     });
   }
 
@@ -60,32 +64,6 @@ class _TopicViewState extends State<TopicView> {
             Provider.of<UserData>(context, listen: false).userInfo.id)
         .then((value) => getTopicComments());
     textController.text = "";
-  }
-
-  toggleLike() async {
-    topicInfo.isUserLikedTopic == false
-        ? await TopicController()
-            .topicLikeAdd(topicInfo.id,
-                Provider.of<UserData>(context, listen: false).userInfo.id)
-            .then((value) {
-            if (value == true) {
-              setState(() {
-                topicInfo.isUserLikedTopic = true;
-                topicInfo.likesNo = (topicInfo.likesNo! + 1);
-              });
-            }
-          })
-        : await TopicController()
-            .topicLikeDelete(topicInfo.id,
-                Provider.of<UserData>(context, listen: false).userInfo.id)
-            .then((value) {
-            if (value == true) {
-              setState(() {
-                topicInfo.isUserLikedTopic = false;
-                topicInfo.likesNo = (topicInfo.likesNo! - 1);
-              });
-            }
-          });
   }
 
   void scrollDown() {
@@ -278,7 +256,10 @@ class _TopicViewState extends State<TopicView> {
             // ),
             InkWell(
               onTap: () {
-                context.navigateTo(GroupDetails(groupInfo: topicInfo.group!));
+                context.navigateTo(GroupDetails(
+                  groupInfo: topicInfo.group!,
+                  isNotSubed: false,
+                ));
               },
               child: Padding(
                 padding:
@@ -319,8 +300,9 @@ class _TopicViewState extends State<TopicView> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {
-                          toggleLike();
+                        onPressed: () async {
+                          await widget.toggleLike();
+                          setState(() {});
                         },
                         icon: widget.topicInfo.isUserLikedTopic == true
                             ? const Icon(Icons.thumb_up_alt)
