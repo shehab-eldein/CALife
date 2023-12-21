@@ -1,3 +1,4 @@
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
@@ -25,8 +26,8 @@ class CustomTextButton extends StatelessWidget {
       elevation: 2,
       borderRadius: BorderRadius.circular(10),
       color: backgroundColor,
-      child: Container(
-        height: 45,
+      child: SizedBox(
+        height: Dimensions.heightPercentage(context, 5),
         width: width ?? 150,
         child: TextButton(
           onPressed: onPressed,
@@ -36,10 +37,12 @@ class CustomTextButton extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
-                    color: textColor ?? Colors.white,
-                    fontWeight: FontWeight.bold),
+                  color: textColor ?? Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Dimensions.fontSize(context, 1.5),
+                ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               icon != null
                   ? Icon(
                       icon,

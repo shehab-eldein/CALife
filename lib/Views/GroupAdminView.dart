@@ -118,7 +118,7 @@ class _GroupAdminViewState extends State<GroupAdminView> {
             padding: EdgeInsets.symmetric(
                 horizontal: layoutManager.mainHorizontalPadding(), vertical: 5),
             child: Wrap(
-              alignment: WrapAlignment.spaceAround,
+              alignment: WrapAlignment.spaceEvenly,
               children: [
                 ...chips.map((e) {
                   return MaterialButton(

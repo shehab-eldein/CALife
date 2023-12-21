@@ -59,7 +59,7 @@ class _AdilAwdahState extends State<AdilAwdah> {
                 ),
               ),
               Positioned(
-                top: 120,
+                top: Dimensions.heightPercentage(context, 15),
                 left: Dimensions.widthPercentage(context, 40),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey,
@@ -69,26 +69,27 @@ class _AdilAwdahState extends State<AdilAwdah> {
               )
             ],
           ),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: Dimensions.heightPercentage(context, 8),
           ),
           Align(
             alignment: Alignment.center,
             child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: layoutManager.mainHorizontalPadding(),
+              padding: EdgeInsets.symmetric(
+                horizontal: layoutManager.mainHorizontalPadding(),
+              ),
+              child: const Text(
+                'الحياة في كندا مع عادل عوضه',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Color(0xFF474B51),
+                  fontSize: 22,
+                  fontFamily: '.SF Arabic',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
                 ),
-                child: const Text(
-                  'الحياة في كندا مع عادل عوضه',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color(0xFF474B51),
-                    fontSize: 22,
-                    fontFamily: '.SF Arabic',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
-                  ),
-                )),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(

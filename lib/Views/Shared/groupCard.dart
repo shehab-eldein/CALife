@@ -1,5 +1,6 @@
 import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/GroupAdminView.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
@@ -45,7 +46,7 @@ class _GroupCardState extends State<GroupCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: AspectRatio(
                   aspectRatio: 20 / 10,
@@ -67,7 +68,7 @@ class _GroupCardState extends State<GroupCard> {
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontWeight: FontWeight.w600,
-                    fontSize: 22,
+                    fontSize: Dimensions.fontSize(context, 1.7),
                   ),
                 ),
               ),
@@ -99,10 +100,10 @@ class _GroupCardState extends State<GroupCard> {
                         const SizedBox(width: 5),
                         Text(
                           widget.groupInfo.user?.displayName ?? "",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: appDesign.colorAccentDarker,
                             fontWeight: FontWeight.normal,
-                            fontSize: 14,
+                            fontSize: Dimensions.fontSize(context, 1.3),
                           ),
                         ),
                       ],
@@ -147,7 +148,7 @@ class _GroupCardState extends State<GroupCard> {
                       visible: widget.isNotSubed,
                       child: Expanded(
                         child: MaterialButton(
-                          height: 45,
+                          height: Dimensions.heightPercentage(context, 5),
                           color: appDesign.colorPrimaryDark,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

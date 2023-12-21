@@ -50,9 +50,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                   child: Text(
                     // 'لينك يو',
                     userData.userInfo.displayName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0xFF474B51),
-                      fontSize: 18,
+                      fontSize: Dimensions.fontSize(context, 1.5),
                       fontFamily: '.SF Arabic',
                       fontWeight: FontWeight.w600,
                     ),
@@ -66,9 +66,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                         ? AppLocalizations.of(context)!.userType0
                         : AppLocalizations.of(context)!.userType1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: appDesign.colorAccent,
-                      fontSize: 15,
+                      fontSize: Dimensions.fontSize(context, 1.5),
                       fontFamily: '.SF Arabic',
                     ),
                   ),
@@ -79,9 +79,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     userData.userInfo.email,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0x7F474B51),
-                      fontSize: 15,
+                      fontSize: Dimensions.fontSize(context, 1.5),
                       fontFamily: 'SF Pro',
                     ),
                   ),
@@ -90,9 +90,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                 Text(
                   userData.userInfo.phone ?? " ",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Color(0x7F474B51),
-                    fontSize: 15,
+                    fontSize: Dimensions.fontSize(context, 1.5),
                     fontFamily: 'SF Pro',
                   ),
                 ),
