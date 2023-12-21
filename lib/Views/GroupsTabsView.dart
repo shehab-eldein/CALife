@@ -71,7 +71,7 @@ class GroupsViewState extends State<GroupsTabsView>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_onTabChanged);
     setState(() {
-      _tabController.index = widget.index != null ? 1 : 0;
+      _tabController.index = widget.index != null ? 1 : 1;
     });
     userInfo = Provider.of<UserData>(context, listen: false).userInfo;
     getUserGroups();

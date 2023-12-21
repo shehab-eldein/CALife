@@ -2,6 +2,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Views/AdilAwdahView.dart';
 import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:canadianslife/Views/HomeView.dart';
+import 'package:canadianslife/Views/askForConsultancyView.dart';
 import 'package:canadianslife/Views/myAccount.dart';
 import 'package:canadianslife/Views/notificationsView.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +40,7 @@ class BottomNavigation extends StatelessWidget {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.people_outline),
-        title: (AppLocalizations.of(context)!.mainNotifs),
+        title: (AppLocalizations.of(context)!.consultancy),
         activeColorPrimary: appDesign.colorPrimary,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
       ),
@@ -60,17 +61,14 @@ class BottomNavigation extends StatelessWidget {
         const HomeView(),
         const GroupsTabsView(),
         const AdilAwdah(),
-        const NotificationsView(),
+        const AskForConsiltancyView(),
         const MyAccountView(),
       ];
     }
 
-    PersistentTabController controller;
-    controller = PersistentTabController(initialIndex: 0);
-
     return PersistentTabView(
       context,
-      controller: controller,
+      controller: Constant.controller,
       screens: buildScreens(),
       items: _navBarsItems(context),
       confineInSafeArea: true,

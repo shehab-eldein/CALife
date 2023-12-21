@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Constant {
@@ -20,6 +21,8 @@ class Constant {
   static const loginBeforKey = 'isLoginBefor';
   static const userSFKey = 'user';
   static const currentUserId = 11;
+  static PersistentTabController controller =
+      PersistentTabController(initialIndex: 0);
 }
 
 class appDesign {

@@ -89,9 +89,10 @@ class _HomeViewState extends State<HomeView> {
                   child: const Center(child: CircularProgressIndicator()))
               : topics != null
                   ? topics!.isEmpty
-                      ? const Center(
+                      ? Center(
                           child: NotFoundView(
                             isNoGroups: false,
+                            refresh: getTopics,
                           ),
                         )
                       : Column(

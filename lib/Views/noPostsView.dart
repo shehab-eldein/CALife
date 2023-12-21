@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotFoundView extends StatefulWidget {
-  const NotFoundView({super.key, this.isNoGroups});
+  const NotFoundView({super.key, this.isNoGroups, this.refresh});
   final bool? isNoGroups;
+  final Function? refresh;
   @override
   State<NotFoundView> createState() => _NotFoundViewState();
 }
@@ -65,9 +66,10 @@ class _NotFoundViewState extends State<NotFoundView> {
         MaterialButton(
           color: appDesign.colorPrimary,
           onPressed: () {
-            context.navigateTo(const GroupsTabsView(
-              index: 0,
-            ));
+            Constant.controller.jumpToTab(1);
+            // context.navigateTo(const GroupsTabsView(
+            //   index: 0,
+            // ));
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -98,7 +100,15 @@ class _NotFoundViewState extends State<NotFoundView> {
               ],
             ),
           ),
-        )
+        ),
+        widget.refresh != null
+            ? MaterialButton(
+                onPressed: () {
+                  widget.refresh!();
+                },
+                child: Text(AppLocalizations.of(context)!.refresh),
+              )
+            : const SizedBox()
       ],
     );
   }
