@@ -3,10 +3,12 @@ import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
+import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddPostPopup extends StatefulWidget {
   const AddPostPopup({super.key, required this.groupId, required this.refresh});
@@ -18,37 +20,43 @@ class AddPostPopup extends StatefulWidget {
 }
 
 class _AddPostPopupState extends State<AddPostPopup> {
-  TextEditingController _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   RoundedLoadingButtonController controller = RoundedLoadingButtonController();
   ImagePickerManager imagePickerManager = ImagePickerManager();
-  // List<Asset>? _selectedImages = [];
 
   List<String> imageFiles = [];
+
   void chooseMuliImages() async {
     List<String>? images = await imagePickerManager.pickImages();
-    if (images != null) {
+    if (images != null && images.isNotEmpty) {
       setState(() {
         imageFiles = images;
       });
     }
-    // imagePickerManager.selectMultiImage().then((images) {
-    //   if (images != null) {
-    //     setState(() {
-    //       _selectedImages = images;
-    //     });
-    //   } else {
-    //     _selectedImages = null;
-    //   }
-    // });
   }
 
   submitPost() async {
-    await TopicController()
-        .topicAdd(widget.groupId, _textController.text, _textController.text)
-        .then((value) {
-      widget.refresh();
-      Navigator.pop(context);
-    });
+    Topic? newTopic = await TopicController().topicAdd(
+      widget.groupId,
+      _textController.text,
+      _textController.text,
+      Provider.of<UserData>(context, listen: false).userInfo.id,
+    );
+    if (newTopic != null) {
+      addTopicImgaes(newTopic.id);
+      print(newTopic.id);
+    }
+  }
+
+  addTopicImgaes(topicId) async {
+    if (imageFiles.isNotEmpty) {
+      for (String image in imageFiles) {
+        print("adding Image ${imageFiles.indexOf(image)}");
+        await TopicController().topicImageAdd(topicId, image);
+      }
+    }
+    widget.refresh();
+    Navigator.pop(context);
   }
 
   @override
@@ -87,7 +95,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText: 'ابدأ بالنشر الآن...',
+                    hintText: AppLocalizations.of(context)!.startPosting,
                     border: InputBorder.none,
                   ),
                 ),
@@ -101,11 +109,13 @@ class _AddPostPopupState extends State<AddPostPopup> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            ...imageFiles.map((e) => Image.memory(
-                                  base64Decode(e),
-                                  width: 150,
-                                  height: 200,
-                                ))
+                            ...imageFiles.map(
+                              (e) => Image.memory(
+                                base64Decode(e),
+                                height: 200,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            )
                           ],
                         ),
                         // child: ListView.builder(

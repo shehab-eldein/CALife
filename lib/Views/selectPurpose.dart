@@ -1,12 +1,11 @@
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../Helper/Constants.dart';
 
 class SelectPurposeView extends StatefulWidget {
-
-   SelectPurposeView({Key? key}) : super(key: key);
-
+  SelectPurposeView({Key? key}) : super(key: key);
 
   @override
   State<SelectPurposeView> createState() => _SelectPurposeViewState();
@@ -37,56 +36,48 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
 
     _langSelection();
 
+    bool isInCanada = true;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: layoutManager.mainHorizontalPadding(), vertical: 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(height: layoutManager.valuesHandler(100, 100, 10, 10)),
-
-              Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                child: Text("اختر اللغة",
-                  style: TextStyle(
-            fontSize: 17,
-            color: appDesign.colorPrimary,
-            fontWeight: FontWeight.bold,
-          ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: layoutManager.valuesHandler(25, 25, 5, 5)),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+              child: Text(
+                "اختر اللغة",
+                style: TextStyle(
+                  fontSize: 17,
+                  color: appDesign.colorPrimaryDark,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              ToggleSwitch(
-              customTextStyles: [
+            ),
+            ToggleSwitch(
+              customTextStyles: const [
                 TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 11,
-
-              )
-
-
-
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11,
+                )
               ],
-
-
-              borderColor: [appDesign.colorPrimary],
+              borderColor: const [appDesign.colorPrimaryDark],
               borderWidth: 4,
               minHeight: 35,
-
-
               minWidth: 80.0,
               cornerRadius: 20.0,
-
-              activeBgColors: [
-                [appDesign.colorPrimary],
-                [appDesign.colorPrimary]
+              activeBgColors: const [
+                [appDesign.colorPrimaryDark],
+                [appDesign.colorPrimaryDark]
               ],
               activeFgColor: Colors.white,
               inactiveBgColor: Colors.white,
-              inactiveFgColor: appDesign.colorPrimary,
+              inactiveFgColor: appDesign.colorPrimaryDark,
               initialLabelIndex: isEnglish ? 1 : 0,
               totalSwitches: 2,
-              labels: [ 'العربية','English'],
+              labels: const ['العربية', 'English'],
               radiusStyle: false,
               onToggle: (index) {
                 if (index == 1) {
@@ -94,88 +85,155 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                   print("IS ENGLISH");
                   // context.changeLanguageToEnglish();
                   // context.saveIsEnglish(true);
-
                 } else {
                   isEnglish = false;
                   print("IS Arabic");
                   // context.changeLanguageToArabic();
                   //
                   // context.saveIsEnglish(false);
-
                 }
               },
-
-                ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: 150,
-                        height: 150,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all<double>(8.0),
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            )),
-
-                          ),
-                          onPressed: () {  },
-                          child: const Center(
-                            child: Text(
-
-                                "مقيم او مهاجر جديد لكندا",
-                                style: TextStyle(
-
-                                    color: appDesign.colorPrimary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold
-                                ),
-                              textAlign: TextAlign.center,
-
-                            ),),
-
-                        ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: const Image(
+                image: AssetImage("images/snowman.png"),
+              ),
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(vertical: 20),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         child: SizedBox(
+            //           width: 150,
+            //           height: 150,
+            //           child: ElevatedButton(
+            //             style: ButtonStyle(
+            //               elevation: MaterialStateProperty.all<double>(8.0),
+            //               backgroundColor:
+            //                   MaterialStateProperty.all<Color>(Colors.white),
+            //               shape: MaterialStateProperty.all<OutlinedBorder>(
+            //                   RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(15),
+            //               )),
+            //             ),
+            //             onPressed: () {},
+            //             child: const Center(
+            //               child: Text(
+            //                 "مقيم او مهاجر جديد لكندا",
+            //                 style: TextStyle(
+            //                     color: appDesign.colorPrimary,
+            //                     fontSize: 18,
+            //                     fontWeight: FontWeight.bold),
+            //                 textAlign: TextAlign.center,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       SizedBox(
+            //           width: layoutManager.valuesHandler(20, 10, 100, 100)),
+            //       Expanded(
+            //         child: SizedBox(
+            //           width: 150,
+            //           height: 150,
+            //           child: ElevatedButton(
+            //             style: ButtonStyle(
+            //               elevation: MaterialStateProperty.all<double>(8.0),
+            //               backgroundColor:
+            //                   MaterialStateProperty.all<Color>(Colors.white),
+            //               shape: MaterialStateProperty.all<OutlinedBorder>(
+            //                   RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(15),
+            //               )),
+            //             ),
+            //             onPressed: () {},
+            //             child: const Center(
+            //               child: Text("مهتم بالهجرة لكندا",
+            //                   style: TextStyle(
+            //                       color: appDesign.colorPrimary,
+            //                       fontSize: 18,
+            //                       fontWeight: FontWeight.bold)),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // )
+            const SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () => setState(() {
+                    isInCanada = true;
+                  }),
+                  child: Container(
+                    height: Dimensions.widthPercentage(context, 40),
+                    width: Dimensions.widthPercentage(context, 40),
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x26000000),
+                          blurRadius: 5,
+                          offset: Offset(0, 2),
+                          spreadRadius: 0,
+                        )
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "مقيم او مهاجر جديد\n لكندا",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: '.SF Arabic',
+                            color: appDesign.colorPrimaryDark,
+                            fontSize: Dimensions.fontSize(context, 1.5),
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    SizedBox(width: layoutManager.valuesHandler(20, 10, 100, 100)),
-
-                    Expanded(
-                      child: Container(
-                        width: 150,
-                        height: 150,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all<double>(8.0),
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            )),
-
-                          ),
-                          onPressed: () {  },
-                          child: Center(
-                            child: Text(
-                                "مهتم بالهجرة لكندا",
-                              style: TextStyle(
-                                  color: appDesign.colorPrimary,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold
-                              )
-                          ),),
-
-                        ),
+                  ),
+                ),
+                SizedBox(width: Dimensions.widthPercentage(context, 5)),
+                InkWell(
+                  onTap: () => setState(() {
+                    isInCanada = false;
+                  }),
+                  child: Container(
+                    height: Dimensions.widthPercentage(context, 40),
+                    width: Dimensions.widthPercentage(context, 40),
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x26000000),
+                          blurRadius: 5,
+                          offset: Offset(0, 2),
+                          spreadRadius: 0,
+                        )
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "مهتم بالهجرة لكندا",
+                        style: TextStyle(
+                            fontFamily: '.SF Arabic',
+                            color: appDesign.colorPrimaryDark,
+                            fontSize: Dimensions.fontSize(context, 1.5),
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              )
-
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

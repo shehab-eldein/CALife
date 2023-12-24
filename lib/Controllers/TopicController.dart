@@ -1,30 +1,29 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/NetworkManager.dart';
 import 'package:canadianslife/Models/TopicComment.dart';
+import 'package:canadianslife/Models/TopicImage.dart';
 
 import '../Models/Topic.dart';
 
 class TopicController {
   final _networkManager = NetworkManager();
 
-  Future<Topic?> topicAdd(int groupId, String title, String details) async {
+  Future<Topic?> topicAdd(
+      int groupId, String title, String details, int userId) async {
     try {
       Topic topic = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicAdd',
-        body: {
-          "id": 0,
-          "title": title,
-          "details": details,
-          "userId": Constant.currentUserId,
-          "groupId": groupId,
-          "isPinned": true,
-          "images": [
-            {"id": 0, "topicId": 0, "topicImage": "string"}
-          ]
-        },
+        body: Topic(
+          id: 0,
+          title: title,
+          details: details,
+          isPinned: true,
+          groupId: groupId,
+          userId: userId,
+        ).toJson(),
         fromJson: (json) => Topic.fromJson(json),
       );
-      print(topic.toString());
+      print('Topic ${topic.id} Created');
       return topic;
     } catch (e) {
       print(e);
@@ -73,11 +72,11 @@ class TopicController {
   }
 
   Future<List<Topic>?> topicsGetByGroupId(
-      int groupId, int userId, int loadingId) async {
+      int groupId, int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
         endpoint:
-            '${Constant.topic}TopicsGetByGroupId?groupId=$groupId&userId=$userId&loadingId=$loadingId',
+            '${Constant.topic}TopicsGetByGroupId?groupId=$groupId&userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
         body: null,
         fromJson: (json) => List<Topic>.from(
           json.map(
@@ -93,11 +92,54 @@ class TopicController {
     }
   }
 
-  Future<List<Topic>?> topicsGetByTimeLine(int userId, int loadingId) async {
+  Future<List<Topic>?> topicsGetAdilAwdah(
+      int groupType, int userId, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
         endpoint:
-            '${Constant.topic}topicsGetByTimeLine?userId=$userId&loadingId=$loadingId',
+            '${Constant.topic}TopicsGetAdilAwdah?groupType=$groupType&userId=$userId&loadingId=$loadingId',
+        body: null,
+        fromJson: (json) => List<Topic>.from(
+          json.map(
+            (item) => Topic.fromJson(item),
+          ),
+        ),
+      );
+      print(topics.toString());
+      return topics;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<Topic>?> topicsGetByTimeLine(
+      int userId, String searchQuery, int loadingId) async {
+    try {
+      List<Topic> topics = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.topic}topicsGetByTimeLine?userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
+        body: null,
+        fromJson: (json) => List<Topic>.from(
+          json.map(
+            (item) => Topic.fromJson(item),
+          ),
+        ),
+      );
+      print(topics.toString());
+      return topics;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<Topic>?> topicsGetByUserId(
+      int userId, String searchQuery, int loadingId) async {
+    try {
+      List<Topic> topics = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.topic}TopicsGetByUserId?userId=$userId&searchQuery=$searchQuery&loadingId=$loadingId',
         body: null,
         fromJson: (json) => List<Topic>.from(
           json.map(
@@ -122,6 +164,56 @@ class TopicController {
           "userId": userId,
           "topicId": topicId,
         },
+        fromJson: (json) => (json),
+      );
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> topicImageAdd(int topicId, String image) async {
+    try {
+      bool res = await _networkManager.postRequest(
+        endpoint: '${Constant.topic}TopicImageAdd',
+        body: TopicImage(id: 0, topicId: topicId, topicImage: image),
+        fromJson: (json) => (json),
+      );
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<List<TopicImage>?> topicImagesGetByTopicId(int topicId) async {
+    try {
+      List<TopicImage> res = await _networkManager.getRequest(
+        endpoint: '${Constant.topic}TopicImagesGetByTopicId?topicId=$topicId',
+        body: null,
+        fromJson: (json) => List<TopicImage>.from(
+          json.map(
+            (item) => TopicImage.fromJson(item),
+          ),
+        ),
+      );
+      print(res.toList());
+      return res;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<bool> topicImageDelete(int topicImageId, int userId) async {
+    try {
+      bool res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.topic}TopicImageDelete?topicImageId=$topicImageId',
+        body: null,
         fromJson: (json) => (json),
       );
       print(res);

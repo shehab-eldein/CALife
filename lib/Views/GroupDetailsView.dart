@@ -1,72 +1,153 @@
-import 'package:canadianslife/Controllers/TopicController.dart';
+import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/Group.dart';
-import 'package:canadianslife/Models/Topic.dart';
-import 'package:canadianslife/Views/Shared/SearchBar.dart';
+import 'package:canadianslife/Views/GroupInfoPage.dart';
+import 'package:canadianslife/Views/GroupTopicsPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-
 import '../Managers/LayoutManager.dart';
-import 'Shared/addPostPopUp.dart';
-import 'Shared/postCard.dart';
 
 class GroupDetails extends StatefulWidget {
-  const GroupDetails({Key? key, required this.groupInfo}) : super(key: key);
+  const GroupDetails(
+      {Key? key,
+      required this.groupInfo,
+      this.refresh,
+      required this.isNotSubed})
+      : super(key: key);
   final Group groupInfo;
+  final Function? refresh;
+  final bool isNotSubed;
   @override
   State<GroupDetails> createState() => _GroupDetailsState();
 }
 
 class _GroupDetailsState extends State<GroupDetails> {
-  @override
-  void initState() {
-    super.initState();
-    getTopics();
-  }
+  int selection = 0;
+  bool isLoading = false;
 
-  void showAddPostPopup(BuildContext context) {
-    showDialog(
+  showAppDialog() {
+    showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        return AddPostPopup(
-          groupId: widget.groupInfo.id,
-          refresh: refresh,
+        return AlertDialog(
+          content: SizedBox(
+            height: 110,
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  onPressed: () async {
+                    if (isLoading == false) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await exitGroup();
+                      if (widget.refresh != null) {
+                        widget.refresh!();
+                      }
+                      setState(() {
+                        isLoading = false;
+                      });
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pop();
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: isLoading == true
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Wrap(
+                          spacing: 10,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.exit_to_app,
+                            ),
+                            Text(
+                              'الخروج من المجموعة',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF474B51),
+                                fontSize: 18,
+                                fontFamily: '.SF Arabic',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                ),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Text(
+                    'الغاء',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 18,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
   }
 
-  refresh() {
-    topics = null;
-    setState(() {
-      getTopics();
-    });
-  }
-
-  List<Topic>? topics;
-
-  getTopics() async {
-    List<Topic>? groupTopics = await TopicController().topicsGetByGroupId(
-        widget.groupInfo.id,
-        Provider.of<UserData>(context, listen: false).userInfo.id,
-        0);
-    setState(() {
-      topics = groupTopics;
-    });
+  exitGroup() async {
+    await GroupController().removeUserFromGroup(widget.groupInfo.id,
+        Provider.of<UserData>(context, listen: false).userInfo.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    List<String> chips = [
+      AppLocalizations.of(context)!.posts,
+      AppLocalizations.of(context)!.guide,
+      AppLocalizations.of(context)!.about
+    ];
     final layoutManager = LayoutManager(context);
-
+    List pages = [
+      GroupTopicsPage(
+        groupId: widget.groupInfo.id,
+        isNotSubed: widget.isNotSubed,
+        refresh: widget.refresh,
+      ),
+      GroupInfoPage(info: widget.groupInfo.guide ?? "No Guide"),
+      GroupInfoPage(info: widget.groupInfo.description ?? "No Description")
+    ];
     return Scaffold(
       body: ListView(
         children: [
           AspectRatio(
             aspectRatio:
-                layoutManager.valuesHandler(20 / 7, 20 / 7, 40 / 7, 40 / 7),
-            child: const Image(
-              image: AssetImage("images/placeholder.png"),
+                layoutManager.valuesHandler(20 / 9, 20 / 9, 40 / 9, 40 / 9),
+            child: FadeInImage(
+              image: NetworkImage(
+                  '${Constant.baseURL}imggroupcovers/${widget.groupInfo.id}.jpg'),
+              placeholder: const AssetImage('images/placeholder.png'),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Image.asset('images/placeholder.png', fit: BoxFit.cover);
+              },
               fit: BoxFit.cover,
             ),
           ),
@@ -75,158 +156,80 @@ class _GroupDetailsState extends State<GroupDetails> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: layoutManager.mainHorizontalPadding()),
-            child: Column(
+                horizontal: layoutManager.mainHorizontalPadding(), vertical: 5),
+            child: Row(
               children: [
                 Text(
                   widget.groupInfo.name,
                   style: const TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: appDesign.colorPrimaryDark),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF474B51)),
                 ),
-                const SizedBox(
-                  height: 7,
+                const Spacer(),
+                CircleAvatar(
+                  backgroundColor: appDesign.colorPrimaryDark,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-                const CustomSearchBar(hintText: "البحث في المجموعة"),
-                const SizedBox(
-                  height: 7,
-                ),
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        backgroundImage: AssetImage("images/defultPerson.png"),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          readOnly: true,
-                          decoration: const InputDecoration(
-                            hintText: 'ابدأ بالنشر الآن...',
-                            border: InputBorder.none,
-                          ),
-                          onTap: () {
-                            showAddPostPopup(context);
-                            print("Tapped");
-                          },
-                        ),
-                      ),
-                    ],
+                const SizedBox(width: 16),
+                CircleAvatar(
+                  backgroundColor: const Color(0xFFF5F5F5),
+                  child: IconButton(
+                    onPressed: () {
+                      showAppDialog();
+                    },
+                    icon: const Icon(Icons.more_horiz),
                   ),
                 ),
               ],
             ),
           ),
-          Divider(
-            height: 1,
-            thickness: 1,
-            color: appDesign.colorPrimaryDark.withAlpha(65),
-          ),
-          topics != null
-              ? topics!.isEmpty
-                  ? const Center(child: Text('لا يوجد منشورات'))
-                  : Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: layoutManager.mainHorizontalPadding()),
-                      child: Column(
-                        children: [
-                          ...topics!.map((e) => Post(
-                                topicInfo: e,
-                              )),
-                        ],
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: layoutManager.mainHorizontalPadding(), vertical: 5),
+            child: Wrap(
+              alignment: WrapAlignment.spaceAround,
+              children: [
+                ...chips.map((e) {
+                  return MaterialButton(
+                    elevation: 0,
+                    color: selection == chips.indexOf(e)
+                        ? appDesign.colorPrimaryDark
+                        : const Color(0xFFF5F5F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        selection = chips.indexOf(e);
+                      });
+                    },
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        color: selection == chips.indexOf(e)
+                            ? Colors.white
+                            : appDesign.colorPrimaryDark,
+                        fontSize: 17,
+                        fontFamily: '.SF Arabic',
+                        fontWeight: FontWeight.w500,
+                        height: 0.07,
                       ),
-                    )
-              : const Center(child: CircularProgressIndicator()),
+                    ),
+                  );
+                })
+              ],
+            ),
+          ),
+          pages[selection],
         ],
       ),
     );
-
-    // return Scaffold(
-    //   body: ListView.builder(
-    //       itemCount: 4,
-    //       itemBuilder: (context, index) {
-    //         return index == 0
-    //             ? Column(
-    //                 children: [
-    //                   AspectRatio(
-    //                     aspectRatio: layoutManager.valuesHandler(
-    //                         20 / 7, 20 / 7, 40 / 7, 40 / 7),
-    //                     child: const Image(
-    //                       image: AssetImage("images/placeholder.png"),
-    //                       fit: BoxFit.cover,
-    //                     ),
-    //                   ),
-    //                   const SizedBox(
-    //                     height: 7,
-    //                   ),
-    //                   Padding(
-    //                     padding: EdgeInsets.symmetric(
-    //                         horizontal: layoutManager.mainHorizontalPadding()),
-    //                     child: Column(
-    //                       children: [
-    //                         Text(
-    //                           widget.groupInfo.name,
-    //                           style: const TextStyle(
-    //                               fontSize: 28,
-    //                               fontWeight: FontWeight.bold,
-    //                               color: appDesign.colorPrimaryDark),
-    //                         ),
-    //                         const SizedBox(
-    //                           height: 7,
-    //                         ),
-    //                         const CustomSearchBar(
-    //                             hintText: "البحث في المجموعة"),
-    //                         const SizedBox(
-    //                           height: 7,
-    //                         ),
-    //                         Container(
-    //                           height: 50,
-    //                           child: Row(
-    //                             children: [
-    //                               const CircleAvatar(
-    //                                 backgroundImage:
-    //                                     AssetImage("images/defultPerson.png"),
-    //                               ),
-    //                               const SizedBox(
-    //                                 width: 10,
-    //                               ),
-    //                               Expanded(
-    //                                 child: TextField(
-    //                                   readOnly: true,
-    //                                   decoration: const InputDecoration(
-    //                                     hintText: 'ابدأ بالنشر الآن...',
-    //                                     border: InputBorder.none,
-    //                                   ),
-    //                                   onTap: () {
-    //                                     showAddPostPopup(context);
-    //                                     print("Tapped");
-    //                                   },
-    //                                 ),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                         Divider(
-    //                           height: 1,
-    //                           thickness: 1,
-    //                           color: appDesign.colorPrimaryDark.withAlpha(65),
-    //                         ),
-    //                         Post()
-    //                       ],
-    //                     ),
-    //                   )
-    //                 ],
-    //               )
-    //             : Padding(
-    //                 padding: EdgeInsets.symmetric(
-    //                     horizontal: layoutManager.mainHorizontalPadding()),
-    //                 child: Post(),
-    //               );
-    //       }),
-    // );
   }
 }

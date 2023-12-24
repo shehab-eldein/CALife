@@ -1,8 +1,5 @@
 import 'package:canadianslife/Models/TopicComment.dart';
 
-import 'Topic.dart';
-import 'User.dart';
-
 class TopicCommentImage {
   TopicCommentImage({
     required this.id,

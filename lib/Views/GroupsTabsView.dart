@@ -6,6 +6,7 @@ import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 
 import 'package:canadianslife/Views/Shared/groupCard.dart';
+import 'package:canadianslife/Views/noPostsView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +15,8 @@ import 'package:provider/provider.dart';
 import '../Managers/LayoutManager.dart';
 
 class GroupsTabsView extends StatefulWidget {
-  const GroupsTabsView({super.key});
+  const GroupsTabsView({super.key, this.index});
+  final int? index;
 
   @override
   State<GroupsTabsView> createState() => GroupsViewState();
@@ -40,7 +42,10 @@ class GroupsViewState extends State<GroupsTabsView>
       isLoadingNew = true;
     });
     newGroups = await GroupController().getUnsubedGroups(
-        userInfo.userType!, userInfo.id, searchController.text, 0);
+        Provider.of<UserData>(context, listen: false).userInfo.userType!,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        searchController.text,
+        0);
     setState(() {
       isLoadingNew = false;
     });
@@ -50,8 +55,10 @@ class GroupsViewState extends State<GroupsTabsView>
     setState(() {
       isLoadingUser = true;
     });
-    userGroups = await GroupController()
-        .getSubedGroups(userInfo.id, searchController.text, 0);
+    userGroups = await GroupController().getSubedGroups(
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+        searchController.text,
+        0);
     setState(() {
       isLoadingUser = false;
     });
@@ -60,11 +67,15 @@ class GroupsViewState extends State<GroupsTabsView>
   @override
   void initState() {
     super.initState();
+    tabSelected = widget.index ?? 1;
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_onTabChanged);
+    setState(() {
+      _tabController.index = widget.index != null ? 1 : 1;
+    });
     userInfo = Provider.of<UserData>(context, listen: false).userInfo;
     getUserGroups();
     getNewGroups();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_onTabChanged);
   }
 
   @override
@@ -83,6 +94,11 @@ class GroupsViewState extends State<GroupsTabsView>
         hideSubscribeButton = true;
       }
     });
+  }
+
+  refresh() {
+    getNewGroups();
+    getUserGroups();
   }
 
   @override
@@ -178,15 +194,16 @@ class GroupsViewState extends State<GroupsTabsView>
               child: tabSelected == 1
                   ? isLoadingUser == false
                       ? userGroups!.isEmpty
-                          ? const Center(
-                              child: Text('لم نجد مجموعات!'),
+                          ? const NotFoundView(
+                              isNoGroups: true,
                             )
                           : ListView(
                               children: [
                                 ...userGroups!.map(
                                   (e) => GroupCard(
-                                    subscribeBtnIsHidden: false,
+                                    isNotSubed: false,
                                     groupInfo: e,
+                                    refresh: refresh,
                                   ),
                                 ),
                               ],
@@ -201,8 +218,9 @@ class GroupsViewState extends State<GroupsTabsView>
                               children: [
                                 ...newGroups!.map(
                                   (e) => GroupCard(
-                                    subscribeBtnIsHidden: true,
+                                    isNotSubed: true,
                                     groupInfo: e,
+                                    refresh: refresh,
                                   ),
                                 ),
                               ],

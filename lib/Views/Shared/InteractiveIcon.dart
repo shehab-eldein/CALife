@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:canadianslife/Extinsions/extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 
+// ignore: must_be_immutable
 class InteractiveIcon extends StatelessWidget {
   final IconData icon;
   Color? color;
@@ -17,8 +13,8 @@ class InteractiveIcon extends StatelessWidget {
       {Key? key,
       required this.icon,
       this.color,
-        this.fontSize,
-        this.iconSize,
+      this.fontSize,
+      this.iconSize,
       required this.text,
       this.onPressed})
       : super(key: key);
@@ -33,10 +29,10 @@ class InteractiveIcon extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: color ?? appDesign.colorAccent,
+            color: color ?? appDesign.colorAccentDarker,
             size: iconSize ?? 20,
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
           Text(
             text,
             style: TextStyle(

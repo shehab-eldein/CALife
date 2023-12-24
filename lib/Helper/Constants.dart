@@ -1,12 +1,13 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:canadianslife/Models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Constant {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   static const baseURL =
       "https://tender-chandrasekhar.38-100-170-33.plesk.page/";
   static const user = "User/";
@@ -20,36 +21,44 @@ class Constant {
   static const loginBeforKey = 'isLoginBefor';
   static const userSFKey = 'user';
   static const currentUserId = 11;
+  static PersistentTabController controller =
+      PersistentTabController(initialIndex: 0);
 }
 
 class appDesign {
   static const colorPrimary = Color(0xff030F2E);
   static const colorPrimaryDark = Color(0xff0A4D68);
-  static const colorPrimaryLight =  Color(0xff04BFDB);
-  static const colorAccent = Color(0xff088395);
+  static const colorPrimaryLight = Color(0xff04BFDB);
+  static const colorAccent = Color(0xff04BFDB);
+  static const colorAccentDarker = Color(0xFF088395);
   static const colorUnhighlighted = Color(0xff818796);
   static const backGround = Color(0xffffffff);
   static const greyBackground = Color(0xffF5F5F5);
+  static const red = Color(0xFFD60000);
 }
-
-// class UserData {
-//   static String language = 'ar';
-//   static String userNumber = "";
-//   static String userName = "";
-//   static String deviceToken = "";
-//   static int userId = 0;
-//   static int userType = 0;
-// }
 
 class UserData extends ChangeNotifier {
   static String language = 'ar';
   static String userNumber = "";
   static String userName = "";
   static String deviceToken = "";
+  static bool firstRun = true;
   // static int userId = 0;
   // static int userType = 0;
 
-  User _userInfo = User(
+  String get userLanguage => language;
+  setLanguage(value) {
+    language = value;
+    saveLanguage();
+    notifyListeners();
+  }
+
+  saveLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('language', language);
+  }
+
+  static User _userInfo = User(
     id: 0,
     displayName: "",
     fullName: "",
@@ -61,6 +70,11 @@ class UserData extends ChangeNotifier {
   );
 
   User get userInfo => _userInfo;
+  bool get isFirstRun => firstRun;
+
+  int getId() {
+    return _userInfo.id;
+  }
 
   loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -75,6 +89,8 @@ class UserData extends ChangeNotifier {
           "userImage": "",
           "userType": 0,
         }.toString()));
+    language = prefs.getString('language') ?? "ar";
+    firstRun = prefs.getBool('firstRun') ?? true;
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }
@@ -82,6 +98,14 @@ class UserData extends ChangeNotifier {
   void saveUserData(user) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('userInfo', jsonEncode(user.toJson()));
+    if (firstRun == true) {
+      updateFirstRun();
+    }
+  }
+
+  void updateFirstRun() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstRun', false);
   }
 
   bool isLoggedIn() {

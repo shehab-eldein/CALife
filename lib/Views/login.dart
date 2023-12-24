@@ -1,11 +1,11 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:canadianslife/Views/signup.dart';
-import 'package:canadianslife/Views/splash.dart';
+// import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Views/Shared/authTextField.dart';
 import 'package:canadianslife/Views/Shared/passTextField.dart';
-import 'package:canadianslife/Views/Shared/phoneTextField.dart';
+// import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -24,8 +24,8 @@ class LoginView extends StatefulWidget {
 class _LoginState extends State<LoginView> {
   final RoundedLoadingButtonController _loginBtnController =
       RoundedLoadingButtonController();
-  final RoundedLoadingButtonController _googleBtnController =
-      RoundedLoadingButtonController();
+  // final RoundedLoadingButtonController _googleBtnController =
+  //     RoundedLoadingButtonController();
   var email;
   var pass;
   final _authController = AuthenticationController();
@@ -60,12 +60,13 @@ class _LoginState extends State<LoginView> {
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
     return Scaffold(
-      appBar: null,
       body: SingleChildScrollView(
         child: Padding(
           // add space for all padding container
           padding: EdgeInsets.symmetric(
-              horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
+            horizontal: layoutManager.mainHorizontalPadding(),
+            vertical: 60,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,7 +80,7 @@ class _LoginState extends State<LoginView> {
               ),
               SizedBox(height: layoutManager.valuesHandler(30, 10, 10, 10)),
               AuthTextField(
-                  labelText: "إسم المستخدم/البريد الإلكتروني",
+                  labelText: AppLocalizations.of(context)!.usernameEmail,
                   obscureText: false,
                   onChanged: (text) {
                     email = text;
@@ -91,14 +92,14 @@ class _LoginState extends State<LoginView> {
               ),
               CustomLoadingButton(
                   controller: _loginBtnController,
-                  text: "تسجيل الدخول",
+                  text: AppLocalizations.of(context)!.logIn,
                   onPressed: () => loginValidation(_loginBtnController)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "ليس لديك حساب؟",
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.dontHaveAccount,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: appDesign.colorPrimary,
@@ -108,9 +109,9 @@ class _LoginState extends State<LoginView> {
                     onPressed: () {
                       context.navigateTo(SignUpView());
                     },
-                    child: Text("إنشاء حساب جديد",
+                    child: Text(AppLocalizations.of(context)!.createNewAccount,
                         style: const TextStyle(
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.normal,
                             color: appDesign.colorPrimary,
                             decoration: TextDecoration.underline)),

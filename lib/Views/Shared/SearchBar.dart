@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final String hintText;

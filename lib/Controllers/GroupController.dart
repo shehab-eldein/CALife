@@ -15,7 +15,7 @@ class GroupController {
     try {
       final res = await _networkManager.getRequest(
         endpoint:
-            '${Constant.group}GetUnsubscribedGroups??groupsType=$type&userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
+            '${Constant.group}GetUnsubscribedGroups?groupsType=$type&userID=$userId&searchWord=$searchWord&loadingId=$loadingId',
         body: null,
         fromJson: (json) => json,
       );
@@ -50,7 +50,103 @@ class GroupController {
     }
   }
 
-  //
+  Future<List<Group>?> getUserGroups(int userId) async {
+    try {
+      final res = await _networkManager.getRequest(
+        endpoint: '${Constant.group}GetMyGroups?userID=$userId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      final List<dynamic> data = res;
+      print(data.toString());
+      final List<Group> groups =
+          data.map((item) => Group.fromJson(item)).toList();
+      return groups;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<GroupSubscriber>> getGroupSubscribersByIdAndStatus(
+      int groupId, int groupSubscribeStatus) async {
+    try {
+      final res = await _networkManager.getRequest(
+        endpoint:
+            '${Constant.group}GetGroupSubscribersByGroupIdAndStatus?groupId=$groupId&groupSubscribeStatus=$groupSubscribeStatus',
+        body: null,
+        fromJson: (json) => json,
+      );
+      final List<dynamic> data = res;
+      print(data.toString());
+      final List<GroupSubscriber> groups =
+          data.map((item) => GroupSubscriber.fromJson(item)).toList();
+      return groups;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<bool> approveGroupSubRequest(int groupSubscriberId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.group}ApproveGroupSubscriber?groupSubscriberId=$groupSubscriberId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> rejectGroupSubRequest(int groupSubscriberId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint:
+            '${Constant.group}DeleteGroupSubscriber?groupSubscriberId=$groupSubscriberId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> removeUserFromGroup(int groupId, int userId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint: '${Constant.group}ExitGroup?groupId=$groupId&userId=$userId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> blockUserFromGroup(int groupId, int userId) async {
+    try {
+      final res = await _networkManager.postRequest(
+        endpoint: '${Constant.group}BlockUser?groupId=$groupId&userId=$userId',
+        body: null,
+        fromJson: (json) => json,
+      );
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  // ----old----
 
   Future<List<Group>> getSubscribedGroups(int userId, String searchWord) async {
     final finalUri =
@@ -190,20 +286,31 @@ class GroupController {
     }
   }
 
-  Future<bool> createGroup(String name, int groupType, int visibility,
-      int creatorUserId, String groupImage) async {
+  Future<bool> createGroup(
+      String name,
+      int groupType,
+      int visibility,
+      String description,
+      String guide,
+      int creatorUserId,
+      String groupCoverImage) async {
     Group subscriber = Group(
-        id: 0,
-        name: name,
-        groupType: groupType,
-        locationX: 0,
-        locationY: 0,
-        visibility: visibility,
-        userId: creatorUserId,
-        groupImage: groupImage,
-        creationDate: '2023-01-01',
-        subscribersNo: 0,
-        user: null);
+      id: 0,
+      name: name,
+      groupType: groupType,
+      locationX: 0,
+      locationY: 0,
+      visibility: visibility,
+      userId: creatorUserId,
+      groupImage: groupCoverImage,
+      groupCoverImage: groupCoverImage,
+      creationDate: '2023-01-01',
+      subscribersNo: 0,
+      topicsNo: 0,
+      user: null,
+      guide: guide,
+      description: description,
+    );
     final url = "${Constant.baseURL}${Constant.group}AddGroup";
 
     final response = await http.post(

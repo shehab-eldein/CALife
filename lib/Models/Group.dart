@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'User.dart';
 
 class Group {
@@ -12,12 +10,14 @@ class Group {
     required this.visibility,
     this.creationDate,
     this.groupImage,
+    this.groupCoverImage,
     this.subscribersNo,
     this.topicsNo,
     required this.userId,
     this.user,
+    this.guide,
+    this.description,
   });
-
   int id;
   String name;
   int groupType;
@@ -26,10 +26,13 @@ class Group {
   int visibility;
   String? creationDate;
   String? groupImage;
+  String? groupCoverImage;
   int? subscribersNo;
   int? topicsNo;
   int userId;
   User? user;
+  String? guide;
+  String? description;
 
   factory Group.fromJson(Map<String, dynamic> json) => Group(
         id: json["id"],
@@ -40,10 +43,13 @@ class Group {
         visibility: json["visibility"],
         creationDate: json["creationDate"],
         groupImage: json["groupImage"],
+        groupCoverImage: json["groupCoverImage"],
         subscribersNo: json["subscribersNo"],
         topicsNo: json["topicsNo"],
         userId: json["userId"],
         user: json["user"] != null ? User.fromJson(json["user"]) : null,
+        guide: json["guide"],
+        description: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -55,9 +61,12 @@ class Group {
         'visibility': visibility,
         'creationDate': creationDate,
         'groupImage': groupImage,
+        'groupCoverImage': groupCoverImage,
         'subscribersNo': subscribersNo,
         'topicsNo': topicsNo,
         'userId': userId,
         'user': user,
+        'guide': guide,
+        'description': description,
       };
 }

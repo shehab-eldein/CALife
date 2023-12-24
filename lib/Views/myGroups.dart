@@ -1,11 +1,15 @@
+import 'package:canadianslife/Controllers/GroupController.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Group.dart';
+import 'package:canadianslife/Views/GroupCreateView.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/Shared/InteractiveIcon.dart';
-import 'package:canadianslife/Views/Shared/appBar.dart';
 import 'package:canadianslife/Views/Shared/groupCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyGroups extends StatefulWidget {
   const MyGroups({Key? key}) : super(key: key);
@@ -16,57 +20,72 @@ class MyGroups extends StatefulWidget {
 
 class _MyGroupsState extends State<MyGroups> {
   @override
+  void initState() {
+    super.initState();
+    getUserGroups();
+  }
+
+  List<Group>? groups;
+  bool isLoading = true;
+
+  getUserGroups() async {
+    print("Getting User Groups");
+    setState(() {
+      isLoading = true;
+    });
+    groups = await GroupController().getUserGroups(
+        Provider.of<UserData>(context, listen: false).userInfo.id);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-     final layoutManager = LayoutManager(context);
+    final layoutManager = LayoutManager(context);
     return Scaffold(
-
-      body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: layoutManager.mainHorizontalPadding()),
-        itemCount: 5,
-          itemBuilder: (BuildContext context, int index){
-        return index == 0 ? Column(
-
-          children: [
-            InteractiveIcon(icon: Icons.group,iconSize: 25, text: "My Groups",fontSize: 20,color: appDesign.colorPrimary,),
-           SizedBox(height: 8,),
-            CustomTextButton(
-              width: double.infinity,
-
-                backgroundColor: appDesign.colorPrimaryLight,
-                text: "create new group",
-                onPressed: () {
-              print("Navigate to create group");},
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+            horizontal: layoutManager.mainHorizontalPadding()),
+        children: [
+          InteractiveIcon(
+            icon: Icons.group,
+            iconSize: 25,
+            text: AppLocalizations.of(context)!.myGroups,
+            fontSize: 20,
+            color: appDesign.colorPrimary,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          CustomTextButton(
+            width: double.infinity,
+            backgroundColor: appDesign.colorPrimaryLight,
+            text: AppLocalizations.of(context)!.createGroup,
+            onPressed: () {
+              context.navigateTo(GroupCreateView(
+                refresh: getUserGroups,
+              ));
+            },
             icon: Icons.add_box_rounded,
-            ),
-            SizedBox(height: 8,),
-            GroupCard(subscribeBtnIsHidden: false,
-                groupInfo: Group(
-                  id: 20,
-                  name: 'test',
-                  groupType: 0,
-                  locationX: 20,
-                  locationY: 20,
-                  visibility: 0,
-                  userId: 20,
-
-
-                ))
-          ],
-        ) : GroupCard(subscribeBtnIsHidden: false,
-            groupInfo: Group(
-                id: 20,
-              name: 'test',
-              groupType: 0,
-              locationX: 20,
-              locationY: 20,
-              visibility: 0,
-              userId: 20,
-
-
-            ));
-      }
-
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    ...groups!.map((e) {
+                      return GroupCard(
+                        isAdmin: true,
+                        isNotSubed: false,
+                        groupInfo: e,
+                      );
+                    })
+                  ],
+                ),
+        ],
       ),
     );
   }

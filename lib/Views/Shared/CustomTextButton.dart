@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Extinsions/extensions.dart';
 
 class CustomTextButton extends StatelessWidget {
   final Color backgroundColor;
@@ -20,7 +16,7 @@ class CustomTextButton extends StatelessWidget {
     this.textColor,
     this.icon,
     this.iconColor,
-    this.width
+    this.width,
   });
 
   @override
@@ -40,13 +36,16 @@ class CustomTextButton extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
-                  color: textColor ?? Colors.white,
-                  fontWeight: FontWeight.bold
-                ),
+                    color: textColor ?? Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
-             SizedBox(width: 8),
-             icon != null ? Icon(icon ,color: iconColor ?? Colors.white,) : const SizedBox(),
-
+              SizedBox(width: 8),
+              icon != null
+                  ? Icon(
+                      icon,
+                      color: iconColor ?? Colors.white,
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

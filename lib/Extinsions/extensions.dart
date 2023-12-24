@@ -1,34 +1,32 @@
+import 'package:canadianslife/Views/Shared/appBar.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-
 extension NavigationExtension on BuildContext {
-
-  Size get screenSize =>
-      MediaQuery
-          .of(this)
-          .size;
+  Size get screenSize => MediaQuery.of(this).size;
   double get screenHeight => screenSize.height;
 
   double get screenWidth => screenSize.width;
 
   // Navigation
   void navigateTo(Widget screen) {
-    Navigator.push(
-      this,
+    Navigator.of(Constant.navigatorKey.currentState!.context).push(
       PageRouteBuilder(
         transitionDuration: Duration(milliseconds: 400),
-        pageBuilder: (context, animation, secondaryAnimation) => screen,
+        pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+            appBar: BaseAppBar(
+                appBar: AppBar(),
+                widgetContext: Constant.navigatorKey.currentState!.context,
+                showBackButton: true),
+            body: screen),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = Offset(1.0, 0.0);
           var end = Offset.zero;
           var curve = Curves.easeInCirc;
 
-          var tween = Tween(begin: begin, end: end).chain(
-              CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
           return SlideTransition(
             position: animation.drive(tween),
@@ -37,40 +35,45 @@ extension NavigationExtension on BuildContext {
         },
       ),
     );
+    // Navigator.push(
+    // this,
+    // PageRouteBuilder(
+    //   transitionDuration: Duration(milliseconds: 400),
+    //   pageBuilder: (context, animation, secondaryAnimation) => screen,
+    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //     var begin = Offset(1.0, 0.0);
+    //     var end = Offset.zero;
+    //     var curve = Curves.easeInCirc;
+
+    //     var tween =
+    //         Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+    //     return SlideTransition(
+    //       position: animation.drive(tween),
+    //       child: child,
+    //     );
+    //   },
+    // ),
+    // );
   }
-
-
 
   void routeTo(String name) {
-    Navigator.of(this).pushNamed(
-       name
-    );
+    Navigator.of(this).pushNamed(name);
   }
-
-
 
   //Alerts
   void okAlert({String title = '', String message = '', Function? onDismiss}) {
     showDialog(
-
       context: this,
       builder: (BuildContext context) {
         return AlertDialog(
-
-
           title: Text(
             title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           content: Text(
             message,
-            style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.normal
-            ),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
           ),
           backgroundColor: Colors.white,
           elevation: 3.0,
@@ -78,24 +81,19 @@ extension NavigationExtension on BuildContext {
             borderRadius: BorderRadius.circular(20.0),
           ),
           actions: <Widget>[
-
             TextButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.grey.shade200),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.grey.shade200),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)
-                      )
-                  )
-              ),
+                          borderRadius: BorderRadius.circular(15.0)))),
               child: Text(
                 AppLocalizations.of(context)!.dialogOk,
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
-                  color: appDesign.colorAccent
-                ),
+                    color: appDesign.colorAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -107,7 +105,6 @@ extension NavigationExtension on BuildContext {
           ],
         );
       },
-
     );
   }
 
@@ -132,7 +129,6 @@ extension NavigationExtension on BuildContext {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.normal,
-
             ),
           ),
           elevation: 3.0,
@@ -140,7 +136,6 @@ extension NavigationExtension on BuildContext {
             borderRadius: BorderRadius.circular(20.0),
           ),
           actions: <Widget>[
-
             TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
@@ -153,13 +148,12 @@ extension NavigationExtension on BuildContext {
                 ),
               ),
               child: Text(
-               // AppLocalizations.of(context)!.dialogOk,
+                // AppLocalizations.of(context)!.dialogOk,
                 "ok",
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                    color: appDesign.colorPrimary
-                ),
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: appDesign.colorPrimary),
               ),
               onPressed: () {
                 onOkPressed();
@@ -178,13 +172,12 @@ extension NavigationExtension on BuildContext {
                 ),
               ),
               child: Text(
-               // AppLocalizations.of(context)!.dialogCancel,
+                // AppLocalizations.of(context)!.dialogCancel,
                 "Cancel",
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
-                    color: appDesign.colorAccent
-                ),
+                    color: appDesign.colorAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -195,7 +188,6 @@ extension NavigationExtension on BuildContext {
       },
     );
   }
-
 
   // Future<void> saveCountryID(int id) async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -346,7 +338,7 @@ extension NavigationExtension on BuildContext {
   //   _changeLanguage('ar');
   // }
 
-   String convertNumberToArabic(String number) {
+  String convertNumberToArabic(String number) {
     final Map<String, String> arabicNumbers = {
       '0': '٠',
       '1': '١',
@@ -376,12 +368,14 @@ extension EmailValidator on String {
     final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return regex.hasMatch(this);
   }
+
   bool isValidName() {
-    final RegExp regex = RegExp(r'^[\p{L}\s]{3,100}$',unicode: true);
+    final RegExp regex = RegExp(r'^[\p{L}\s]{3,100}$', unicode: true);
     return regex.hasMatch(this);
   }
+
   bool isValidNumber() {
-    final RegExp regex =RegExp(r'^[\p{N}]{3,20}$', unicode: true);
+    final RegExp regex = RegExp(r'^[\p{N}]{3,20}$', unicode: true);
     return regex.hasMatch(this);
   }
 
@@ -392,4 +386,3 @@ extension EmailValidator on String {
   //   return regex.hasMatch(this);
   // }
 }
-

@@ -165,21 +165,21 @@ class _SignUp extends State<SignUpView> {
         child: Padding(
           // add space for all padding container
           padding: EdgeInsets.symmetric(
-              horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
+              horizontal: layoutManager.mainHorizontalPadding(), vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Center(
-                child: Container(
+                child: SizedBox(
                   height: 225,
                   width: 130,
                   child: Image.asset("images/applogo.png"),
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               AuthTextField(
                 controller: _nameController,
-                labelText: "إسم المستخدم",
+                labelText: AppLocalizations.of(context)!.userName,
                 obscureText: false,
                 onChanged: (text) {
                   name = text;
@@ -190,7 +190,7 @@ class _SignUp extends State<SignUpView> {
               ),
               AuthTextField(
                 controller: _nameInAppController,
-                labelText: "الإسم المعروض داخل التطبيق",
+                labelText: AppLocalizations.of(context)!.displayName,
                 obscureText: false,
                 onChanged: (text) {
                   nameInApp = text;
@@ -210,7 +210,7 @@ class _SignUp extends State<SignUpView> {
               ),
               AuthTextField(
                 controller: _emailController,
-                labelText: "البريد الإلكتروني (إختياري)",
+                labelText: AppLocalizations.of(context)!.email,
                 hintText: "123456abcdefgh@linkyou.com",
                 obscureText: false,
                 onChanged: (text) {
@@ -218,33 +218,33 @@ class _SignUp extends State<SignUpView> {
                 },
               ),
               PhoneTextField(
-                labelText: "رقم التليفون (إختياري)",
+                labelText: AppLocalizations.of(context)!.phone,
                 onChanged: (text) {
                   number = text.substring(1);
                 },
               ),
               CustomLoadingButton(
-                text: "إنشاء حساب",
+                text: AppLocalizations.of(context)!.createNewAccount,
                 controller: _signUpBtnController,
                 onPressed: () => signUpValidation(_signUpBtnController),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "هل لديك حساب؟",
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.haveAccount,
+                      style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                           color: appDesign.colorPrimary),
                     ),
                     TextButton(
                       onPressed: () {
-                        context.navigateTo(LoginView());
+                        context.navigateTo(const LoginView());
                       },
-                      child: Text("تسجيل الدخول",
+                      child: Text(AppLocalizations.of(context)!.logIn,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 14,
