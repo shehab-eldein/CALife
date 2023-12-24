@@ -43,13 +43,12 @@ class _GroupCreateViewState extends State<GroupCreateView> {
   }
 
   ImagePickerManager imagePickerManager = ImagePickerManager();
-  // List<Asset>? _selectedImages = [];
 
   void pickImage() async {
-    List<String>? images = await imagePickerManager.pickImages();
-    if (images != null) {
+    String? img = await imagePickerManager.pickOneImage();
+    if (img != null) {
       setState(() {
-        image = images[0];
+        image = img;
       });
     }
   }

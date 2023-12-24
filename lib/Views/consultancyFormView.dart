@@ -29,6 +29,7 @@ class Consultancy {
     hasFamily: false,
     isAgree: false,
     netWealth: 0,
+    passportImage: "",
   );
 }
 

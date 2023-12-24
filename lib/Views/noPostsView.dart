@@ -67,9 +67,9 @@ class _NotFoundViewState extends State<NotFoundView> {
           color: appDesign.colorPrimary,
           onPressed: () {
             Constant.controller.jumpToTab(1);
-            // context.navigateTo(const GroupsTabsView(
-            //   index: 0,
-            // ));
+            if (widget.refresh != null) {
+              widget.refresh!();
+            }
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -101,14 +101,6 @@ class _NotFoundViewState extends State<NotFoundView> {
             ),
           ),
         ),
-        widget.refresh != null
-            ? MaterialButton(
-                onPressed: () {
-                  widget.refresh!();
-                },
-                child: Text(AppLocalizations.of(context)!.refresh),
-              )
-            : const SizedBox()
       ],
     );
   }

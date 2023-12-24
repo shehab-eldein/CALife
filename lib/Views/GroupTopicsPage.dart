@@ -31,7 +31,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
     getTopics();
   }
 
-  refresh() async {
+  postAndSub() async {
     setState(() {
       isLoading = true;
     });
@@ -54,7 +54,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
       builder: (BuildContext context) {
         return AddPostPopup(
           groupId: widget.groupId,
-          refresh: refresh,
+          refresh: postAndSub,
         );
       },
     );

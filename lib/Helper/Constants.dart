@@ -8,6 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constant {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
+
+  static final GlobalKey<RefreshIndicatorState> homeViewKey =
+      GlobalKey<RefreshIndicatorState>();
+  static bool isHomeEmpty = true;
   static const baseURL =
       "https://tender-chandrasekhar.38-100-170-33.plesk.page/";
   static const user = "User/";

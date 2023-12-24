@@ -148,7 +148,7 @@ class _GroupCardState extends State<GroupCard> {
                       visible: widget.isNotSubed,
                       child: Expanded(
                         child: MaterialButton(
-                          height: Dimensions.heightPercentage(context, 5),
+                          height: 45,
                           color: appDesign.colorPrimaryDark,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -162,6 +162,11 @@ class _GroupCardState extends State<GroupCard> {
                                 Provider.of<UserData>(context, listen: false)
                                     .userInfo
                                     .id);
+                            if (Constant.isHomeEmpty) {
+                              setState(() {
+                                Constant.homeViewKey.currentState!.show();
+                              });
+                            }
                             if (widget.refresh != null) {
                               widget.refresh!();
                             }
@@ -178,11 +183,12 @@ class _GroupCardState extends State<GroupCard> {
                                 )
                               : Text(
                                   AppLocalizations.of(context)!.subscribe,
-                                  style: const TextStyle(
-                                    fontFamily: '.SF Arabic',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: TextStyle(
+                                      fontFamily: '.SF Arabic',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize:
+                                          Dimensions.fontSize(context, 1.3)),
                                 ),
                         ),
                         // child: CustomTextButton(

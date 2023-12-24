@@ -26,31 +26,30 @@ class CustomTextButton extends StatelessWidget {
       elevation: 2,
       borderRadius: BorderRadius.circular(10),
       color: backgroundColor,
-      child: SizedBox(
-        height: Dimensions.heightPercentage(context, 5),
-        width: width ?? 150,
-        child: TextButton(
-          onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                text,
-                style: TextStyle(
+      child: MaterialButton(
+        height: 45,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
                   color: textColor ?? Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: Dimensions.fontSize(context, 1.5),
-                ),
-              ),
-              const SizedBox(width: 8),
-              icon != null
-                  ? Icon(
-                      icon,
-                      color: iconColor ?? Colors.white,
-                    )
-                  : const SizedBox(),
-            ],
-          ),
+                  fontSize: Dimensions.fontSize(context, 1.3)),
+            ),
+            const SizedBox(width: 8),
+            icon != null
+                ? Icon(
+                    icon,
+                    color: iconColor ?? Colors.white,
+                  )
+                : const SizedBox(),
+          ],
         ),
       ),
     );

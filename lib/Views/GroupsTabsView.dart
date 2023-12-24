@@ -194,8 +194,13 @@ class GroupsViewState extends State<GroupsTabsView>
               child: tabSelected == 1
                   ? isLoadingUser == false
                       ? userGroups!.isEmpty
-                          ? const NotFoundView(
+                          ? NotFoundView(
                               isNoGroups: true,
+                              refresh: () {
+                                setState(() {
+                                  _tabController.animateTo(1);
+                                });
+                              },
                             )
                           : ListView(
                               children: [

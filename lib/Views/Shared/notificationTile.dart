@@ -50,8 +50,8 @@ class _NotificationTileState extends State<NotificationTile> {
       tileColor: widget.notification.isNotified
           ? null
           : appDesign.colorPrimaryDark.withAlpha(20),
-      // dense: true,
-      // visualDensity: const VisualDensity(vertical: 3),
+      dense: true,
+      visualDensity: const VisualDensity(vertical: 3),
       shape: Border(
         bottom: BorderSide(
             color: widget.notification.isNotified
@@ -73,7 +73,9 @@ class _NotificationTileState extends State<NotificationTile> {
           ? Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                '${widget.notification.topic!.title.length > 21 ? widget.notification.topic!.title.substring(0, 21) : widget.notification.topic!.title}...',
+                widget.notification.topic!.title.length > 21
+                    ? '${widget.notification.topic!.title.substring(0, 21)}...'
+                    : widget.notification.topic!.title,
                 style: const TextStyle(
                   color: appDesign.colorAccentDarker,
                   fontFamily: '.SF Arabic',

@@ -1,5 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
+import 'package:canadianslife/Managers/ImagePickerManager.dart';
 import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,28 @@ class _Consultancy1State extends State<Consultancy1> {
     Consultancy.constultanceForm.passportImage = passportCopy.text;
     Consultancy.constultanceForm.maritalStatus = 0;
     Consultancy.constultanceForm.residenceCountry = country.text;
+    Consultancy.constultanceForm.passportImage = image ?? "";
+  }
+
+  String? image;
+  ImagePickerManager imagePickerManager = ImagePickerManager();
+
+  void pickImage() async {
+    String? img = await imagePickerManager.pickOneImage();
+    if (img != null) {
+      setState(() {
+        image = img;
+      });
+    }
+  }
+
+  void takeImage() async {
+    String? img = await imagePickerManager.takeImage();
+    if (img != null) {
+      setState(() {
+        image = img;
+      });
+    }
   }
 
   @override
@@ -96,7 +119,9 @@ class _Consultancy1State extends State<Consultancy1> {
           children: [
             MaterialButton(
               minWidth: Dimensions.widthPercentage(context, 45),
-              onPressed: () {},
+              onPressed: () {
+                takeImage();
+              },
               color: appDesign.colorPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -128,7 +153,9 @@ class _Consultancy1State extends State<Consultancy1> {
             ),
             MaterialButton(
               minWidth: Dimensions.widthPercentage(context, 45),
-              onPressed: () {},
+              onPressed: () {
+                pickImage();
+              },
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 side: const BorderSide(color: appDesign.colorPrimary, width: 2),
