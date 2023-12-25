@@ -16,6 +16,7 @@ class _SaveBtnState extends State<SaveBtn> {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      height: 48,
       minWidth: double.infinity,
       color: appDesign.colorAccent,
       shape: RoundedRectangleBorder(

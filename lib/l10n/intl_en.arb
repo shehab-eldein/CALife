@@ -2,6 +2,7 @@
   "@@locale": "en",
 
   "appTitle": "Canadians Life",
+   "pickLang":"Choose app language",
   "mainHome": "Home",
   "mainGroups": "Groups",
   "mainAdelAwdah": "Adel Awdah",
@@ -16,6 +17,7 @@
   "invalidEmail_Pass": "Invalid Email or password!",
   "dialogOk": "Confirm",
   "name3Message": "Name must be at least 3 charchters",
+  "emailValid": "Please enter a valid email",
   "passMustBe": "Password must have at least 8 elements and one special charchter and one number",
   "confirmPassError": "Confirm password must be same as the password ",
   "numberMustBe": "Number must be without any charecter and atleast 8 numbers",
@@ -29,6 +31,7 @@
   "email": "Email",
   "phone": "Phone Number",
   "password": "Password",
+  "confirmPassword": "Confirm Password",
   "account": "Account",
   "change": "Change",
   "delete": "Delete",

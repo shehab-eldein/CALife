@@ -2,6 +2,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
+import 'package:canadianslife/Views/selectPurpose.dart';
 import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -139,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          const SplashView()));
+                                          SelectPurposeView()));
                                   // context.navigateTo(const SplashView());
                                 } else {
                                   _currentPage++;

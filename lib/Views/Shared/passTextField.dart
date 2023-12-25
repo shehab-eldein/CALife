@@ -37,7 +37,9 @@ class _PassTextFieldState extends State<PassTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.password,
+            widget.labelText != null
+                ? widget.labelText!
+                : AppLocalizations.of(context)!.password,
             style: const TextStyle(
                 fontSize: 17,
                 color: appDesign.colorPrimary,

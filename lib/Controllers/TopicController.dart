@@ -31,7 +31,8 @@ class TopicController {
     }
   }
 
-  Future<bool> topicUpdate(int id, String title, String details) async {
+  Future<bool> topicUpdate(
+      int id, String title, String details, int userId) async {
     try {
       bool res = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicUpdate',
@@ -39,8 +40,7 @@ class TopicController {
           "id": id,
           "title": title,
           "details": details,
-          "userId": Constant.currentUserId,
-          "groupId": 2,
+          "userId": userId,
           "isPinned": true,
           "images": [
             {"id": 0, "topicId": 0, "topicImage": "string"}
