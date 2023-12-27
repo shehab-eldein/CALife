@@ -284,6 +284,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
           padding: EdgeInsets.symmetric(
               horizontal: layoutManager.mainHorizontalPadding()),
           child: MaterialButton(
+            height: 48,
             minWidth: double.infinity,
             color: const Color(0xFF04BFDB),
             shape: RoundedRectangleBorder(

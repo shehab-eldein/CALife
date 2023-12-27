@@ -87,7 +87,7 @@ class _Consultancy1State extends State<Consultancy1> {
           alignment: Alignment.center,
           child: Text(
             AppLocalizations.of(context)!.personalInfo,
-            style: TextStyle(
+            style: const TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -122,7 +122,7 @@ class _Consultancy1State extends State<Consultancy1> {
               onPressed: () {
                 takeImage();
               },
-              color: appDesign.colorPrimary,
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -132,7 +132,7 @@ class _Consultancy1State extends State<Consultancy1> {
                   Text(
                     AppLocalizations.of(context)!.takePicture,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontFamily: '.SF Arabic',
@@ -140,8 +140,8 @@ class _Consultancy1State extends State<Consultancy1> {
                       height: 0,
                     ),
                   ),
-                  SizedBox(width: 5),
-                  Icon(
+                  const SizedBox(width: 5),
+                  const Icon(
                     Icons.camera_alt_outlined,
                     color: Colors.white,
                   ),
@@ -158,7 +158,8 @@ class _Consultancy1State extends State<Consultancy1> {
               },
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                side: const BorderSide(color: appDesign.colorPrimary, width: 2),
+                side: const BorderSide(
+                    color: appDesign.colorPrimaryDark, width: 2),
                 // side: const BorderSide(color: appDesign.colorUnhighlighted, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -167,8 +168,8 @@ class _Consultancy1State extends State<Consultancy1> {
                   Text(
                     AppLocalizations.of(context)!.uploadFile,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: appDesign.colorPrimary,
+                    style: const TextStyle(
+                      color: appDesign.colorPrimaryDark,
                       // color: appDesign.colorUnhighlighted,
                       fontSize: 18,
                       fontFamily: '.SF Arabic',
@@ -176,9 +177,9 @@ class _Consultancy1State extends State<Consultancy1> {
                       height: 0,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.add,
-                    color: appDesign.colorPrimary,
+                    color: appDesign.colorPrimaryDark,
                   ),
                 ],
               ),
@@ -207,7 +208,7 @@ class _Consultancy1State extends State<Consultancy1> {
               child: Text(
                 AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   // color: appDesign.colorPrimary,
                   color: appDesign.colorUnhighlighted,
                   fontSize: 18,
@@ -227,14 +228,14 @@ class _Consultancy1State extends State<Consultancy1> {
                 widget.nextPage();
                 updateData();
               },
-              color: appDesign.colorPrimary,
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 AppLocalizations.of(context)!.next,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontFamily: '.SF Arabic',

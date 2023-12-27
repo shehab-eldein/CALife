@@ -7,18 +7,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// import 'package:device_preview/device_preview.dart';
-
-// void main() => runApp(
-//       DevicePreview(
-//         enabled: true,
-//         builder: (context) => ChangeNotifierProvider(
-//           create: (context) => UserData(),
-//           child: const MyApp(),
-//         ),
-//       ),
-//     );
-
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -59,8 +47,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Canadians Life',
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: Locale(
-              Provider.of<UserData>(context, listen: false).userLanguage),
+          locale: Locale(userData.userLanguage),
           theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: appDesign.colorPrimaryDark),
@@ -70,6 +57,7 @@ class _MyAppState extends State<MyApp> {
           home: userData.isFirstRun == true
               ? const OnboardingScreen()
               : const SplashView(),
+          // : OnboardingScreen(),
         ),
       );
     });

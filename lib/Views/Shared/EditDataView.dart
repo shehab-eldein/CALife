@@ -2,6 +2,7 @@ import 'package:canadianslife/Controllers/UserController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/User.dart';
+import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:canadianslife/Views/Shared/save_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -132,32 +133,41 @@ class _EditDataViewState extends State<EditDataView> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      TextField(
-                        obscureText: hidePassword,
-                        keyboardType: TextInputType.text,
-                        controller: textController,
-                        style: TextStyle(
-                          fontFamily: '.SF Arabic',
-                          fontSize: Dimensions.fontSize(context, 1.2),
-                        ),
-                        decoration: InputDecoration(
-                          suffixIcon: widget.type == 4
-                              ? IconButton(
-                                  icon: hidePassword
-                                      ? const Icon(
-                                          Icons.visibility_off_outlined)
-                                      : const Icon(Icons.visibility_outlined),
-                                  onPressed: () {
-                                    setState(() {
-                                      hidePassword = !hidePassword;
-                                    });
-                                  })
-                              : null,
-                          border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8))),
-                        ),
-                      ),
+                      widget.type == 3
+                          ? PhoneTextField(
+                              labelText: "",
+                              onChanged: (text) {
+                                textController.text = text.substring(1);
+                              },
+                            )
+                          : TextField(
+                              obscureText: hidePassword,
+                              keyboardType: TextInputType.text,
+                              controller: textController,
+                              style: TextStyle(
+                                fontFamily: '.SF Arabic',
+                                fontSize: Dimensions.fontSize(context, 1.2),
+                                height: 0.9,
+                              ),
+                              decoration: InputDecoration(
+                                suffixIcon: widget.type == 4
+                                    ? IconButton(
+                                        icon: hidePassword
+                                            ? const Icon(
+                                                Icons.visibility_off_outlined)
+                                            : const Icon(
+                                                Icons.visibility_outlined),
+                                        onPressed: () {
+                                          setState(() {
+                                            hidePassword = !hidePassword;
+                                          });
+                                        })
+                                    : null,
+                                border: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                              ),
+                            ),
                       SizedBox(height: 10),
                       widget.type == 4
                           ? Column(
@@ -178,6 +188,7 @@ class _EditDataViewState extends State<EditDataView> {
                                   keyboardType: TextInputType.text,
                                   controller: textController2,
                                   style: TextStyle(
+                                    height: 0.9,
                                     fontFamily: '.SF Arabic',
                                     fontSize: Dimensions.fontSize(context, 1.2),
                                   ),

@@ -14,7 +14,7 @@ Widget cTextField(
   final layoutManager = LayoutManager(context);
   return Padding(
     padding: EdgeInsets.symmetric(
-        vertical: 10, horizontal: layoutManager.mainHorizontalPadding()),
+        vertical: 5, horizontal: layoutManager.mainHorizontalPadding()),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(
         children: [
@@ -45,6 +45,7 @@ Widget cTextField(
         keyboardType: TextInputType.text,
         controller: controller,
         style: TextStyle(
+          height: 0.9,
           fontFamily: ".SF Arabic",
           fontSize: Dimensions.fontSize(context, 1.2),
         ),
@@ -66,7 +67,7 @@ Widget cYesNo(
     children: [
       Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: layoutManager.mainHorizontalPadding()),
+            vertical: 5, horizontal: layoutManager.mainHorizontalPadding()),
         child: Text(
           title,
           style: TextStyle(
@@ -80,6 +81,7 @@ Widget cYesNo(
       ),
       const SizedBox(height: 15),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.yes,
           style: const TextStyle(
@@ -91,7 +93,10 @@ Widget cYesNo(
           ),
         ),
         leading: Radio<bool>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: true,
           groupValue: value,
           onChanged: (value) {
@@ -100,6 +105,7 @@ Widget cYesNo(
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.no,
           style: const TextStyle(
@@ -111,7 +117,10 @@ Widget cYesNo(
           ),
         ),
         leading: Radio<bool>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: false,
           groupValue: value,
           onChanged: (value) {
@@ -162,6 +171,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
           : const SizedBox(),
       const SizedBox(height: 0),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option5,
           style: const TextStyle(
@@ -173,7 +183,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 5,
           groupValue: value,
           onChanged: (value) {
@@ -182,6 +195,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option4,
           style: const TextStyle(
@@ -193,7 +207,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 4,
           groupValue: value,
           onChanged: (value) {
@@ -202,6 +219,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option3,
           style: const TextStyle(
@@ -213,7 +231,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 3,
           groupValue: value,
           onChanged: (value) {
@@ -222,6 +243,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option2,
           style: const TextStyle(
@@ -233,7 +255,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 2,
           groupValue: value,
           onChanged: (value) {
@@ -242,6 +267,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option1,
           style: const TextStyle(
@@ -253,7 +279,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 1,
           groupValue: value,
           onChanged: (value) {
@@ -262,6 +291,7 @@ Widget cRate(BuildContext context, String title, dynamic value,
         ),
       ),
       ListTile(
+        horizontalTitleGap: 5,
         title: Text(
           AppLocalizations.of(context)!.option0,
           style: const TextStyle(
@@ -273,7 +303,10 @@ Widget cRate(BuildContext context, String title, dynamic value,
           ),
         ),
         leading: Radio<int>(
-          activeColor: appDesign.colorPrimary,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+          ),
+          activeColor: appDesign.colorAccent,
           value: 0,
           groupValue: value,
           onChanged: (value) {

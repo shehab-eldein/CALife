@@ -64,7 +64,7 @@ class _NotFoundViewState extends State<NotFoundView> {
         ),
         const SizedBox(height: 20),
         MaterialButton(
-          color: appDesign.colorPrimary,
+          color: appDesign.colorPrimaryDark,
           onPressed: () {
             Constant.controller.jumpToTab(1);
             if (widget.refresh != null) {

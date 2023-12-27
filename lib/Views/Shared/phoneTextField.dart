@@ -27,8 +27,6 @@ class PhoneTextField extends StatefulWidget {
 }
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,40 +37,43 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
           Text(
             widget.labelText,
             style: TextStyle(
-              fontSize: 17,
+              fontSize: widget.labelText == "" ? 0 : 17,
               color: appDesign.colorPrimary,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
-          Container(
+          SizedBox(height: widget.labelText == "" ? 0 : 8),
+          SizedBox(
             height: 68,
             child: Directionality(
-              
               textDirection: TextDirection.ltr,
               child: IntlPhoneField(
                 invalidNumberMessage: "Invalid Phone number",
                 pickerDialogStyle: PickerDialogStyle(
                     searchFieldCursorColor: appDesign.colorPrimary,
                     searchFieldInputDecoration: InputDecoration(
-                  focusColor: appDesign.colorPrimary,
-                  labelStyle: TextStyle(
-                    fontSize: 17,
-                    color: Colors.grey.shade400,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: appDesign.colorPrimary),
-                  ),
-                )),
+                      focusColor: appDesign.colorPrimary,
+                      labelStyle: TextStyle(
+                        fontSize: 17,
+                        color: Colors.grey.shade400,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            const BorderSide(color: appDesign.colorPrimary),
+                      ),
+                    )),
                 textAlign: TextAlign.end,
-               dropdownIcon: Icon(Icons.arrow_drop_down_outlined,color: appDesign.colorPrimary,),
+                dropdownIcon: const Icon(
+                  Icons.arrow_drop_down_outlined,
+                  color: appDesign.colorPrimary,
+                ),
                 textAlignVertical: TextAlignVertical.top,
                 textInputAction: TextInputAction.done,
                 cursorColor: appDesign.colorPrimary,
@@ -85,32 +86,30 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.grey,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: appDesign.colorPrimary),
+                    borderSide: const BorderSide(color: appDesign.colorPrimary),
                   ),
                 ),
                 controller: widget.controller,
                 languageCode: UserData.language,
-                initialCountryCode: 'CA' ,
+                initialCountryCode: 'CA',
                 onChanged: (phone) {
                   widget.onChanged!(phone.completeNumber);
                 },
                 onCountryChanged: (country) {
-                  print('Country changed to: ' + country.name);
+                  print('Country changed to: ${country.name}');
                 },
                 onSaved: (phone) {
                   widget.onEditingComplete!();
                 },
-
               ),
             ),
           ),
-
         ],
       ),
     );

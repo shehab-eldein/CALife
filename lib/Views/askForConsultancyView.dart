@@ -52,7 +52,7 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
         ),
         const SizedBox(height: 20),
         MaterialButton(
-          color: appDesign.colorPrimary,
+          color: appDesign.colorPrimaryDark,
           onPressed: () {
             context.navigateTo(const ConsultancyView());
           },

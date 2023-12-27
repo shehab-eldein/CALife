@@ -1,4 +1,5 @@
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Group.dart';
 import 'package:canadianslife/Views/GroupAdminControlPage.dart';
@@ -39,7 +40,8 @@ class _GroupAdminViewState extends State<GroupAdminView> {
       AppLocalizations.of(context)!.control,
       AppLocalizations.of(context)!.members,
       AppLocalizations.of(context)!.posts,
-      AppLocalizations.of(context)!.guide
+      AppLocalizations.of(context)!.guide,
+      AppLocalizations.of(context)!.about,
     ];
     return Scaffold(
       key: _scaffoldKey,
@@ -125,43 +127,46 @@ class _GroupAdminViewState extends State<GroupAdminView> {
                 ],
               ),
             ),
-            Padding(
+            Container(
+              height: 45,
               padding: EdgeInsets.symmetric(
                   horizontal: layoutManager.mainHorizontalPadding(),
                   vertical: 5),
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                children: [
-                  ...chips.map((e) {
-                    return MaterialButton(
-                      elevation: 0,
-                      color: selection == chips.indexOf(e)
-                          ? appDesign.colorPrimaryDark
-                          : const Color(0xFFF5F5F5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selection = chips.indexOf(e);
-                        });
-                      },
-                      child: Text(
-                        e,
-                        style: TextStyle(
-                          color: selection == chips.indexOf(e)
-                              ? Colors.white
-                              : appDesign.colorPrimaryDark,
-                          fontSize: 17,
-                          fontFamily: '.SF Arabic',
-                          fontWeight: FontWeight.w500,
-                          height: 0.07,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: chips.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: Dimensions.widthPercentage(context, 3)),
+                      child: MaterialButton(
+                        elevation: 0,
+                        color: selection == chips.indexOf(chips[index])
+                            ? appDesign.colorPrimaryDark
+                            : const Color(0xFFF5F5F5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selection = chips.indexOf(chips[index]);
+                          });
+                        },
+                        child: Text(
+                          chips[index],
+                          style: TextStyle(
+                            color: selection == chips.indexOf(chips[index])
+                                ? Colors.white
+                                : appDesign.colorPrimaryDark,
+                            fontSize: 17,
+                            fontFamily: '.SF Arabic',
+                            fontWeight: FontWeight.w500,
+                            height: 0.07,
+                          ),
                         ),
                       ),
                     );
-                  })
-                ],
-              ),
+                  }),
             ),
             pages[selection],
           ],

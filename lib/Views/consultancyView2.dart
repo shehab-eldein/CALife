@@ -65,7 +65,7 @@ class _Consultancy2State extends State<Consultancy2> {
           alignment: Alignment.center,
           child: Text(
             AppLocalizations.of(context)!.skillsEducation,
-            style: TextStyle(
+            style: const TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -85,12 +85,18 @@ class _Consultancy2State extends State<Consultancy2> {
           hasBachelor,
           setHasBachelor,
         ),
-        cRate(context, AppLocalizations.of(context)!.englishSkills, writing,
-            setWriting, AppLocalizations.of(context)!.writing),
+        Container(
+          color: const Color(0xFFF5F5F5),
+          child: cRate(context, AppLocalizations.of(context)!.englishSkills,
+              writing, setWriting, AppLocalizations.of(context)!.writing),
+        ),
         cRate(context, AppLocalizations.of(context)!.reading, reading,
             setReading, null),
-        cRate(context, AppLocalizations.of(context)!.speaking, speaking,
-            setSpeaking, null),
+        Container(
+          color: const Color(0xFFF5F5F5),
+          child: cRate(context, AppLocalizations.of(context)!.speaking,
+              speaking, setSpeaking, null),
+        ),
         cRate(context, AppLocalizations.of(context)!.listening, listening,
             setListening, null),
         Row(
@@ -104,14 +110,15 @@ class _Consultancy2State extends State<Consultancy2> {
               },
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                side: const BorderSide(color: appDesign.colorPrimary, width: 2),
+                side: const BorderSide(
+                    color: appDesign.colorPrimaryDark, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: appDesign.colorPrimary,
+                style: const TextStyle(
+                  color: appDesign.colorPrimaryDark,
                   fontSize: 18,
                   fontFamily: '.SF Arabic',
                   fontWeight: FontWeight.w600,
@@ -128,14 +135,14 @@ class _Consultancy2State extends State<Consultancy2> {
               onPressed: () {
                 widget.nextPage();
               },
-              color: appDesign.colorPrimary,
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 AppLocalizations.of(context)!.next,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontFamily: '.SF Arabic',

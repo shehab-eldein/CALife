@@ -1,5 +1,6 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/CustomTextButton.dart';
 import 'package:canadianslife/Views/selectPurpose.dart';
@@ -35,6 +36,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
   int _currentPage = 0;
   bool isLoaded = false;
+
+  nextPage() {
+    setState(() {
+      if (_currentPage == 2) {
+        Navigator.of(context).pop();
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => SelectPurposeView()));
+      } else {
+        _currentPage++;
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  prevPage() {
+    setState(() {
+      if (_currentPage == 0) {
+      } else {
+        _currentPage--;
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
@@ -61,31 +94,57 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   padding: EdgeInsets.fromLTRB(
                       // layoutManager.valuesHandler(48, 38, 220, 220)
                       0,
-                      layoutManager.valuesHandler(50, 50, 25, 25),
+                      layoutManager.valuesHandler(60, 60, 30, 30),
                       0,
-                      0),
+                      5),
                   child: SizedBox(
                     height: 10,
                     width: context.screenWidth,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _onboardingData.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: context.screenWidth * 0.3,
-                          height: 10,
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(5),
-                              color: _currentPage == index
-                                  ? appDesign.colorPrimary
-                                  : Colors.white,
-                              border: Border.all(
-                                  color: appDesign.colorPrimary, width: 1)),
-                        );
-                      },
-                    ),
+                    child:
+                        ListView(scrollDirection: Axis.horizontal, children: [
+                      Container(
+                        width: context.screenWidth * 0.3,
+                        height: 10,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5),
+                          color: _currentPage >= 0
+                              ? appDesign.colorPrimaryDark
+                              : Colors.white,
+                          border: Border.all(
+                              color: appDesign.colorPrimaryDark, width: 1),
+                        ),
+                      ),
+                      Container(
+                        width: context.screenWidth * 0.3,
+                        height: 10,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5),
+                          color: _currentPage >= 1
+                              ? appDesign.colorPrimaryDark
+                              : Colors.white,
+                          border: Border.all(
+                              color: appDesign.colorPrimaryDark, width: 1),
+                        ),
+                      ),
+                      Container(
+                        width: context.screenWidth * 0.3,
+                        height: 10,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5),
+                          color: _currentPage >= 2
+                              ? appDesign.colorPrimaryDark
+                              : Colors.white,
+                          border: Border.all(
+                              color: appDesign.colorPrimaryDark, width: 1),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
                 Expanded(
@@ -109,50 +168,66 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: Visibility(
-                          visible: _currentPage != _onboardingData.length - 1,
-                          child: CustomTextButton(
-                            textColor: Colors.grey,
-                            text: AppLocalizations.of(context)!.skip,
-                            backgroundColor: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                            height: 45,
+                            minWidth: Dimensions.widthPercentage(context, 45),
                             onPressed: () {
-                              setState(() {
-                                _currentPage = 2;
-                              });
+                              prevPage();
                             },
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: _currentPage == 0
+                                      ? appDesign.colorUnhighlighted
+                                      : appDesign.colorPrimaryDark,
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.previous,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: _currentPage == 0
+                                    ? appDesign.colorUnhighlighted
+                                    : appDesign.colorPrimaryDark,
+                                fontSize: 18,
+                                fontFamily: '.SF Arabic',
+                                fontWeight: FontWeight.w600,
+                                height: 0,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                          width: layoutManager.valuesHandler(5, 5, 250, 250)),
-                      Expanded(
-                        child: CustomTextButton(
-                            backgroundColor: appDesign.colorPrimary,
-                            // text: _currentPage == _onboardingData.length - 1 ? 'Sign Up' : 'Next',
-                            text: AppLocalizations.of(context)!.next,
+                          SizedBox(
+                            width: Dimensions.widthPercentage(context, 2),
+                          ),
+                          MaterialButton(
+                            height: 45,
+                            minWidth: Dimensions.widthPercentage(context, 45),
                             onPressed: () {
-                              setState(() {
-                                if (_currentPage ==
-                                    _onboardingData.length - 1) {
-                                  // Handle sign up button action
-                                  // e.g., navigate to sign up screen or perform any other desired action
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          SelectPurposeView()));
-                                  // context.navigateTo(const SplashView());
-                                } else {
-                                  _currentPage++;
-                                  _pageController.animateToPage(
-                                    _currentPage,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                  );
-                                }
-                              });
-                            }),
-                      )
+                              nextPage();
+                            },
+                            color: appDesign.colorPrimaryDark,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.next,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: '.SF Arabic',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

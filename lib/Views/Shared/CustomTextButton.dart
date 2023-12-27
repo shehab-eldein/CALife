@@ -27,7 +27,7 @@ class CustomTextButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: backgroundColor,
       child: MaterialButton(
-        height: 45,
+        height: 48,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

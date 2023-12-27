@@ -1,9 +1,9 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Group.dart';
-import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TestView extends StatefulWidget {
   TestView({super.key, this.groupInfo});
   Group? groupInfo;
