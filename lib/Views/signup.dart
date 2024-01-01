@@ -248,15 +248,17 @@ class _SignUp extends State<SignUpView> {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.navigateTo(const LoginView());
+                        Navigator.pop(context);
                       },
-                      child: Text(AppLocalizations.of(context)!.logIn,
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: appDesign.colorPrimary,
-                          )),
+                      child: Text(
+                        AppLocalizations.of(context)!.logIn,
+                        style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: appDesign.colorPrimary,
+                        ),
+                      ),
                     )
                   ],
                 ),

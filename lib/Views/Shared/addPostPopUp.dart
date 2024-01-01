@@ -30,7 +30,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
     List<String>? images = await imagePickerManager.pickImages();
     if (images != null && images.isNotEmpty) {
       setState(() {
-        imageFiles = images;
+        imageFiles += images;
       });
     }
   }
@@ -44,14 +44,12 @@ class _AddPostPopupState extends State<AddPostPopup> {
     );
     if (newTopic != null) {
       addTopicImgaes(newTopic.id);
-      print(newTopic.id);
     }
   }
 
   addTopicImgaes(topicId) async {
     if (imageFiles.isNotEmpty) {
       for (String image in imageFiles) {
-        print("adding Image ${imageFiles.indexOf(image)}");
         await TopicController().topicImageAdd(topicId, image);
       }
     }
@@ -73,7 +71,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
               Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   color: appDesign.colorAccent,
                   onPressed: () {
                     Navigator.pop(context);
@@ -81,9 +79,8 @@ class _AddPostPopupState extends State<AddPostPopup> {
                 ),
               ),
               GestureDetector(
-                child: Icon(Icons.image),
+                child: const Icon(Icons.image),
                 onTap: () {
-                  print("add image start");
                   // _openGallery();
                   //_pickImages();
                   chooseMuliImages();
@@ -93,6 +90,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
                 child: TextField(
                   controller: _textController,
                   keyboardType: TextInputType.multiline,
+                  minLines: 5,
                   maxLines: null,
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.startPosting,
@@ -107,13 +105,34 @@ class _AddPostPopupState extends State<AddPostPopup> {
                       width: context.screenWidth,
                       child: Center(
                         child: ListView(
-                          scrollDirection: Axis.horizontal,
+                          // scrollDirection: Axis.horizontal,
                           children: [
                             ...imageFiles.map(
-                              (e) => Image.memory(
-                                base64Decode(e),
-                                height: 200,
-                                fit: BoxFit.fitHeight,
+                              (e) => Stack(
+                                children: [
+                                  Image.memory(
+                                    base64Decode(e),
+                                    height: 180,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                      top: 20,
+                                      left: 20,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.red,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                imageFiles.remove(e);
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              Icons.close,
+                                              color: Colors.white,
+                                            )),
+                                      ))
+                                ],
                               ),
                             )
                           ],
@@ -135,7 +154,7 @@ class _AddPostPopupState extends State<AddPostPopup> {
                       ),
                     )
                   : const SizedBox(),
-              SizedBox(height: 7.0),
+              const SizedBox(height: 7.0),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: CustomLoadingButton(
@@ -143,7 +162,6 @@ class _AddPostPopupState extends State<AddPostPopup> {
                   text: 'نشر',
                   onPressed: () {
                     submitPost();
-                    print("post");
                     // Navigator.pop(context);
                   },
                 ),

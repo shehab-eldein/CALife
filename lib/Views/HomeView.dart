@@ -20,9 +20,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    listController = ScrollController()..addListener(handleScrolling);
     getTopics();
-    // getTopics(100012);
-    // getTopics(100013);
   }
 
   List<Topic>? topics;
@@ -45,36 +44,37 @@ class _HomeViewState extends State<HomeView> {
       }
       isLoading = false;
     });
-    print(Constant.isHomeEmpty);
   }
 
-  // getTopics(int grouId) async {
-  //   var t = await TopicController().topicsGetByGroupId(
-  //       grouId, Provider.of<UserData>(context, listen: false).userInfo.id, 0);
-  //   setState(() {
-  //     if (topics == null) {
-  //       topics = t;
-  //     } else {
-  //       if (t != null) {
-  //         for (var e in t) {
-  //           topics!.add(e);
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
-
   loadMore() async {
-    int lastLoaded = topics![topics!.length - 1].id;
-    List<Topic>? groupTopics = await TopicController().topicsGetByTimeLine(
-        Provider.of<UserData>(context, listen: false).userInfo.id,
-        controller.text,
-        lastLoaded);
-    setState(() {
-      for (var element in groupTopics!) {
-        topics!.add(element);
-      }
-    });
+    if (isLoadingMore == false) {
+      isLoadingMore = true;
+      int lastLoaded = topics![topics!.length - 1].id;
+      List<Topic>? groupTopics = await TopicController().topicsGetByTimeLine(
+          Provider.of<UserData>(context, listen: false).userInfo.id,
+          controller.text,
+          lastLoaded);
+      setState(() {
+        for (var element in groupTopics) {
+          topics!.add(element);
+        }
+        isLoadingMore = false;
+      });
+    }
+  }
+
+  ScrollController listController = ScrollController();
+
+  bool isLoadingMore = false;
+  void handleScrolling() {
+    if (listController.offset >= listController.position.maxScrollExtent &&
+        topics != null &&
+        topics!.isNotEmpty &&
+        topics!.length % 30 == 0) {
+      setState(() {
+        loadMore();
+      });
+    }
   }
 
   @override
@@ -87,6 +87,7 @@ class _HomeViewState extends State<HomeView> {
           return Future.delayed(Duration.zero, getTopics);
         },
         child: ListView(
+          controller: listController,
           physics: const AlwaysScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(
               horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
@@ -117,16 +118,8 @@ class _HomeViewState extends State<HomeView> {
                         height: Dimensions.screenHeight(context),
                         child:
                             const Center(child: CircularProgressIndicator())),
-            topics != null && topics!.isNotEmpty && topics!.length % 30 == 0
-                ? MaterialButton(
-                    onPressed: () {
-                      loadMore();
-                    },
-                    child: const Text(
-                      'Load More',
-                      style: TextStyle(color: Color(0xFF0A4D68)),
-                    ),
-                  )
+            isLoadingMore
+                ? const Center(child: CircularProgressIndicator())
                 : const SizedBox()
           ],
         ),

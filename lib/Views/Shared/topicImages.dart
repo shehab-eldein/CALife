@@ -61,7 +61,7 @@ class _TopicImagesState extends State<TopicImages> {
         ),
         const SizedBox(height: 10),
         Text(
-          "$currentIndex / ${images.length}",
+          "${int.parse(currentIndex) + 1} / ${images.length}",
           textDirection: TextDirection.ltr,
         ),
       ],

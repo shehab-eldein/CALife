@@ -33,7 +33,8 @@ class _GroupAdminViewState extends State<GroupAdminView> {
         groupId: widget.groupInfo.id,
         isNotSubed: false,
       ),
-      GroupInfoPage(info: widget.groupInfo.guide ?? "No Info")
+      GroupInfoPage(info: widget.groupInfo.guide ?? "No Info"),
+      GroupInfoPage(info: widget.groupInfo.description ?? "No Description")
     ];
     final layoutManager = LayoutManager(context);
     List<String> chips = [
@@ -138,7 +139,8 @@ class _GroupAdminViewState extends State<GroupAdminView> {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: EdgeInsets.only(
-                          left: Dimensions.widthPercentage(context, 3)),
+                        left: Dimensions.widthPercentage(context, 3),
+                      ),
                       child: MaterialButton(
                         elevation: 0,
                         color: selection == chips.indexOf(chips[index])

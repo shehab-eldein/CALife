@@ -11,12 +11,13 @@ import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Validator.dart';
 
 class EditDataView extends StatefulWidget {
-  const EditDataView(
-      {super.key,
-      required this.userInfo,
-      required this.type,
-      required this.title,
-      required this.refresh});
+  const EditDataView({
+    super.key,
+    required this.userInfo,
+    required this.type,
+    required this.title,
+    required this.refresh,
+  });
   final User userInfo;
   final int type;
   final String title;

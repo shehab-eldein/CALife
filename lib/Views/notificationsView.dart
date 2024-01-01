@@ -1,5 +1,4 @@
 import 'package:canadianslife/Controllers/UserController.dart';
-import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Notification.dart';

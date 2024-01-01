@@ -44,6 +44,7 @@ class UserData extends ChangeNotifier {
   static String userName = "";
   static String deviceToken = "";
   static bool isInCanada = true;
+  static bool showNotifications = true;
   static bool firstRun = true;
   // static int userId = 0;
   // static int userType = 0;
@@ -101,6 +102,7 @@ class UserData extends ChangeNotifier {
     language = prefs.getString('language') ?? "ar";
     firstRun = prefs.getBool('firstRun') ?? true;
     isInCanada = prefs.getBool('isInCanada') ?? true;
+    showNotifications = prefs.getBool('showNotifications') ?? true;
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }
