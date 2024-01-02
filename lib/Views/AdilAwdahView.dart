@@ -69,8 +69,13 @@ class _AdilAwdahState extends State<AdilAwdah> {
                   ),
                 ),
                 Positioned(
-                  top: Dimensions.heightPercentage(context, 15),
-                  left: Dimensions.widthPercentage(context, 40),
+                  top: layoutManager.valuesHandler(
+                      Dimensions.heightPercentage(context, 15),
+                      Dimensions.heightPercentage(context, 15),
+                      Dimensions.heightPercentage(context, 25),
+                      Dimensions.heightPercentage(context, 25)),
+                  left: Dimensions.widthPercentage(context, 50) -
+                      Dimensions.radius(context, 4),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey,
                     backgroundImage: const AssetImage("images/person.png"),

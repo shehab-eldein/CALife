@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
@@ -36,14 +37,24 @@ class _AddPostPopupState extends State<AddPostPopup> {
   }
 
   submitPost() async {
-    Topic? newTopic = await TopicController().topicAdd(
-      widget.groupId,
-      _textController.text,
-      _textController.text,
-      Provider.of<UserData>(context, listen: false).userInfo.id,
-    );
-    if (newTopic != null) {
-      addTopicImgaes(newTopic.id);
+    if (_textController.text != "" || imageFiles.isNotEmpty) {
+      Topic? newTopic = await TopicController().topicAdd(
+        widget.groupId,
+        _textController.text,
+        _textController.text,
+        Provider.of<UserData>(context, listen: false).userInfo.id,
+      );
+      if (newTopic != null) {
+        addTopicImgaes(newTopic.id);
+      }
+    } else {
+      context.okAlert(
+        title: AppLocalizations.of(context)!.required,
+        message: AppLocalizations.of(context)!.emptyMessage,
+      );
+      setState(() {
+        isPressed = false;
+      });
     }
   }
 
@@ -54,8 +65,12 @@ class _AddPostPopupState extends State<AddPostPopup> {
       }
     }
     widget.refresh();
-    Navigator.pop(context);
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
+
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -157,13 +172,33 @@ class _AddPostPopupState extends State<AddPostPopup> {
               const SizedBox(height: 7.0),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: CustomLoadingButton(
-                  controller: controller,
-                  text: 'نشر',
+                child: MaterialButton(
+                  height: 48,
+                  minWidth: double.infinity,
+                  color: appDesign.colorPrimary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   onPressed: () {
+                    setState(() {
+                      isPressed = true;
+                    });
                     submitPost();
-                    // Navigator.pop(context);
                   },
+                  child: isPressed
+                      ? const Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          AppLocalizations.of(context)!.post,
+                          style: TextStyle(
+                              fontFamily: '.SF Arabic',
+                              color: Colors.white,
+                              fontSize: Dimensions.fontSize(context, 1.3)),
+                        ),
                 ),
               ),
             ],

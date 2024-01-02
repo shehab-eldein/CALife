@@ -28,7 +28,7 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
             AppLocalizations.of(context)!.askC1,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xBF030F2E),
+              color: const Color(0xBF030F2E),
               fontSize: Dimensions.fontSize(context, 1.7),
               fontFamily: '.SF Arabic',
               fontWeight: FontWeight.w500,
@@ -42,7 +42,7 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
             AppLocalizations.of(context)!.askC2,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0x7F030F2E),
+              color: const Color(0x7F030F2E),
               fontSize: Dimensions.fontSize(context, 1.3),
               fontFamily: '.SF Arabic',
               fontWeight: FontWeight.w400,
@@ -64,6 +64,7 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
             child: Wrap(
               spacing: 5,
               alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),

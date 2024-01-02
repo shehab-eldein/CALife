@@ -42,7 +42,8 @@ class GroupsViewState extends State<GroupsTabsView>
       isLoadingNew = true;
     });
     newGroups = await GroupController().getUnsubedGroups(
-        Provider.of<UserData>(context, listen: false).userInfo.userType!,
+        // Provider.of<UserData>(context, listen: false).userInfo.userType!,
+        0,
         Provider.of<UserData>(context, listen: false).userInfo.id,
         searchController.text,
         0);

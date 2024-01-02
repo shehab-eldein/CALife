@@ -139,7 +139,12 @@ class _GroupAdminViewState extends State<GroupAdminView> {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: EdgeInsets.only(
-                        left: Dimensions.widthPercentage(context, 3),
+                        right: UserData.language == "en"
+                            ? Dimensions.widthPercentage(context, 3)
+                            : 0,
+                        left: UserData.language == "ar"
+                            ? Dimensions.widthPercentage(context, 3)
+                            : 0,
                       ),
                       child: MaterialButton(
                         elevation: 0,

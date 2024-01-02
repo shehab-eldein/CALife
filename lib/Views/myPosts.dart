@@ -67,6 +67,7 @@ class _MyPostsViewState extends State<MyPostsView> {
                 : Column(
                     children: [
                       ...topics!.map((e) => Post(
+                            canDelete: true,
                             topicInfo: e,
                           )),
                     ],

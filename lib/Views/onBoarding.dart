@@ -87,14 +87,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             backgroundColor: Colors.white,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                       // layoutManager.valuesHandler(48, 38, 220, 220)
-                      0,
-                      layoutManager.valuesHandler(60, 60, 30, 30),
-                      0,
-                      5),
+                      5,
+                      60,
+                      5,
+                      10),
                   child: SizedBox(
                     height: 10,
                     width: context.screenWidth,
@@ -117,7 +118,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Container(
                         width: context.screenWidth * 0.3,
                         height: 10,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                layoutManager.valuesHandler(4, 4, 15, 15)),
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(5),
@@ -129,9 +132,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       Container(
-                        width: context.screenWidth * 0.3,
+                        width: context.screenWidth * 0.32,
                         height: 10,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                layoutManager.valuesHandler(4, 4, 15, 15)),
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(5),
@@ -164,7 +169,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 50),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -199,7 +205,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: Dimensions.widthPercentage(context, 2),
+                            width: Dimensions.widthPercentage(context, 1),
                           ),
                           MaterialButton(
                             height: 45,

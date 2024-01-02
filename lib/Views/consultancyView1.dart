@@ -1,6 +1,7 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,7 @@ class _Consultancy1State extends State<Consultancy1> {
 
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return ListView(
       children: [
         const SizedBox(height: 20),
@@ -118,7 +120,7 @@ class _Consultancy1State extends State<Consultancy1> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 takeImage();
               },
@@ -148,11 +150,15 @@ class _Consultancy1State extends State<Consultancy1> {
                 ],
               ),
             ),
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: layoutManager.valuesHandler(
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 3),
+                  Dimensions.widthPercentage(context, 3)),
             ),
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 pickImage();
               },
@@ -196,7 +202,7 @@ class _Consultancy1State extends State<Consultancy1> {
             MaterialButton(
               enableFeedback: false,
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {},
               color: Colors.white,
               shape: RoundedRectangleBorder(
@@ -219,11 +225,15 @@ class _Consultancy1State extends State<Consultancy1> {
               ),
             ),
             SizedBox(
-              width: Dimensions.widthPercentage(context, 3),
+              width: layoutManager.valuesHandler(
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 3),
+                  Dimensions.widthPercentage(context, 3)),
             ),
             MaterialButton(
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 widget.nextPage();
                 updateData();

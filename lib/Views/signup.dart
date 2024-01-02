@@ -142,7 +142,6 @@ class _SignUp extends State<SignUpView> {
           .signUP(name, nameInApp ?? name!, email, password, number, "")
           .then((user) {
         if (user != null) {
-          print(user.id);
           Provider.of<UserData>(context, listen: false).logUser(user);
           Navigator.of(context).pop();
           btnController.success();

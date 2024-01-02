@@ -96,12 +96,7 @@ class _ConsultancyViewState extends State<ConsultancyView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(
-                // layoutManager.valuesHandler(48, 38, 220, 220)
-                0,
-                layoutManager.valuesHandler(5, 5, 5, 5),
-                0,
-                5),
+            padding: EdgeInsets.all(10),
             child: SizedBox(
               height: 10,
               width: context.screenWidth,
@@ -109,7 +104,8 @@ class _ConsultancyViewState extends State<ConsultancyView> {
                 Container(
                   width: context.screenWidth * 0.3,
                   height: 10,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: context.screenWidth * 0.01),
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5),
@@ -123,7 +119,8 @@ class _ConsultancyViewState extends State<ConsultancyView> {
                 Container(
                   width: context.screenWidth * 0.3,
                   height: 10,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: layoutManager.valuesHandler(4, 4, 15, 15)),
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5),
@@ -137,7 +134,8 @@ class _ConsultancyViewState extends State<ConsultancyView> {
                 Container(
                   width: context.screenWidth * 0.3,
                   height: 10,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: layoutManager.valuesHandler(4, 4, 15, 15)),
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5),

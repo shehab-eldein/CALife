@@ -38,8 +38,9 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
     if (widget.isNotSubed) {
       await GroupController().subscribeToGroup(widget.groupId,
           Provider.of<UserData>(context, listen: false).userInfo.id);
-      const snackBar = SnackBar(
-        content: Text('تم النشر و الاشتراك بالمجموعة'),
+      var snackBar = SnackBar(
+        // ignore: use_build_context_synchronously
+        content: Text(AppLocalizations.of(context)!.postSubed),
       );
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
