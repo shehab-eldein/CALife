@@ -22,16 +22,24 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
             ClipRRect(
               borderRadius: BorderRadius.circular(200),
               child: FadeInImage(
-                height: Dimensions.widthPercentage(context, 25),
-                width: Dimensions.widthPercentage(context, 25),
+                height: Dimensions.widthPercentage(context, 25) > 140
+                    ? 140
+                    : Dimensions.widthPercentage(context, 25),
+                width: Dimensions.widthPercentage(context, 25) > 140
+                    ? 140
+                    : Dimensions.widthPercentage(context, 25),
                 image: NetworkImage('${Constant.baseURL}imgusers/$userId.jpg'),
                 placeholder: const AssetImage('images/person.png'),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     'images/person.png',
                     fit: BoxFit.fill,
-                    height: Dimensions.widthPercentage(context, 25),
-                    width: Dimensions.widthPercentage(context, 25),
+                    height: Dimensions.widthPercentage(context, 25) > 140
+                        ? 140
+                        : Dimensions.widthPercentage(context, 25),
+                    width: Dimensions.widthPercentage(context, 25) > 140
+                        ? 140
+                        : Dimensions.widthPercentage(context, 25),
                   );
                 },
                 fit: BoxFit.fill,
@@ -52,7 +60,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                     userData.userInfo.displayName,
                     style: TextStyle(
                       color: Color(0xFF474B51),
-                      fontSize: Dimensions.fontSize(context, 1.5),
+                      fontSize: Dimensions.fontSize(context, 1.5) > 20
+                          ? 20
+                          : Dimensions.fontSize(context, 1.5),
                       fontFamily: '.SF Arabic',
                       fontWeight: FontWeight.w600,
                     ),
@@ -81,7 +91,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                     userData.userInfo.email,
                     style: TextStyle(
                       color: Color(0x7F474B51),
-                      fontSize: Dimensions.fontSize(context, 1.5),
+                      fontSize: Dimensions.fontSize(context, 1.5) > 20
+                          ? 20
+                          : Dimensions.fontSize(context, 1.5),
                       fontFamily: 'SF Pro',
                     ),
                   ),
@@ -92,7 +104,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0x7F474B51),
-                    fontSize: Dimensions.fontSize(context, 1.5),
+                    fontSize: Dimensions.fontSize(context, 1.5) > 20
+                        ? 20
+                        : Dimensions.fontSize(context, 1.5),
                     fontFamily: 'SF Pro',
                   ),
                 ),
