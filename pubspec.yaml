@@ -2,7 +2,7 @@ name: canadianslife
 description: Canadians Life
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.0.5 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -49,7 +48,6 @@ dependencies:
   toggle_switch: ^2.1.0
   rounded_loading_button: ^2.1.0
   flutter_staggered_grid_view:
-  # image_picker: ^0.8.3
   image_picker: ^1.0.4
   multi_image_picker: ^4.8.1
   image: ^3.0.1
@@ -57,8 +55,6 @@ dependencies:
   provider: ^6.1.1
   http: ^1.1.0
   flutter_native_splash: ^2.2.16
-  # device_preview: ^1.1.0
-
 
 dev_dependencies:
   flutter_test:
@@ -127,7 +123,7 @@ flutter_native_splash:
   # IMPORTANT NOTE: These parameter do not affect the configuration of Android 12 and later, which
   # handle splash screens differently that prior versions of Android.  Android 12 and later must be
   # configured specifically in the android_12 section below.
-  
+
   # color or background_image is the only required parameter.  Use color to set the background
   # of your splash screen to a solid color.  Use background_image to set the background of your
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the

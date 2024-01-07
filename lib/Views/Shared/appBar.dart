@@ -26,28 +26,85 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
       leading: showBackButton != null && showBackButton! == false
-          ? IconButton(
-              onPressed: () {
-                context.navigateTo(const NotificationsView());
-              },
-              icon: const Icon(Icons.notifications_none_rounded),
-              color: appDesign.colorPrimaryDark,
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      spreadRadius: 0,
+                      color: Colors.black.withAlpha(38),
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    splashColor: Colors.grey[500],
+                    onTap: () {
+                      context.navigateTo(const NotificationsView());
+                    },
+                    child: const Icon(
+                      Icons.notifications_none_outlined,
+                      color: appDesign.colorPrimaryDark,
+                    ),
+                  ),
+                ),
+              ),
             )
-          : InkWell(
-              onTap: () {},
-              child: Visibility(
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                visible: showBackButton!,
-                child: BackButton(
-                    color: appDesign.colorPrimaryDark,
-                    onPressed: () {
-                      Navigator.of(Constant.navigatorKey.currentState!.context)
-                          .pop();
-                    }),
+          : Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: showBackButton!,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4,
+                        spreadRadius: 0,
+                        color: Colors.black.withAlpha(38),
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: BackButton(
+                        color: appDesign.colorPrimaryDark,
+                        onPressed: () {
+                          Navigator.of(
+                                  Constant.navigatorKey.currentState!.context)
+                              .pop();
+                        }),
+                  ),
+                ),
               ),
             ),
+      // InkWell(
+      //     onTap: () {},
+      //     child: Visibility(
+      //       maintainSize: true,
+      //       maintainAnimation: true,
+      //       maintainState: true,
+      //       visible: showBackButton!,
+      //       child: BackButton(
+      //           color: appDesign.colorPrimaryDark,
+      //           onPressed: () {
+      //             Navigator.of(Constant.navigatorKey.currentState!.context)
+      //                 .pop();
+      //           }),
+      //     ),
+      //   ),
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),

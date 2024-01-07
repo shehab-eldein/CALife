@@ -31,15 +31,16 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
     getTopics();
   }
 
-  refresh() async {
+  postAndSub() async {
     setState(() {
       isLoading = true;
     });
     if (widget.isNotSubed) {
       await GroupController().subscribeToGroup(widget.groupId,
           Provider.of<UserData>(context, listen: false).userInfo.id);
-      const snackBar = SnackBar(
-        content: Text('تم النشر و الاشتراك بالمجموعة'),
+      var snackBar = SnackBar(
+        // ignore: use_build_context_synchronously
+        content: Text(AppLocalizations.of(context)!.postSubed),
       );
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -54,7 +55,7 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
       builder: (BuildContext context) {
         return AddPostPopup(
           groupId: widget.groupId,
-          refresh: refresh,
+          refresh: postAndSub,
         );
       },
     );

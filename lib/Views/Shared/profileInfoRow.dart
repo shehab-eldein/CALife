@@ -22,16 +22,24 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
             ClipRRect(
               borderRadius: BorderRadius.circular(200),
               child: FadeInImage(
-                height: Dimensions.widthPercentage(context, 25),
-                width: Dimensions.widthPercentage(context, 25),
+                height: Dimensions.widthPercentage(context, 25) > 140
+                    ? 140
+                    : Dimensions.widthPercentage(context, 25),
+                width: Dimensions.widthPercentage(context, 25) > 140
+                    ? 140
+                    : Dimensions.widthPercentage(context, 25),
                 image: NetworkImage('${Constant.baseURL}imgusers/$userId.jpg'),
                 placeholder: const AssetImage('images/person.png'),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     'images/person.png',
                     fit: BoxFit.fill,
-                    height: Dimensions.widthPercentage(context, 25),
-                    width: Dimensions.widthPercentage(context, 25),
+                    height: Dimensions.widthPercentage(context, 25) > 140
+                        ? 140
+                        : Dimensions.widthPercentage(context, 25),
+                    width: Dimensions.widthPercentage(context, 25) > 140
+                        ? 140
+                        : Dimensions.widthPercentage(context, 25),
                   );
                 },
                 fit: BoxFit.fill,
@@ -50,9 +58,11 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                   child: Text(
                     // 'لينك يو',
                     userData.userInfo.displayName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0xFF474B51),
-                      fontSize: 18,
+                      fontSize: Dimensions.fontSize(context, 1.5) > 20
+                          ? 20
+                          : Dimensions.fontSize(context, 1.5),
                       fontFamily: '.SF Arabic',
                       fontWeight: FontWeight.w600,
                     ),
@@ -66,9 +76,9 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                         ? AppLocalizations.of(context)!.userType0
                         : AppLocalizations.of(context)!.userType1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: appDesign.colorAccent,
-                      fontSize: 15,
+                      fontSize: Dimensions.fontSize(context, 1.5),
                       fontFamily: '.SF Arabic',
                     ),
                   ),
@@ -79,9 +89,11 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     userData.userInfo.email,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0x7F474B51),
-                      fontSize: 15,
+                      fontSize: Dimensions.fontSize(context, 1.5) > 20
+                          ? 20
+                          : Dimensions.fontSize(context, 1.5),
                       fontFamily: 'SF Pro',
                     ),
                   ),
@@ -90,9 +102,11 @@ class _ProfileInfoRowState extends State<ProfileInfoRow> {
                 Text(
                   userData.userInfo.phone ?? " ",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Color(0x7F474B51),
-                    fontSize: 15,
+                    fontSize: Dimensions.fontSize(context, 1.5) > 20
+                        ? 20
+                        : Dimensions.fontSize(context, 1.5),
                     fontFamily: 'SF Pro',
                   ),
                 ),

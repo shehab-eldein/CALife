@@ -31,7 +31,8 @@ class TopicController {
     }
   }
 
-  Future<bool> topicUpdate(int id, String title, String details) async {
+  Future<bool> topicUpdate(
+      int id, String title, String details, int userId) async {
     try {
       bool res = await _networkManager.postRequest(
         endpoint: '${Constant.topic}TopicUpdate',
@@ -39,8 +40,7 @@ class TopicController {
           "id": id,
           "title": title,
           "details": details,
-          "userId": Constant.currentUserId,
-          "groupId": 2,
+          "userId": userId,
           "isPinned": true,
           "images": [
             {"id": 0, "topicId": 0, "topicImage": "string"}
@@ -71,7 +71,7 @@ class TopicController {
     }
   }
 
-  Future<List<Topic>?> topicsGetByGroupId(
+  Future<List<Topic>> topicsGetByGroupId(
       int groupId, int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
@@ -88,11 +88,11 @@ class TopicController {
       return topics;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<Topic>?> topicsGetAdilAwdah(
+  Future<List<Topic>> topicsGetAdilAwdah(
       int groupType, int userId, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
@@ -109,11 +109,11 @@ class TopicController {
       return topics;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<Topic>?> topicsGetByTimeLine(
+  Future<List<Topic>> topicsGetByTimeLine(
       int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
@@ -130,11 +130,11 @@ class TopicController {
       return topics;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<Topic>?> topicsGetByUserId(
+  Future<List<Topic>> topicsGetByUserId(
       int userId, String searchQuery, int loadingId) async {
     try {
       List<Topic> topics = await _networkManager.getRequest(
@@ -151,7 +151,7 @@ class TopicController {
       return topics;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
@@ -189,7 +189,7 @@ class TopicController {
     }
   }
 
-  Future<List<TopicImage>?> topicImagesGetByTopicId(int topicId) async {
+  Future<List<TopicImage>> topicImagesGetByTopicId(int topicId) async {
     try {
       List<TopicImage> res = await _networkManager.getRequest(
         endpoint: '${Constant.topic}TopicImagesGetByTopicId?topicId=$topicId',
@@ -204,7 +204,7 @@ class TopicController {
       return res;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
@@ -294,7 +294,7 @@ class TopicController {
     }
   }
 
-  Future<List<TopicComment>?> topicCommentsGetByTopicId(
+  Future<List<TopicComment>> topicCommentsGetByTopicId(
       int topicId, int loadingId) async {
     try {
       List<TopicComment> res = await _networkManager.getRequest(
@@ -311,11 +311,11 @@ class TopicController {
       return res;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<TopicComment>?> topicCommentsGetByUserId(int userId) async {
+  Future<List<TopicComment>> topicCommentsGetByUserId(int userId) async {
     try {
       List<TopicComment> res = await _networkManager.getRequest(
         endpoint: '${Constant.topic}TopicCommentsGetByUserId?userId=$userId',
@@ -330,7 +330,7 @@ class TopicController {
       return res;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 }

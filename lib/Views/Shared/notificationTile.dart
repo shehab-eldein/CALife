@@ -1,3 +1,4 @@
+import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Notification.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -49,8 +50,8 @@ class _NotificationTileState extends State<NotificationTile> {
       tileColor: widget.notification.isNotified
           ? null
           : appDesign.colorPrimaryDark.withAlpha(20),
-      // dense: true,
-      // visualDensity: const VisualDensity(vertical: 3),
+      dense: true,
+      visualDensity: const VisualDensity(vertical: 3),
       shape: Border(
         bottom: BorderSide(
             color: widget.notification.isNotified
@@ -60,35 +61,42 @@ class _NotificationTileState extends State<NotificationTile> {
       ),
       title: Text(
         notificationText(),
-        style: const TextStyle(
-          color: Color(0xFF323438),
-          fontSize: 17,
+        style: TextStyle(
+          color: const Color(0xFF323438),
+          fontSize: Dimensions.fontSize(context, 1.3),
           fontFamily: '.SF Arabic',
           fontWeight: FontWeight.bold,
-          height: 0.08,
         ),
       ),
       subtitle: widget.notification.notifType == 0 ||
               widget.notification.notifType == 1
-          ? Text(
-              '${widget.notification.topic!.title.length > 21 ? widget.notification.topic!.title.substring(0, 21) : widget.notification.topic!.title}...',
-              style: const TextStyle(
-                color: appDesign.colorAccentDarker,
-                fontFamily: '.SF Arabic',
-                fontWeight: FontWeight.bold,
-                height: 0.08,
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Text(
+                widget.notification.topic!.title.length > 21
+                    ? '${widget.notification.topic!.title.substring(0, 21)}...'
+                    : widget.notification.topic!.title,
+                style: const TextStyle(
+                  color: appDesign.colorAccentDarker,
+                  fontFamily: '.SF Arabic',
+                  fontWeight: FontWeight.bold,
+                  height: 0.08,
+                ),
               ),
             )
           : widget.notification.notifType == 2 ||
                   widget.notification.notifType == 3 ||
                   widget.notification.notifType == 4
-              ? Text(
-                  widget.notification.group!.name,
-                  style: const TextStyle(
-                    color: appDesign.colorAccentDarker,
-                    fontFamily: '.SF Arabic',
-                    fontWeight: FontWeight.bold,
-                    height: 0.08,
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    widget.notification.group!.name,
+                    style: const TextStyle(
+                      color: appDesign.colorAccentDarker,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.bold,
+                      height: 0.08,
+                    ),
                   ),
                 )
               : null,
@@ -96,8 +104,8 @@ class _NotificationTileState extends State<NotificationTile> {
           ? ClipRRect(
               borderRadius: BorderRadius.circular(200),
               child: FadeInImage(
-                height: 40,
-                width: 40,
+                height: Dimensions.widthPercentage(context, 12),
+                width: Dimensions.widthPercentage(context, 12),
                 image: NetworkImage(
                     '${Constant.baseURL}imgusers/${UserData().getId()}.jpg'),
                 placeholder: const AssetImage(
@@ -107,8 +115,8 @@ class _NotificationTileState extends State<NotificationTile> {
                   return Image.asset(
                     'images/person.png',
                     fit: BoxFit.fill,
-                    height: 40,
-                    width: 40,
+                    height: Dimensions.widthPercentage(context, 12),
+                    width: Dimensions.widthPercentage(context, 12),
                   );
                 },
                 fit: BoxFit.fill,
@@ -120,8 +128,8 @@ class _NotificationTileState extends State<NotificationTile> {
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(200),
                   child: FadeInImage(
-                    height: 45,
-                    width: 45,
+                    height: Dimensions.widthPercentage(context, 12),
+                    width: Dimensions.widthPercentage(context, 12),
                     image: const AssetImage('images/person.png'),
                     // image: NetworkImage(
                     //     '${Constant.baseURL}imgusers/${widget.notification.fromUserName}.jpg'),
@@ -132,8 +140,8 @@ class _NotificationTileState extends State<NotificationTile> {
                       return Image.asset(
                         'images/person.png',
                         fit: BoxFit.fill,
-                        height: 40,
-                        width: 40,
+                        height: Dimensions.widthPercentage(context, 12),
+                        width: Dimensions.widthPercentage(context, 12),
                       );
                     },
                     fit: BoxFit.fill,
@@ -144,8 +152,8 @@ class _NotificationTileState extends State<NotificationTile> {
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(200),
                       child: FadeInImage(
-                        height: 45,
-                        width: 45,
+                        height: Dimensions.widthPercentage(context, 12),
+                        width: Dimensions.widthPercentage(context, 12),
                         image: NetworkImage(
                             '${Constant.baseURL}imggroups/${widget.notification.groupId}.jpg'),
                         placeholder: const AssetImage(
@@ -155,14 +163,14 @@ class _NotificationTileState extends State<NotificationTile> {
                           return Image.asset(
                             'images/person.png',
                             fit: BoxFit.fill,
-                            height: 40,
-                            width: 40,
+                            height: Dimensions.widthPercentage(context, 12),
+                            width: Dimensions.widthPercentage(context, 12),
                           );
                         },
                         fit: BoxFit.fill,
                       ),
                     )
-                  : CircleAvatar(
+                  : const CircleAvatar(
                       backgroundColor: Colors.grey,
                       backgroundImage: AssetImage("images/person.png"),
                       radius: 25,

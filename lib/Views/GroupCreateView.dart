@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:canadianslife/Controllers/GroupController.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/ImagePickerManager.dart';
@@ -26,30 +27,47 @@ class _GroupCreateViewState extends State<GroupCreateView> {
   bool isPressed = false;
 
   createGroup() async {
-    setState(() {
-      isPressed = true;
-    });
-    await GroupController().createGroup(
-      nameController.text,
-      0,
-      isPublic ? 0 : 1,
-      descriptionController.text,
-      guideController.text,
-      Provider.of<UserData>(context, listen: false).userInfo.id,
-      image ?? "image",
-    );
-    widget.refresh();
-    Navigator.pop(context);
+    if (image != null && image != "") {
+      if (nameController.text.isNotEmpty &&
+          descriptionController.text.isNotEmpty &&
+          guideController.text.isNotEmpty) {
+        setState(() {
+          isPressed = true;
+        });
+        await GroupController().createGroup(
+          nameController.text,
+          0,
+          isPublic ? 0 : 1,
+          descriptionController.text,
+          guideController.text,
+          Provider.of<UserData>(context, listen: false).userInfo.id,
+          image ?? "image",
+        );
+        widget.refresh();
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
+      } else {
+        context.okAlert(
+          title: AppLocalizations.of(context)!.required,
+          message: AppLocalizations.of(context)!.emptyMessage,
+        );
+      }
+    } else {
+      context.okAlert(
+        title: AppLocalizations.of(context)!.required,
+        message: AppLocalizations.of(context)!.emptyImage,
+      );
+    }
   }
 
   ImagePickerManager imagePickerManager = ImagePickerManager();
-  // List<Asset>? _selectedImages = [];
 
   void pickImage() async {
-    List<String>? images = await imagePickerManager.pickImages();
-    if (images != null) {
+    String? img = await imagePickerManager.pickOneImage();
+    if (img != null) {
       setState(() {
-        image = images[0];
+        image = img;
       });
     }
   }
@@ -63,25 +81,36 @@ class _GroupCreateViewState extends State<GroupCreateView> {
         Stack(
           children: [
             image == null
-                ? const AspectRatio(
-                    aspectRatio: 2 / 1,
-                    child: Image(
-                      image: AssetImage("images/placeholder.png"),
-                      fit: BoxFit.cover,
+                ? SizedBox(
+                    height: layoutManager.valuesHandler(200, 200, 400, 400),
+                    width: double.infinity,
+                    child: const AspectRatio(
+                      aspectRatio: 2 / 1,
+                      child: Image(
+                        image: AssetImage("images/placeholder.png"),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   )
-                : AspectRatio(
-                    aspectRatio: 2 / 1,
-                    child: Image.memory(
-                      base64Decode(image!),
+                : SizedBox(
+                    height: layoutManager.valuesHandler(200, 200, 400, 400),
+                    width: double.infinity,
+                    child: AspectRatio(
+                      aspectRatio: 2 / 1,
+                      child: Image.memory(
+                        base64Decode(image!),
+                      ),
                     ),
                   ),
             Positioned(
-                top: Dimensions.heightPercentage(context, 13) - 40,
-                left: Dimensions.widthPercentage(context, 50) - 60,
+                top: layoutManager.valuesHandler(70, 70, 170, 170),
+                left: Dimensions.widthPercentage(context, 50) -
+                    Dimensions.radius(context, 6.5),
                 child: Column(
                   children: [
                     Container(
+                      height: Dimensions.radius(context, 3),
+                      width: Dimensions.radius(context, 3),
                       decoration: BoxDecoration(
                           color: const Color(0xFF04BFDB),
                           borderRadius: BorderRadius.circular(50)),
@@ -89,7 +118,10 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                         onPressed: () {
                           pickImage();
                         },
-                        icon: const Icon(Icons.add),
+                        icon: Icon(
+                          Icons.add,
+                          size: Dimensions.fontSize(context, 1.6),
+                        ),
                         color: Colors.white,
                       ),
                     ),
@@ -97,9 +129,9 @@ class _GroupCreateViewState extends State<GroupCreateView> {
                     Text(
                       AppLocalizations.of(context)!.addCoverImage,
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Color(0xFF030F2E),
-                        fontSize: 17,
+                        fontSize: Dimensions.fontSize(context, 1.7),
                         fontFamily: '.SF Arabic',
                         fontWeight: FontWeight.w600,
                         height: 0.07,
@@ -157,62 +189,70 @@ class _GroupCreateViewState extends State<GroupCreateView> {
           ),
         ),
         const SizedBox(height: 5),
-        ListTile(
-          title: Row(
-            children: [
-              Text(
-                AppLocalizations.of(context)!.publicGroup,
-                textAlign: TextAlign.right,
-                style: const TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w600,
-                  height: 0.08,
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: layoutManager.valuesHandler(0, 0, 45, 45)),
+          child: ListTile(
+            title: Row(
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.publicGroup,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    color: Color(0xFF474B51),
+                    fontSize: 20,
+                    fontFamily: '.SF Arabic',
+                    fontWeight: FontWeight.w600,
+                    height: 0.08,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 25),
-              const Icon(Icons.lock_open_rounded)
-            ],
-          ),
-          leading: Radio<bool>(
-            activeColor: const Color(0xFF030F2E),
-            value: true,
-            groupValue: isPublic,
-            onChanged: (value) {
-              setState(() {
-                isPublic = value!;
-              });
-            },
+                const SizedBox(width: 25),
+                const Icon(Icons.lock_open_rounded)
+              ],
+            ),
+            leading: Radio<bool>(
+              activeColor: const Color(0xFF030F2E),
+              value: true,
+              groupValue: isPublic,
+              onChanged: (value) {
+                setState(() {
+                  isPublic = value!;
+                });
+              },
+            ),
           ),
         ),
-        ListTile(
-          title: Row(
-            children: [
-              Text(
-                AppLocalizations.of(context)!.privateGroup,
-                textAlign: TextAlign.right,
-                style: const TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w600,
-                  height: 0.08,
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: layoutManager.valuesHandler(0, 0, 45, 45)),
+          child: ListTile(
+            title: Row(
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.privateGroup,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    color: Color(0xFF474B51),
+                    fontSize: 20,
+                    fontFamily: '.SF Arabic',
+                    fontWeight: FontWeight.w600,
+                    height: 0.08,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 15),
-              const Icon(Icons.lock_rounded)
-            ],
-          ),
-          leading: Radio<bool>(
-            activeColor: const Color(0xFF030F2E),
-            value: false,
-            groupValue: isPublic,
-            onChanged: (value) {
-              setState(() {
-                isPublic = value!;
-              });
-            },
+                const SizedBox(width: 15),
+                const Icon(Icons.lock_rounded)
+              ],
+            ),
+            leading: Radio<bool>(
+              activeColor: const Color(0xFF030F2E),
+              value: false,
+              groupValue: isPublic,
+              onChanged: (value) {
+                setState(() {
+                  isPublic = value!;
+                });
+              },
+            ),
           ),
         ),
         Padding(
@@ -285,6 +325,7 @@ class _GroupCreateViewState extends State<GroupCreateView> {
           padding: EdgeInsets.symmetric(
               horizontal: layoutManager.mainHorizontalPadding()),
           child: MaterialButton(
+            height: 48,
             minWidth: double.infinity,
             color: const Color(0xFF04BFDB),
             shape: RoundedRectangleBorder(

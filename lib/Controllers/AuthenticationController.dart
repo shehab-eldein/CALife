@@ -37,7 +37,7 @@ class AuthenticationController {
         deviceToken: '',
         lastLoginDate: '2023-01-01',
         registerationDate: '2023-01-01',
-        userType: 0,
+        userType: UserData.isInCanada == true ? 0 : 1,
         isActive: true,
         userImage: userImage);
 

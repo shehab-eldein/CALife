@@ -22,34 +22,35 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
         const Image(
           image: AssetImage("images/consult.png"),
         ),
-        Text(
-          AppLocalizations.of(context)!.askC1,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Color(0xBF030F2E),
-            fontSize: 22,
-            fontFamily: '.SF Arabic',
-            fontWeight: FontWeight.w500,
-            height: 0,
+        SizedBox(
+          width: Dimensions.widthPercentage(context, 95),
+          child: Text(
+            AppLocalizations.of(context)!.askC1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: const Color(0xBF030F2E),
+              fontSize: Dimensions.fontSize(context, 1.7),
+              fontFamily: '.SF Arabic',
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-        Container(
+        SizedBox(
           width: Dimensions.widthPercentage(context, 90),
           child: Text(
             AppLocalizations.of(context)!.askC2,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0x7F030F2E),
-              fontSize: 17,
+            style: TextStyle(
+              color: const Color(0x7F030F2E),
+              fontSize: Dimensions.fontSize(context, 1.3),
               fontFamily: '.SF Arabic',
               fontWeight: FontWeight.w400,
-              height: 0,
             ),
           ),
         ),
         const SizedBox(height: 20),
         MaterialButton(
-          color: appDesign.colorPrimary,
+          color: appDesign.colorPrimaryDark,
           onPressed: () {
             context.navigateTo(const ConsultancyView());
           },
@@ -61,23 +62,25 @@ class _AskForConsiltancyViewState extends State<AskForConsiltancyView> {
             child: Wrap(
               spacing: 5,
               alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     AppLocalizations.of(context)!.askForC,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: Dimensions.fontSize(context, 1.4),
                       fontFamily: '.SF Arabic',
                       fontWeight: FontWeight.w500,
                       height: 0.08,
                     ),
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.language,
                   color: Colors.white,
+                  size: Dimensions.fontSize(context, 1.8),
                 )
               ],
             ),

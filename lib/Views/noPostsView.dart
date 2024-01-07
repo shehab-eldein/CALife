@@ -1,6 +1,4 @@
-import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -64,12 +62,12 @@ class _NotFoundViewState extends State<NotFoundView> {
         ),
         const SizedBox(height: 20),
         MaterialButton(
-          color: appDesign.colorPrimary,
+          color: appDesign.colorPrimaryDark,
           onPressed: () {
             Constant.controller.jumpToTab(1);
-            // context.navigateTo(const GroupsTabsView(
-            //   index: 0,
-            // ));
+            if (widget.refresh != null) {
+              widget.refresh!();
+            }
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -101,14 +99,6 @@ class _NotFoundViewState extends State<NotFoundView> {
             ),
           ),
         ),
-        widget.refresh != null
-            ? MaterialButton(
-                onPressed: () {
-                  widget.refresh!();
-                },
-                child: Text(AppLocalizations.of(context)!.refresh),
-              )
-            : const SizedBox()
       ],
     );
   }

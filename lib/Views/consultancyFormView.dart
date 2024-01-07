@@ -29,6 +29,7 @@ class Consultancy {
     hasFamily: false,
     isAgree: false,
     netWealth: 0,
+    passportImage: "",
   );
 }
 
@@ -95,34 +96,57 @@ class _ConsultancyViewState extends State<ConsultancyView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(
-                // layoutManager.valuesHandler(48, 38, 220, 220)
-                0,
-                layoutManager.valuesHandler(40, 40, 20, 20),
-                0,
-                0),
+            padding: EdgeInsets.all(10),
             child: SizedBox(
               height: 10,
               width: context.screenWidth,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: context.screenWidth * 0.3,
-                    height: 10,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5),
-                        color: _currentPage == index
-                            ? appDesign.colorPrimary
-                            : Colors.white,
-                        border: Border.all(
-                            color: appDesign.colorPrimary, width: 1)),
-                  );
-                },
-              ),
+              child: ListView(scrollDirection: Axis.horizontal, children: [
+                Container(
+                  width: context.screenWidth * 0.3,
+                  height: 10,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: context.screenWidth * 0.01),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(5),
+                    color: _currentPage >= 0
+                        ? appDesign.colorPrimaryDark
+                        : Colors.white,
+                    border:
+                        Border.all(color: appDesign.colorPrimaryDark, width: 1),
+                  ),
+                ),
+                Container(
+                  width: context.screenWidth * 0.3,
+                  height: 10,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: layoutManager.valuesHandler(4, 4, 15, 15)),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(5),
+                    color: _currentPage >= 1
+                        ? appDesign.colorPrimaryDark
+                        : Colors.white,
+                    border:
+                        Border.all(color: appDesign.colorPrimaryDark, width: 1),
+                  ),
+                ),
+                Container(
+                  width: context.screenWidth * 0.3,
+                  height: 10,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: layoutManager.valuesHandler(4, 4, 15, 15)),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(5),
+                    color: _currentPage >= 2
+                        ? appDesign.colorPrimaryDark
+                        : Colors.white,
+                    border:
+                        Border.all(color: appDesign.colorPrimaryDark, width: 1),
+                  ),
+                ),
+              ]),
             ),
           ),
           Expanded(

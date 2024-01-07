@@ -33,6 +33,18 @@ class ImagePickerManager {
     }
   }
 
+  Future<String?> takeImage() async {
+    final ImagePicker picker = ImagePicker();
+    XFile? imageFile = await picker.pickImage(source: ImageSource.camera);
+    if (imageFile != null) {
+      Uint8List img = File(imageFile.path).readAsBytesSync();
+      String base64Image = base64Encode(img);
+      return base64Image;
+    } else {
+      return null;
+    }
+  }
+
   File? _selectedImage;
   List<Asset> _selectedImages = [];
 

@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class GroupController {
   final _networkManager = NetworkManager();
 
-  Future<List<Group>?> getUnsubedGroups(
+  Future<List<Group>> getUnsubedGroups(
       int type, int userId, String searchWord, int loadingId) async {
     try {
       final res = await _networkManager.getRequest(
@@ -26,11 +26,11 @@ class GroupController {
       return groups;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<Group>?> getSubedGroups(
+  Future<List<Group>> getSubedGroups(
       int userId, String searchWord, int loadingId) async {
     try {
       final res = await _networkManager.getRequest(
@@ -46,11 +46,11 @@ class GroupController {
       return groups;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 
-  Future<List<Group>?> getUserGroups(int userId) async {
+  Future<List<Group>> getUserGroups(int userId) async {
     try {
       final res = await _networkManager.getRequest(
         endpoint: '${Constant.group}GetMyGroups?userID=$userId',
@@ -64,7 +64,7 @@ class GroupController {
       return groups;
     } catch (e) {
       print(e);
-      return null;
+      return [];
     }
   }
 

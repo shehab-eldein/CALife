@@ -2,18 +2,22 @@ import 'package:canadianslife/Controllers/UserController.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/User.dart';
+import 'package:canadianslife/Views/Shared/phoneTextField.dart';
 import 'package:canadianslife/Views/Shared/save_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Helper/Validator.dart';
 
 class EditDataView extends StatefulWidget {
-  const EditDataView(
-      {super.key,
-      required this.userInfo,
-      required this.type,
-      required this.title,
-      required this.refresh});
+  const EditDataView({
+    super.key,
+    required this.userInfo,
+    required this.type,
+    required this.title,
+    required this.refresh,
+  });
   final User userInfo;
   final int type;
   final String title;
@@ -61,8 +65,55 @@ class _EditDataViewState extends State<EditDataView> {
     widget.refresh();
   }
 
+  late Validator validator;
+  validate() {
+    String? error = widget.type == 0
+        ? validator.validateName(textController.text)
+        : widget.type == 2
+            ? validator.validateEmail(textController.text)
+            : widget.type == 3
+                ? validator.validateNumber(textController.text)
+                : widget.type == 4
+                    ? validator.validatePassword(textController.text)
+                    : null;
+    String? confirmPassError = validator.validateConfirmPassword(
+        textController.text, textController2.text);
+
+    if (error != null) {
+      // Display error message
+      setState(() {
+        isPressed = false;
+      });
+      context.okAlert(
+        title: AppLocalizations.of(context)!.required,
+        message: error,
+      );
+    } else {
+      if (widget.type == 4 && error == null) {
+        if (confirmPassError != null) {
+          // Display error message
+          setState(() {
+            isPressed = false;
+          });
+          context.okAlert(
+            title: AppLocalizations.of(context)!.required,
+            message: confirmPassError,
+          );
+        } else if (widget.type == 4 &&
+            error == null &&
+            confirmPassError == null) {
+          editInfo();
+        }
+      } else {
+        editInfo();
+      }
+    }
+  }
+
+  bool isPressed = false;
   @override
   Widget build(BuildContext context) {
+    validator = Validator(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -83,36 +134,117 @@ class _EditDataViewState extends State<EditDataView> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      TextField(
-                        obscureText: hidePassword,
-                        keyboardType: TextInputType.text,
-                        controller: textController,
-                        style: TextStyle(
-                          fontFamily: '.SF Arabic',
-                          fontSize: Dimensions.fontSize(context, 1.2),
-                        ),
-                        decoration: InputDecoration(
-                          suffixIcon: widget.type == 4
-                              ? IconButton(
-                                  icon: hidePassword
-                                      ? const Icon(
-                                          Icons.visibility_off_outlined)
-                                      : const Icon(Icons.visibility_outlined),
-                                  onPressed: () {
-                                    setState(() {
-                                      hidePassword = !hidePassword;
-                                    });
-                                  })
-                              : null,
-                          border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8))),
-                        ),
-                      ),
+                      widget.type == 3
+                          ? PhoneTextField(
+                              labelText: "",
+                              onChanged: (text) {
+                                textController.text = text.substring(1);
+                              },
+                            )
+                          : TextField(
+                              obscureText: hidePassword,
+                              keyboardType: TextInputType.text,
+                              controller: textController,
+                              style: TextStyle(
+                                fontFamily: '.SF Arabic',
+                                fontSize: Dimensions.fontSize(context, 1.2),
+                                height: 0.9,
+                              ),
+                              decoration: InputDecoration(
+                                suffixIcon: widget.type == 4
+                                    ? IconButton(
+                                        icon: hidePassword
+                                            ? const Icon(
+                                                Icons.visibility_off_outlined)
+                                            : const Icon(
+                                                Icons.visibility_outlined),
+                                        onPressed: () {
+                                          setState(() {
+                                            hidePassword = !hidePassword;
+                                          });
+                                        })
+                                    : null,
+                                border: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                              ),
+                            ),
+                      SizedBox(height: 10),
+                      widget.type == 4
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.confirmPassword,
+                                  style: TextStyle(
+                                    fontFamily: '.SF Arabic',
+                                    color: const Color(0xFF484C52),
+                                    fontSize: Dimensions.fontSize(context, 1.7),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                TextField(
+                                  obscureText: hidePassword2,
+                                  keyboardType: TextInputType.text,
+                                  controller: textController2,
+                                  style: TextStyle(
+                                    height: 0.9,
+                                    fontFamily: '.SF Arabic',
+                                    fontSize: Dimensions.fontSize(context, 1.2),
+                                  ),
+                                  decoration: InputDecoration(
+                                    suffixIcon: widget.type == 4
+                                        ? IconButton(
+                                            icon: hidePassword2
+                                                ? const Icon(Icons
+                                                    .visibility_off_outlined)
+                                                : const Icon(
+                                                    Icons.visibility_outlined),
+                                            onPressed: () {
+                                              setState(() {
+                                                hidePassword2 = !hidePassword2;
+                                              });
+                                            })
+                                        : null,
+                                    border: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8))),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : SizedBox(),
                       const Spacer(),
-                      SaveBtn(onPressed: () {
-                        editInfo();
-                      })
+                      MaterialButton(
+                        height: 48,
+                        minWidth: double.infinity,
+                        color: appDesign.colorAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isPressed = true;
+                          });
+                          validate();
+                        },
+                        child: isPressed
+                            ? const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                AppLocalizations.of(context)!.save,
+                                style: TextStyle(
+                                    fontFamily: '.SF Arabic',
+                                    color: Colors.white,
+                                    fontSize:
+                                        Dimensions.fontSize(context, 1.3)),
+                              ),
+                      ),
                     ]),
               )
             : Padding(
