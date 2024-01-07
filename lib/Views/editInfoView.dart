@@ -3,12 +3,12 @@ import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/EditDataView.dart';
+import 'package:canadianslife/Views/Shared/EditInfoTile.dart';
+import 'package:canadianslife/Views/Shared/EditInfoTileBtn.dart';
+import 'package:canadianslife/Views/Shared/user_img.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Helper/responsive.dart';
-import 'package:canadianslife/views/shared/EditInfoTile.dart';
-import 'package:canadianslife/views/shared/EditInfoTileBtn.dart';
-import 'package:canadianslife/views/shared/user_img.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditInfoView extends StatefulWidget {
