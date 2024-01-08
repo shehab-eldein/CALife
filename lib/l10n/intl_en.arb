@@ -45,7 +45,7 @@
   "subscribe": "Subscribe",
   "guide": "Guide",
   "about": "About",
-  "startPosting": "Start posting now ...",
+  "startPosting": "Start posting now",
   "searchTopics": "Search for a post",
   "members": "Members",
   "control": "Control",
@@ -117,6 +117,7 @@
   "error": "An error happened!",
   "tryAgain": "Please try again later",
   "postSubed":"Successfully posted and subscribed to group",
+  "addImages":"Add Images",
   "language":"Language"
 }
 

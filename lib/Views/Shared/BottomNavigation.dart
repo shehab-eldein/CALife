@@ -111,7 +111,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       confineInSafeArea: true,
       backgroundColor: appDesign.backGround,
       handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(

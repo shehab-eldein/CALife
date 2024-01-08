@@ -130,6 +130,7 @@ class _GroupDetailsState extends State<GroupDetails> {
     List pages = [
       GroupTopicsPage(
         groupId: widget.groupInfo.id,
+        groupName: widget.groupInfo.name,
         isNotSubed: widget.isNotSubed,
         refresh: widget.refresh,
       ),
@@ -138,6 +139,7 @@ class _GroupDetailsState extends State<GroupDetails> {
     ];
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       body: RefreshIndicator(
         onRefresh: () {
           return Future.delayed(Duration.zero, () {
