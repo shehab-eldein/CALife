@@ -1,11 +1,13 @@
 import 'package:canadianslife/Controllers/GroupController.dart';
 import 'package:canadianslife/Controllers/TopicController.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:canadianslife/Views/Shared/addPostPopUp.dart';
 import 'package:canadianslife/Views/Shared/postCard.dart';
+import 'package:canadianslife/Views/createPost.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,9 +16,11 @@ class GroupTopicsPage extends StatefulWidget {
   const GroupTopicsPage(
       {super.key,
       required this.groupId,
+      required this.groupName,
       required this.isNotSubed,
       this.refresh});
   final int groupId;
+  final String groupName;
   final Function? refresh;
   final bool isNotSubed;
 
@@ -50,15 +54,19 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
   }
 
   void showAddPostPopup(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AddPostPopup(
-          groupId: widget.groupId,
-          refresh: postAndSub,
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    // return AddPostPopup(
+    //       groupId: widget.groupId,
+    //       refresh: postAndSub,
+    //     );
+    //   },
+    // );
+    context.navigateTo(CreatePostView(
+        refresh: postAndSub,
+        groupId: widget.groupId,
+        groupName: widget.groupName));
   }
 
   List<Topic>? topics;

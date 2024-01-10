@@ -3,12 +3,12 @@ import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/EditDataView.dart';
-import 'package:canadianslife/Views/Shared/EditInfoTile.dart';
-import 'package:canadianslife/Views/Shared/EditInfoTileBtn.dart';
-import 'package:canadianslife/Views/Shared/user_img.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Helper/responsive.dart';
+import 'package:canadianslife/views/shared/EditInfoTile.dart';
+import 'package:canadianslife/views/shared/EditInfoTileBtn.dart';
+import 'package:canadianslife/views/shared/user_img.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditInfoView extends StatefulWidget {
@@ -122,7 +122,23 @@ class _EditInfoViewState extends State<EditInfoView> {
                     trailing: AppLocalizations.of(context)!.delete,
                     icon: Icons.delete_outline,
                     trailingColor: appDesign.red,
-                    onPressed: () {}),
+                    onPressed: () {
+                      context.actionAlert(
+                          title: AppLocalizations.of(context)!.confirm,
+                          onOkPressed: () {
+                            setState(() async {
+                              await UserController().deleteUser(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .userInfo
+                                      .id);
+                              Provider.of<UserData>(context, listen: false)
+                                  .signOut();
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              // UserData().signOut();
+                            });
+                          });
+                    }),
               ],
             ),
           )

@@ -17,6 +17,7 @@
   "invalid": "Invalid",
   "invalidEmail_Pass": "Invalid Email or password!",
   "dialogOk": "Confirm",
+  "dialogCancel": "Cancel",
   "name3Message": "Name must be at least 3 charchters",
   "emailValid": "Please enter a valid email",
   "passMustBe": "Password must have at least 8 elements and one special charchter and one number",
@@ -45,7 +46,7 @@
   "subscribe": "Subscribe",
   "guide": "Guide",
   "about": "About",
-  "startPosting": "Start posting now ...",
+  "startPosting": "Start posting now",
   "searchTopics": "Search for a post",
   "members": "Members",
   "control": "Control",
@@ -114,9 +115,11 @@
   "askC2":"Certified from (RCIC) Canadian Immigration Consultant with experience in Canada from (CICC) College of Immigration and Citizenship Consultants to represent you in all Canadian Immigration related stuff in Canada. She is LSO and CICC Certified - Member of ADRIO (A national organization that provides Alternative Dispute Resolution in Canada)",
   "askForC":"Ask for Consultancy",
   "post": "Post",
-  "error": "An error happened!",
+  "error": "An error occurred!",
   "tryAgain": "Please try again later",
   "postSubed":"Successfully posted and subscribed to group",
+  "addImages":"Add Images",
+  "confirm": "Are you sure?",
   "language":"Language"
 }
 

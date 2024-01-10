@@ -60,7 +60,7 @@ class UserController {
     }
   }
 
-  Future<String?> deleteUser(String userId) async {
+  Future<bool?> deleteUser(int userId) async {
     try {
       final res = await _networkManager.postRequest(
         endpoint: '${Constant.user}DeleteUser?userId=$userId',
@@ -77,7 +77,7 @@ class UserController {
     }
   }
 
-  Future<String?> isActive(String userId) async {
+  Future<bool?> isActive(int userId) async {
     try {
       final res = await _networkManager.postRequest(
         endpoint: '${Constant.user}GetIsActive?userId=$userId',
@@ -94,7 +94,7 @@ class UserController {
     }
   }
 
-  Future<String?> blockUser(String userId, isActive) async {
+  Future<bool?> blockUser(int userId, isActive) async {
     try {
       final res = await _networkManager.postRequest(
         endpoint: '${Constant.user}BlockUser?userId=$userId&isActive=$isActive',

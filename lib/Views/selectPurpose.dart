@@ -50,8 +50,8 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: layoutManager.valuesHandler(25, 25, 5, 5)),
             Padding(
@@ -65,43 +65,46 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                 ),
               ),
             ),
-            ToggleSwitch(
-              customTextStyles: const [
-                TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                )
-              ],
-              borderColor: const [appDesign.colorPrimaryDark],
-              borderWidth: 4,
-              minHeight: 35,
-              minWidth: 80.0,
-              cornerRadius: 20.0,
-              activeBgColors: const [
-                [appDesign.colorPrimaryDark],
-                [appDesign.colorPrimaryDark]
-              ],
-              activeFgColor: Colors.white,
-              inactiveBgColor: Colors.white,
-              inactiveFgColor: appDesign.colorPrimaryDark,
-              initialLabelIndex: isEnglish ? 1 : 0,
-              totalSwitches: 2,
-              labels: const ['العربية', 'English'],
-              radiusStyle: false,
-              onToggle: (index) {
-                if (index == 1) {
-                  isEnglish = true;
-                  changeLanguage("en");
-                  // context.changeLanguageToEnglish();
-                  // context.saveIsEnglish(true);
-                } else {
-                  isEnglish = false;
-                  changeLanguage("ar");
-                  // context.changeLanguageToArabic();
-                  //
-                  // context.saveIsEnglish(false);
-                }
-              },
+            Align(
+              alignment: Alignment.topRight,
+              child: ToggleSwitch(
+                customTextStyles: const [
+                  TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
+                  )
+                ],
+                borderColor: const [appDesign.colorPrimaryDark],
+                borderWidth: 4,
+                minHeight: 35,
+                minWidth: 80.0,
+                cornerRadius: 20.0,
+                activeBgColors: const [
+                  [appDesign.colorPrimaryDark],
+                  [appDesign.colorPrimaryDark]
+                ],
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.white,
+                inactiveFgColor: appDesign.colorPrimaryDark,
+                initialLabelIndex: isEnglish ? 1 : 0,
+                totalSwitches: 2,
+                labels: const ['العربية', 'English'],
+                radiusStyle: false,
+                onToggle: (index) {
+                  if (index == 1) {
+                    isEnglish = true;
+                    changeLanguage("en");
+                    // context.changeLanguageToEnglish();
+                    // context.saveIsEnglish(true);
+                  } else {
+                    isEnglish = false;
+                    changeLanguage("ar");
+                    // context.changeLanguageToArabic();
+                    //
+                    // context.saveIsEnglish(false);
+                  }
+                },
+              ),
             ),
             Align(
               alignment: Alignment.center,

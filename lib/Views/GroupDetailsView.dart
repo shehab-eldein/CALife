@@ -130,6 +130,7 @@ class _GroupDetailsState extends State<GroupDetails> {
     List pages = [
       GroupTopicsPage(
         groupId: widget.groupInfo.id,
+        groupName: widget.groupInfo.name,
         isNotSubed: widget.isNotSubed,
         refresh: widget.refresh,
       ),
@@ -138,6 +139,7 @@ class _GroupDetailsState extends State<GroupDetails> {
     ];
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       body: RefreshIndicator(
         onRefresh: () {
           return Future.delayed(Duration.zero, () {
@@ -180,16 +182,16 @@ class _GroupDetailsState extends State<GroupDetails> {
                         color: Color(0xFF474B51)),
                   ),
                   const Spacer(),
-                  CircleAvatar(
-                    backgroundColor: appDesign.colorPrimaryDark,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  // CircleAvatar(
+                  //   backgroundColor: appDesign.colorPrimaryDark,
+                  //   child: IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Icon(
+                  //       Icons.add,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(width: 16),
                   CircleAvatar(
                     backgroundColor: const Color(0xFFF5F5F5),

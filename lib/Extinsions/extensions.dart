@@ -137,23 +137,24 @@ extension NavigationExtension on BuildContext {
           ),
           actions: <Widget>[
             TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.grey.shade200,
-                ),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-              ),
+              // style: ButtonStyle(
+              //   backgroundColor: MaterialStateProperty.all<Color>(
+              //       Colors.grey.shade200,
+              //       ),
+              //   shape: MaterialStateProperty.all<OutlinedBorder>(
+              //     RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //   ),
+              // ),
               child: Text(
-                // AppLocalizations.of(context)!.dialogOk,
-                "ok",
+                AppLocalizations.of(context)!.dialogOk,
+                // "ok",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: appDesign.colorPrimary),
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: appDesign.colorPrimary,
+                ),
               ),
               onPressed: () {
                 onOkPressed();
@@ -161,19 +162,19 @@ extension NavigationExtension on BuildContext {
               },
             ),
             TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.grey.shade200,
-                ),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-              ),
+              // style: ButtonStyle(
+              //   backgroundColor: MaterialStateProperty.all<Color>(
+              //     Colors.grey.shade200,
+              //   ),
+              //   shape: MaterialStateProperty.all<OutlinedBorder>(
+              //     RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //   ),
+              // ),
               child: Text(
-                // AppLocalizations.of(context)!.dialogCancel,
-                "Cancel",
+                AppLocalizations.of(context)!.dialogCancel,
+                // "Cancel",
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
