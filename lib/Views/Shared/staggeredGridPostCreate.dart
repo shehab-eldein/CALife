@@ -16,7 +16,6 @@ class _StaggeredGridTopicCreateState extends State<StaggeredGridTopicCreate> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        // height: 250,
         width: double.infinity,
         child: widget.images.length == 1
             ? Image.memory(

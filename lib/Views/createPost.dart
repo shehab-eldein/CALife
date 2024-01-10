@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
@@ -122,33 +120,45 @@ class _CreatePostViewState extends State<CreatePostView> {
               ),
               trailing: MaterialButton(
                 onPressed: () {
-                  submitPost();
+                  if (!isPressed) {
+                    setState(() {
+                      isPressed = true;
+                      submitPost();
+                    });
+                  }
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
                 color: appDesign.colorAccent,
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.post,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontFamily: '.SF Arabic',
-                        fontWeight: FontWeight.w600,
+                child: isPressed
+                    ? const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.post,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontFamily: '.SF Arabic',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          const Icon(
+                            Icons.share,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Icon(
-                      Icons.share,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                  ],
-                ),
               ),
             ),
             Expanded(
@@ -164,41 +174,46 @@ class _CreatePostViewState extends State<CreatePostView> {
               ),
             ),
             imageFiles.isEmpty
-                ? Center(
-                    child: MaterialButton(
-                      height: 48,
-                      onPressed: () {
-                        chooseMuliImages();
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      color: appDesign.colorPrimaryDark,
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.addImages,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontFamily: '.SF Arabic',
-                              fontWeight: FontWeight.w600,
-                            ),
+                ? Column(
+                    children: [
+                      SizedBox(height: 200),
+                      Center(
+                        child: MaterialButton(
+                          height: 48,
+                          onPressed: () {
+                            chooseMuliImages();
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          const SizedBox(width: 10),
-                          Transform.rotate(
-                            angle: 360 - 45,
-                            child: const Icon(
-                              Icons.attachment,
-                              color: Colors.white,
-                              size: 22,
-                            ),
+                          color: appDesign.colorPrimaryDark,
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.addImages,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontFamily: '.SF Arabic',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Transform.rotate(
+                                angle: 360 - 45,
+                                child: const Icon(
+                                  Icons.attachment,
+                                  color: Colors.white,
+                                  size: 22,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   )
                 : Column(
                     children: [
@@ -212,7 +227,11 @@ class _CreatePostViewState extends State<CreatePostView> {
                       Row(
                         children: [
                           MaterialButton(
-                            minWidth: Dimensions.widthPercentage(context, 45),
+                            minWidth: layoutManager.valuesHandler(
+                                Dimensions.widthPercentage(context, 45),
+                                Dimensions.widthPercentage(context, 45),
+                                Dimensions.widthPercentage(context, 43),
+                                Dimensions.widthPercentage(context, 43)),
                             onPressed: () {
                               chooseMuliImages();
                             },
@@ -247,7 +266,11 @@ class _CreatePostViewState extends State<CreatePostView> {
                           ),
                           const Spacer(),
                           MaterialButton(
-                            minWidth: Dimensions.widthPercentage(context, 45),
+                            minWidth: layoutManager.valuesHandler(
+                                Dimensions.widthPercentage(context, 45),
+                                Dimensions.widthPercentage(context, 45),
+                                Dimensions.widthPercentage(context, 43),
+                                Dimensions.widthPercentage(context, 43)),
                             onPressed: () {
                               setState(() {
                                 imageFiles = [];

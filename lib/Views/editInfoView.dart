@@ -122,7 +122,23 @@ class _EditInfoViewState extends State<EditInfoView> {
                     trailing: AppLocalizations.of(context)!.delete,
                     icon: Icons.delete_outline,
                     trailingColor: appDesign.red,
-                    onPressed: () {}),
+                    onPressed: () {
+                      context.actionAlert(
+                          title: AppLocalizations.of(context)!.confirm,
+                          onOkPressed: () {
+                            setState(() async {
+                              await UserController().deleteUser(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .userInfo
+                                      .id);
+                              Provider.of<UserData>(context, listen: false)
+                                  .signOut();
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              // UserData().signOut();
+                            });
+                          });
+                    }),
               ],
             ),
           )

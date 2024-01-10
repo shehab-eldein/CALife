@@ -182,16 +182,16 @@ class _GroupDetailsState extends State<GroupDetails> {
                         color: Color(0xFF474B51)),
                   ),
                   const Spacer(),
-                  CircleAvatar(
-                    backgroundColor: appDesign.colorPrimaryDark,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  // CircleAvatar(
+                  //   backgroundColor: appDesign.colorPrimaryDark,
+                  //   child: IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Icon(
+                  //       Icons.add,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(width: 16),
                   CircleAvatar(
                     backgroundColor: const Color(0xFFF5F5F5),

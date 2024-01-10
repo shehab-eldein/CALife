@@ -46,6 +46,7 @@ class _GroupAdminViewState extends State<GroupAdminView> {
       AppLocalizations.of(context)!.about,
     ];
     return Scaffold(
+
       key: _scaffoldKey,
       body: RefreshIndicator(
         onRefresh: () {
@@ -73,22 +74,22 @@ class _GroupAdminViewState extends State<GroupAdminView> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: InkWell(
-                    onTap: () {},
-                    child: const CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.edit,
-                        color: appDesign.colorPrimaryDark,
-                        size: 17,
-                      ),
-                    ),
-                  ),
-                ),
+                // Positioned(
+                //   top: 20,
+                //   right: 20,
+                //   child: InkWell(
+                //     onTap: () {},
+                //     child: const CircleAvatar(
+                //       radius: 15,
+                //       backgroundColor: Colors.white,
+                //       child: Icon(
+                //         Icons.edit,
+                //         color: appDesign.colorPrimaryDark,
+                //         size: 17,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(
@@ -108,24 +109,24 @@ class _GroupAdminViewState extends State<GroupAdminView> {
                         color: Color(0xFF474B51)),
                   ),
                   const Spacer(),
-                  CircleAvatar(
-                    backgroundColor: appDesign.colorPrimaryDark,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  CircleAvatar(
-                    backgroundColor: const Color(0xFFF5F5F5),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.more_horiz),
-                    ),
-                  ),
+                  // CircleAvatar(
+                  //   backgroundColor: appDesign.colorPrimaryDark,
+                  //   child: IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Icon(
+                  //       Icons.add,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 16),
+                  // CircleAvatar(
+                  //   backgroundColor: const Color(0xFFF5F5F5),
+                  //   child: IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Icon(Icons.more_horiz),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
