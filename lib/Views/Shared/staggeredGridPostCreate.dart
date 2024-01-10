@@ -16,12 +16,11 @@ class _StaggeredGridTopicCreateState extends State<StaggeredGridTopicCreate> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        // height: 400,
         width: double.infinity,
         child: widget.images.length == 1
             ? Image.memory(
                 base64Decode(widget.images[0]),
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               )
             : widget.images.length == 2
                 ? StaggeredGrid.count(
