@@ -45,14 +45,22 @@ class _UserImageState extends State<UserImage> {
       ClipRRect(
         borderRadius: BorderRadius.circular(200),
         child: FadeInImage(
-          height: Dimensions.widthPercentage(context, 30),
-          width: Dimensions.widthPercentage(context, 30),
+          height: Dimensions.widthPercentage(context, 30) > 150
+              ? 150
+              : Dimensions.widthPercentage(context, 30),
+          width: Dimensions.widthPercentage(context, 30) > 150
+              ? 150
+              : Dimensions.widthPercentage(context, 30),
           image: NetworkImage(img),
           placeholder: const AssetImage('images/person.png'),
           imageErrorBuilder: (context, error, stackTrace) {
             return Image.asset('images/person.png',
-                height: Dimensions.widthPercentage(context, 30),
-                width: Dimensions.widthPercentage(context, 30),
+                height: Dimensions.widthPercentage(context, 30) > 150
+                    ? 150
+                    : Dimensions.widthPercentage(context, 30),
+                width: Dimensions.widthPercentage(context, 30) > 150
+                    ? 150
+                    : Dimensions.widthPercentage(context, 30),
                 fit: BoxFit.fill);
           },
           fit: BoxFit.fill,
@@ -81,7 +89,7 @@ class _UserImageState extends State<UserImage> {
             child: Icon(
               Icons.add,
               color: Colors.white,
-              size: Dimensions.fontSize(context, 2.5),
+              size: 35,
             ),
           ),
         ),

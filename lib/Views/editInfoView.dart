@@ -1,4 +1,5 @@
 import 'package:canadianslife/Controllers/UserController.dart';
+import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Models/User.dart';
 import 'package:canadianslife/Views/Shared/EditDataView.dart';
@@ -51,14 +52,12 @@ class _EditInfoViewState extends State<EditInfoView> {
                     title: AppLocalizations.of(context)!.userName,
                     trailing: userInfo!.displayName,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditDataView(
-                            type: 0,
-                            userInfo: userInfo!,
-                            refresh: getUserInfo,
-                            title: AppLocalizations.of(context)!.userName,
-                          ),
+                      context.navigateTo(
+                        EditDataView(
+                          type: 0,
+                          userInfo: userInfo!,
+                          refresh: getUserInfo,
+                          title: AppLocalizations.of(context)!.userName,
                         ),
                       );
                     }),
@@ -68,14 +67,12 @@ class _EditInfoViewState extends State<EditInfoView> {
                         ? AppLocalizations.of(context)!.userType0
                         : AppLocalizations.of(context)!.userType1,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditDataView(
-                            type: 1,
-                            userInfo: userInfo!,
-                            refresh: getUserInfo,
-                            title: '',
-                          ),
+                      context.navigateTo(
+                        EditDataView(
+                          type: 1,
+                          userInfo: userInfo!,
+                          refresh: getUserInfo,
+                          title: '',
                         ),
                       );
                     }),
@@ -83,14 +80,12 @@ class _EditInfoViewState extends State<EditInfoView> {
                     title: AppLocalizations.of(context)!.email,
                     trailing: userInfo!.email,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditDataView(
-                            type: 2,
-                            userInfo: userInfo!,
-                            refresh: getUserInfo,
-                            title: AppLocalizations.of(context)!.email,
-                          ),
+                      context.navigateTo(
+                        EditDataView(
+                          type: 2,
+                          userInfo: userInfo!,
+                          refresh: getUserInfo,
+                          title: AppLocalizations.of(context)!.email,
                         ),
                       );
                     }),
@@ -98,14 +93,12 @@ class _EditInfoViewState extends State<EditInfoView> {
                     title: AppLocalizations.of(context)!.phone,
                     trailing: userInfo!.phone.toString(),
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditDataView(
-                            type: 3,
-                            userInfo: userInfo!,
-                            refresh: getUserInfo,
-                            title: AppLocalizations.of(context)!.phone,
-                          ),
+                      context.navigateTo(
+                        EditDataView(
+                          type: 3,
+                          userInfo: userInfo!,
+                          refresh: getUserInfo,
+                          title: AppLocalizations.of(context)!.phone,
                         ),
                       );
                     }),
@@ -115,14 +108,12 @@ class _EditInfoViewState extends State<EditInfoView> {
                     icon: Icons.compare_arrows,
                     trailingColor: appDesign.colorPrimaryDark,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditDataView(
-                            type: 4,
-                            userInfo: userInfo!,
-                            refresh: getUserInfo,
-                            title: 'كلمة المرور الجديدة',
-                          ),
+                      context.navigateTo(
+                        EditDataView(
+                          type: 4,
+                          userInfo: userInfo!,
+                          refresh: getUserInfo,
+                          title: AppLocalizations.of(context)!.password,
                         ),
                       );
                     }),
@@ -131,7 +122,23 @@ class _EditInfoViewState extends State<EditInfoView> {
                     trailing: AppLocalizations.of(context)!.delete,
                     icon: Icons.delete_outline,
                     trailingColor: appDesign.red,
-                    onPressed: () {}),
+                    onPressed: () {
+                      context.actionAlert(
+                          title: AppLocalizations.of(context)!.confirm,
+                          onOkPressed: () {
+                            setState(() async {
+                              await UserController().deleteUser(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .userInfo
+                                      .id);
+                              Provider.of<UserData>(context, listen: false)
+                                  .signOut();
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              // UserData().signOut();
+                            });
+                          });
+                    }),
               ],
             ),
           )

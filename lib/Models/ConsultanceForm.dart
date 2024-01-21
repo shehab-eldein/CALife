@@ -1,4 +1,3 @@
-
 import 'User.dart';
 
 class ConsultanceForm {
@@ -20,28 +19,25 @@ class ConsultanceForm {
   bool isAgree;
   int netWealth;
   String? passportImage;
-  ConsultanceForm({
-    this.id,
-    required this.userId,
-    this.user,
-    required this.passportNo,
-    required this.passportIssuer,
-    required this.residenceCountry,
-    required this.maritalStatus,
-    required this.readingRate,
-    required this.writingRate,
-    required this.speakingRate,
-    required this.listeningRate,
-    required this.hasBachelor,
-    required this.hasOffer,
-    required this.hasFriend,
-    required this.hasFamily,
-    required this.isAgree,
-    required this.netWealth,
-    this.passportImage
-
-  });
-
+  ConsultanceForm(
+      {this.id,
+      required this.userId,
+      this.user,
+      required this.passportNo,
+      required this.passportIssuer,
+      required this.residenceCountry,
+      required this.maritalStatus,
+      required this.readingRate,
+      required this.writingRate,
+      required this.speakingRate,
+      required this.listeningRate,
+      required this.hasBachelor,
+      required this.hasOffer,
+      required this.hasFriend,
+      required this.hasFamily,
+      required this.isAgree,
+      required this.netWealth,
+      required this.passportImage});
 
   factory ConsultanceForm.fromJson(Map<String, dynamic> json) {
     return ConsultanceForm(
@@ -55,7 +51,7 @@ class ConsultanceForm {
       readingRate: json['readingRate'],
       writingRate: json['writingRate'],
       speakingRate: json['speakingRate'],
-      listeningRate: json['listeningRate'] ,
+      listeningRate: json['listeningRate'],
       hasBachelor: json['hasBachelor'],
       hasOffer: json['hasOffer'],
       hasFriend: json['hasFriend'],
@@ -63,38 +59,27 @@ class ConsultanceForm {
       isAgree: json['isAgree'],
       netWealth: json['netWealth'],
       passportImage: json['passportImage'],
-
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'userId': userId,
-    'user': user,
-    'passportNo': passportNo,
-    'passportIssuer': passportIssuer,
-    'residenceCountry': residenceCountry,
-    'maritalStatus': maritalStatus,
-    'readingRate': readingRate, // convert DateTime to string
-    'writingRate': writingRate, // convert DateTime to string
-    'speakingRate': speakingRate,
-    'listeningRate': listeningRate,
-    'hasBachelor': hasBachelor,
-    'hasOffer': hasOffer,
-    'hasFriend': hasFriend,
-    'hasFamily': hasFamily,
-    'isAgree': isAgree,
-    'netWealth': netWealth,
-    'passportImage': passportImage,
-
-
-  };
+        'id': id,
+        'userId': userId,
+        'user': user,
+        'passportNo': passportNo,
+        'passportIssuer': passportIssuer,
+        'residenceCountry': residenceCountry,
+        'maritalStatus': maritalStatus,
+        'readingRate': readingRate,
+        'writingRate': writingRate,
+        'speakingRate': speakingRate,
+        'listeningRate': listeningRate,
+        'hasBachelor': hasBachelor,
+        'hasOffer': hasOffer,
+        'hasFriend': hasFriend,
+        'hasFamily': hasFamily,
+        'isAgree': isAgree,
+        'netWealth': netWealth,
+        'passportImage': passportImage,
+      };
 }
-
-
-
-
-
-
-
-

@@ -1,8 +1,11 @@
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
+import 'package:canadianslife/Views/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../Helper/Constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectPurposeView extends StatefulWidget {
   SelectPurposeView({Key? key}) : super(key: key);
@@ -30,25 +33,31 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
     }
   }
 
+  changeLanguage(String value) {
+    setState(() {
+      Provider.of<UserData>(context, listen: false).setLanguage(value);
+      print(Provider.of<UserData>(context, listen: false).userLanguage);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final layoutManager = LayoutManager(context);
 
     _langSelection();
 
-    bool isInCanada = true;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: layoutManager.mainHorizontalPadding(), vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: layoutManager.valuesHandler(25, 25, 5, 5)),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+            Padding(
+              padding: EdgeInsets.only(top: 60),
               child: Text(
-                "اختر اللغة",
+                AppLocalizations.of(context)!.pickLang,
                 style: TextStyle(
                   fontSize: 17,
                   color: appDesign.colorPrimaryDark,
@@ -56,43 +65,46 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                 ),
               ),
             ),
-            ToggleSwitch(
-              customTextStyles: const [
-                TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                )
-              ],
-              borderColor: const [appDesign.colorPrimaryDark],
-              borderWidth: 4,
-              minHeight: 35,
-              minWidth: 80.0,
-              cornerRadius: 20.0,
-              activeBgColors: const [
-                [appDesign.colorPrimaryDark],
-                [appDesign.colorPrimaryDark]
-              ],
-              activeFgColor: Colors.white,
-              inactiveBgColor: Colors.white,
-              inactiveFgColor: appDesign.colorPrimaryDark,
-              initialLabelIndex: isEnglish ? 1 : 0,
-              totalSwitches: 2,
-              labels: const ['العربية', 'English'],
-              radiusStyle: false,
-              onToggle: (index) {
-                if (index == 1) {
-                  isEnglish = true;
-                  print("IS ENGLISH");
-                  // context.changeLanguageToEnglish();
-                  // context.saveIsEnglish(true);
-                } else {
-                  isEnglish = false;
-                  print("IS Arabic");
-                  // context.changeLanguageToArabic();
-                  //
-                  // context.saveIsEnglish(false);
-                }
-              },
+            Align(
+              alignment: Alignment.topRight,
+              child: ToggleSwitch(
+                customTextStyles: const [
+                  TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
+                  )
+                ],
+                borderColor: const [appDesign.colorPrimaryDark],
+                borderWidth: 4,
+                minHeight: 35,
+                minWidth: 80.0,
+                cornerRadius: 20.0,
+                activeBgColors: const [
+                  [appDesign.colorPrimaryDark],
+                  [appDesign.colorPrimaryDark]
+                ],
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.white,
+                inactiveFgColor: appDesign.colorPrimaryDark,
+                initialLabelIndex: isEnglish ? 1 : 0,
+                totalSwitches: 2,
+                labels: const ['العربية', 'English'],
+                radiusStyle: false,
+                onToggle: (index) {
+                  if (index == 1) {
+                    isEnglish = true;
+                    changeLanguage("en");
+                    // context.changeLanguageToEnglish();
+                    // context.saveIsEnglish(true);
+                  } else {
+                    isEnglish = false;
+                    changeLanguage("ar");
+                    // context.changeLanguageToArabic();
+                    //
+                    // context.saveIsEnglish(false);
+                  }
+                },
+              ),
             ),
             Align(
               alignment: Alignment.center,
@@ -169,7 +181,10 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
               children: [
                 InkWell(
                   onTap: () => setState(() {
-                    isInCanada = true;
+                    UserData.isInCanada = true;
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SplashView()));
                   }),
                   child: Container(
                     height: Dimensions.widthPercentage(context, 40),
@@ -187,14 +202,17 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                      child: Text(
-                        "مقيم او مهاجر جديد\n لكندا",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: '.SF Arabic',
-                            color: appDesign.colorPrimaryDark,
-                            fontSize: Dimensions.fontSize(context, 1.5),
-                            fontWeight: FontWeight.w600),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          AppLocalizations.of(context)!.userType0,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: '.SF Arabic',
+                              color: appDesign.colorPrimaryDark,
+                              fontSize: Dimensions.fontSize(context, 1.5),
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
                   ),
@@ -202,7 +220,10 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                 SizedBox(width: Dimensions.widthPercentage(context, 5)),
                 InkWell(
                   onTap: () => setState(() {
-                    isInCanada = false;
+                    UserData.isInCanada = false;
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SplashView()));
                   }),
                   child: Container(
                     height: Dimensions.widthPercentage(context, 40),
@@ -220,13 +241,17 @@ class _SelectPurposeViewState extends State<SelectPurposeView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                      child: Text(
-                        "مهتم بالهجرة لكندا",
-                        style: TextStyle(
-                            fontFamily: '.SF Arabic',
-                            color: appDesign.colorPrimaryDark,
-                            fontSize: Dimensions.fontSize(context, 1.5),
-                            fontWeight: FontWeight.w600),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          AppLocalizations.of(context)!.userType1,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: '.SF Arabic',
+                              color: appDesign.colorPrimaryDark,
+                              fontSize: Dimensions.fontSize(context, 1.5),
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
                   ),

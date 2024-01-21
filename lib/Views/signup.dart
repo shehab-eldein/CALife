@@ -117,26 +117,31 @@ class _SignUp extends State<SignUpView> {
     String? confirmPassError =
         _validator.validateConfirmPassword(password, confirmPass);
     String? numberError = _validator.validateNumber(number);
+    String? emailError = _validator.validateEmail(email);
 
     if (nameError != null ||
         passwordError != null ||
         confirmPassError != null ||
-        numberError != null) {
+        numberError != null ||
+        emailError != null) {
       // Display error message
       context.okAlert(
         title: AppLocalizations.of(context)!.required,
-        message:
-            nameError ?? passwordError ?? confirmPassError ?? numberError ?? "",
+        message: nameError ??
+            passwordError ??
+            confirmPassError ??
+            emailError ??
+            numberError ??
+            "",
       );
       btnController.reset();
     } else {
       // Validation passed, proceed with sign-up
       print("now we can add to data base");
       _authController
-          .signUP(name, nameInApp ?? name!, email ?? "", password, number, "")
+          .signUP(name, nameInApp ?? name!, email, password, number, "")
           .then((user) {
         if (user != null) {
-          print(user.id);
           Provider.of<UserData>(context, listen: false).logUser(user);
           Navigator.of(context).pop();
           btnController.success();
@@ -202,7 +207,7 @@ class _SignUp extends State<SignUpView> {
                 },
               ),
               PassTextField(
-                labelText: "أعد كلمة المرور",
+                labelText: AppLocalizations.of(context)!.confirmPassword,
                 onChanged: (text) {
                   confirmPass = text;
                 },
@@ -242,15 +247,17 @@ class _SignUp extends State<SignUpView> {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.navigateTo(const LoginView());
+                        Navigator.pop(context);
                       },
-                      child: Text(AppLocalizations.of(context)!.logIn,
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: appDesign.colorPrimary,
-                          )),
+                      child: Text(
+                        AppLocalizations.of(context)!.logIn,
+                        style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: appDesign.colorPrimary,
+                        ),
+                      ),
                     )
                   ],
                 ),

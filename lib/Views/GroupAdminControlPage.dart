@@ -217,7 +217,9 @@ class _GroupControlPageState extends State<GroupControlPage> {
                   )
                 ],
               )
-            : const Center(child: CircularProgressIndicator()),
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
       ],
     );
   }

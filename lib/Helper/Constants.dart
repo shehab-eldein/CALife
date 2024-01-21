@@ -8,6 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constant {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
+
+  static final GlobalKey<RefreshIndicatorState> homeViewKey =
+      GlobalKey<RefreshIndicatorState>();
+  static bool isHomeEmpty = true;
   static const baseURL =
       "https://tender-chandrasekhar.38-100-170-33.plesk.page/";
   static const user = "User/";
@@ -18,9 +22,6 @@ class Constant {
     return "https://keen-clarke.38-100-170-33.plesk.page/AdMessage/GetAdMessagesDetailsByAdId?adId=${adID}&userId=${userID}&otherUserId=${otherUserID}";
   }
 
-  static const loginBeforKey = 'isLoginBefor';
-  static const userSFKey = 'user';
-  static const currentUserId = 11;
   static PersistentTabController controller =
       PersistentTabController(initialIndex: 0);
 }
@@ -42,6 +43,8 @@ class UserData extends ChangeNotifier {
   static String userNumber = "";
   static String userName = "";
   static String deviceToken = "";
+  static bool isInCanada = true;
+  static bool showNotifications = true;
   static bool firstRun = true;
   // static int userId = 0;
   // static int userType = 0;
@@ -56,6 +59,7 @@ class UserData extends ChangeNotifier {
   saveLanguage() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('language', language);
+    prefs.setBool('isInCanada', isInCanada);
   }
 
   static User _userInfo = User(
@@ -78,19 +82,27 @@ class UserData extends ChangeNotifier {
 
   loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
-    _userInfo = User.fromJson(json.decode(prefs.getString('userInfo') ??
-        {
-          "id": 0,
-          "displayName": "",
-          "fullName": "",
-          "email": "",
-          "password": "",
-          "phone": "",
-          "userImage": "",
-          "userType": 0,
-        }.toString()));
+    var emptyUser = User(
+      id: 0,
+      displayName: "",
+      fullName: "",
+      email: "",
+      password: "",
+      phone: "",
+      userImage: "",
+      userType: 0,
+    );
+
+    if (prefs.getString('userInfo') != null) {
+      _userInfo = User.fromJson(json.decode(prefs.getString('userInfo')!));
+    } else {
+      _userInfo = emptyUser;
+    }
+
     language = prefs.getString('language') ?? "ar";
     firstRun = prefs.getBool('firstRun') ?? true;
+    isInCanada = prefs.getBool('isInCanada') ?? true;
+    showNotifications = prefs.getBool('showNotifications') ?? true;
     notifyListeners();
     print('Loaded user ID: ${_userInfo.id}');
   }

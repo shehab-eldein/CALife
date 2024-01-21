@@ -1,5 +1,7 @@
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
+import 'package:canadianslife/Managers/ImagePickerManager.dart';
+import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/consultancyWidgets.dart';
 import 'package:canadianslife/Views/consultancyFormView.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +55,33 @@ class _Consultancy1State extends State<Consultancy1> {
     Consultancy.constultanceForm.passportImage = passportCopy.text;
     Consultancy.constultanceForm.maritalStatus = 0;
     Consultancy.constultanceForm.residenceCountry = country.text;
+    Consultancy.constultanceForm.passportImage = image ?? "";
+  }
+
+  String? image;
+  ImagePickerManager imagePickerManager = ImagePickerManager();
+
+  void pickImage() async {
+    String? img = await imagePickerManager.pickOneImage();
+    if (img != null) {
+      setState(() {
+        image = img;
+      });
+    }
+  }
+
+  void takeImage() async {
+    String? img = await imagePickerManager.takeImage();
+    if (img != null) {
+      setState(() {
+        image = img;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final layoutManager = LayoutManager(context);
     return ListView(
       children: [
         const SizedBox(height: 20),
@@ -64,7 +89,7 @@ class _Consultancy1State extends State<Consultancy1> {
           alignment: Alignment.center,
           child: Text(
             AppLocalizations.of(context)!.personalInfo,
-            style: TextStyle(
+            style: const TextStyle(
               color: appDesign.colorAccent,
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -95,9 +120,11 @@ class _Consultancy1State extends State<Consultancy1> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 45),
-              onPressed: () {},
-              color: appDesign.colorPrimary,
+              minWidth: Dimensions.widthPercentage(context, 43),
+              onPressed: () {
+                takeImage();
+              },
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -107,7 +134,7 @@ class _Consultancy1State extends State<Consultancy1> {
                   Text(
                     AppLocalizations.of(context)!.takePicture,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontFamily: '.SF Arabic',
@@ -115,23 +142,30 @@ class _Consultancy1State extends State<Consultancy1> {
                       height: 0,
                     ),
                   ),
-                  SizedBox(width: 5),
-                  Icon(
+                  const SizedBox(width: 5),
+                  const Icon(
                     Icons.camera_alt_outlined,
                     color: Colors.white,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: layoutManager.valuesHandler(
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 3),
+                  Dimensions.widthPercentage(context, 3)),
             ),
             MaterialButton(
-              minWidth: Dimensions.widthPercentage(context, 45),
-              onPressed: () {},
+              minWidth: Dimensions.widthPercentage(context, 43),
+              onPressed: () {
+                pickImage();
+              },
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                side: const BorderSide(color: appDesign.colorPrimary, width: 2),
+                side: const BorderSide(
+                    color: appDesign.colorPrimaryDark, width: 2),
                 // side: const BorderSide(color: appDesign.colorUnhighlighted, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -140,8 +174,8 @@ class _Consultancy1State extends State<Consultancy1> {
                   Text(
                     AppLocalizations.of(context)!.uploadFile,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: appDesign.colorPrimary,
+                    style: const TextStyle(
+                      color: appDesign.colorPrimaryDark,
                       // color: appDesign.colorUnhighlighted,
                       fontSize: 18,
                       fontFamily: '.SF Arabic',
@@ -149,9 +183,9 @@ class _Consultancy1State extends State<Consultancy1> {
                       height: 0,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.add,
-                    color: appDesign.colorPrimary,
+                    color: appDesign.colorPrimaryDark,
                   ),
                 ],
               ),
@@ -168,7 +202,7 @@ class _Consultancy1State extends State<Consultancy1> {
             MaterialButton(
               enableFeedback: false,
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {},
               color: Colors.white,
               shape: RoundedRectangleBorder(
@@ -180,7 +214,7 @@ class _Consultancy1State extends State<Consultancy1> {
               child: Text(
                 AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   // color: appDesign.colorPrimary,
                   color: appDesign.colorUnhighlighted,
                   fontSize: 18,
@@ -191,23 +225,27 @@ class _Consultancy1State extends State<Consultancy1> {
               ),
             ),
             SizedBox(
-              width: Dimensions.widthPercentage(context, 3),
+              width: layoutManager.valuesHandler(
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 3),
+                  Dimensions.widthPercentage(context, 3)),
             ),
             MaterialButton(
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 widget.nextPage();
                 updateData();
               },
-              color: appDesign.colorPrimary,
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 AppLocalizations.of(context)!.next,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontFamily: '.SF Arabic',

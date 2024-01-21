@@ -35,22 +35,13 @@ class _MySettingsViewState extends State<MySettingsView> {
   bool notifications = true;
   void changeValue() {
     setState(() {
-      if (notifications == true) {
-        notifications == false;
-      } else {
-        notifications = true;
-      }
+      notifications = !notifications;
     });
   }
 
   changeLanguage(String value) {
     setState(() {
-      // Localizations.override(
-      //   context: context,
-      //   locale: Locale(value),
-      // );
       Provider.of<UserData>(context, listen: false).setLanguage(value);
-      print(Provider.of<UserData>(context, listen: false).userLanguage);
     });
   }
 
@@ -67,7 +58,9 @@ class _MySettingsViewState extends State<MySettingsView> {
           AppListTile(
             title: AppLocalizations.of(context)!.mainNotifs,
             icon: Icons.notifications_outlined,
-            onPressed: () {},
+            onPressed: () {
+              changeValue();
+            },
             isCustom: true,
             child: Switch(
               activeTrackColor: appDesign.colorAccent,
@@ -96,28 +89,23 @@ class _MySettingsViewState extends State<MySettingsView> {
               minWidth: 60.0,
               cornerRadius: 20.0,
               activeBgColors: const [
-                [appDesign.colorAccent],
-                [appDesign.colorAccent]
+                [Colors.white],
+                [Colors.white]
               ],
-              activeFgColor: Colors.white,
-              inactiveBgColor: Colors.white,
-              inactiveFgColor: appDesign.colorPrimaryDark,
+              activeFgColor: appDesign.colorPrimaryDark,
+              inactiveBgColor: appDesign.colorAccent,
+              inactiveFgColor: Colors.white,
               initialLabelIndex: isEnglish ? 1 : 0,
               totalSwitches: 2,
               labels: const ['العربية', 'English'],
-              radiusStyle: false,
+              radiusStyle: true,
               onToggle: (index) {
                 if (index == 1) {
                   isEnglish = true;
                   changeLanguage("en");
-                  // context.changeLanguageToEnglish();
-                  // context.saveIsEnglish(true);
                 } else {
                   isEnglish = false;
                   changeLanguage("ar");
-                  // context.changeLanguageToArabic();
-                  //
-                  // context.saveIsEnglish(false);
                 }
               },
             ),

@@ -89,11 +89,14 @@ class _Consultancy3State extends State<Consultancy3> {
           hasOffer,
           setHasOffer,
         ),
-        cYesNo(
-          context,
-          AppLocalizations.of(context)!.hasFriend,
-          hasFriend,
-          setHasFriend,
+        Container(
+          color: const Color(0xFFF5F5F5),
+          child: cYesNo(
+            context,
+            AppLocalizations.of(context)!.hasFriend,
+            hasFriend,
+            setHasFriend,
+          ),
         ),
         cYesNo(
           context,
@@ -101,125 +104,168 @@ class _Consultancy3State extends State<Consultancy3> {
           hasFamily,
           setHasFamily,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: layoutManager.mainHorizontalPadding()),
-              child: Text(
-                AppLocalizations.of(context)!.netWorth,
-                style: TextStyle(
-                  fontFamily: '.SF Arabic',
-                  color: appDesign.colorPrimary,
-                  fontSize: Dimensions.fontSize(context, 1.7),
-                  fontWeight: FontWeight.w600,
-                  height: 1,
+        Container(
+          color: const Color(0xFFF5F5F5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: layoutManager.mainHorizontalPadding()),
+                child: Text(
+                  AppLocalizations.of(context)!.netWorth,
+                  style: TextStyle(
+                    fontFamily: '.SF Arabic',
+                    color: appDesign.colorPrimary,
+                    fontSize: Dimensions.fontSize(context, 1.7),
+                    fontWeight: FontWeight.w600,
+                    height: 1,
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              title: const Text(
-                '10,000\$ - 25,000\$',
-                style: TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0.08,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.valuesHandler(0, 0, 50, 50)),
+                child: ListTile(
+                  horizontalTitleGap: 5,
+                  title: const Text(
+                    '10,000\$ - 25,000\$',
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 20,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w500,
+                      height: 0.08,
+                    ),
+                  ),
+                  leading: Radio<int>(
+                    visualDensity: const VisualDensity(
+                      horizontal: VisualDensity.minimumDensity,
+                    ),
+                    activeColor: appDesign.colorAccent,
+                    value: 0,
+                    groupValue: netWealth,
+                    onChanged: (value) {
+                      setNetWealth(value);
+                    },
+                  ),
                 ),
               ),
-              leading: Radio<int>(
-                activeColor: appDesign.colorPrimary,
-                value: 0,
-                groupValue: netWealth,
-                onChanged: (value) {
-                  setNetWealth(value);
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                '25,000\$ - 100,000\$',
-                style: TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0.08,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.valuesHandler(0, 0, 50, 50)),
+                child: ListTile(
+                  horizontalTitleGap: 5,
+                  title: const Text(
+                    '25,000\$ - 100,000\$',
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 20,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w500,
+                      height: 0.08,
+                    ),
+                  ),
+                  leading: Radio<int>(
+                    visualDensity: const VisualDensity(
+                      horizontal: VisualDensity.minimumDensity,
+                    ),
+                    activeColor: appDesign.colorAccent,
+                    value: 1,
+                    groupValue: netWealth,
+                    onChanged: (value) {
+                      setNetWealth(value);
+                    },
+                  ),
                 ),
               ),
-              leading: Radio<int>(
-                activeColor: appDesign.colorPrimary,
-                value: 1,
-                groupValue: netWealth,
-                onChanged: (value) {
-                  setNetWealth(value);
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                '100,000\$ - 500,000\$',
-                style: TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0.08,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.valuesHandler(0, 0, 50, 50)),
+                child: ListTile(
+                  horizontalTitleGap: 5,
+                  title: const Text(
+                    '100,000\$ - 500,000\$',
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 20,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w500,
+                      height: 0.08,
+                    ),
+                  ),
+                  leading: Radio<int>(
+                    visualDensity: const VisualDensity(
+                      horizontal: VisualDensity.minimumDensity,
+                    ),
+                    activeColor: appDesign.colorAccent,
+                    value: 2,
+                    groupValue: netWealth,
+                    onChanged: (value) {
+                      setNetWealth(value);
+                    },
+                  ),
                 ),
               ),
-              leading: Radio<int>(
-                activeColor: appDesign.colorPrimary,
-                value: 2,
-                groupValue: netWealth,
-                onChanged: (value) {
-                  setNetWealth(value);
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                '500,000\$ - 1,000,000\$',
-                style: TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0.08,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.valuesHandler(0, 0, 50, 50)),
+                child: ListTile(
+                  horizontalTitleGap: 5,
+                  title: const Text(
+                    '500,000\$ - 1,000,000\$',
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 20,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w500,
+                      height: 0.08,
+                    ),
+                  ),
+                  leading: Radio<int>(
+                    visualDensity: const VisualDensity(
+                      horizontal: VisualDensity.minimumDensity,
+                    ),
+                    activeColor: appDesign.colorAccent,
+                    value: 3,
+                    groupValue: netWealth,
+                    onChanged: (value) {
+                      setNetWealth(value);
+                    },
+                  ),
                 ),
               ),
-              leading: Radio<int>(
-                activeColor: appDesign.colorPrimary,
-                value: 3,
-                groupValue: netWealth,
-                onChanged: (value) {
-                  setNetWealth(value);
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                '1,000,000\$+',
-                style: TextStyle(
-                  color: Color(0xFF474B51),
-                  fontSize: 20,
-                  fontFamily: '.SF Arabic',
-                  fontWeight: FontWeight.w500,
-                  height: 0.08,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.valuesHandler(0, 0, 50, 50)),
+                child: ListTile(
+                  horizontalTitleGap: 5,
+                  title: const Text(
+                    '1,000,000\$+',
+                    style: TextStyle(
+                      color: Color(0xFF474B51),
+                      fontSize: 20,
+                      fontFamily: '.SF Arabic',
+                      fontWeight: FontWeight.w500,
+                      height: 0.08,
+                    ),
+                  ),
+                  leading: Radio<int>(
+                    visualDensity: const VisualDensity(
+                      horizontal: VisualDensity.minimumDensity,
+                    ),
+                    activeColor: appDesign.colorAccent,
+                    value: 4,
+                    groupValue: netWealth,
+                    onChanged: (value) {
+                      setNetWealth(value);
+                    },
+                  ),
                 ),
               ),
-              leading: Radio<int>(
-                activeColor: appDesign.colorPrimary,
-                value: 4,
-                groupValue: netWealth,
-                onChanged: (value) {
-                  setNetWealth(value);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         cYesNo(
           context,
@@ -232,21 +278,22 @@ class _Consultancy3State extends State<Consultancy3> {
           children: [
             MaterialButton(
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 widget.prevPage();
               },
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                side: const BorderSide(color: appDesign.colorPrimary, width: 2),
+                side: const BorderSide(
+                    color: appDesign.colorPrimaryDark, width: 2),
                 // side: const BorderSide(color: Color(0x3F474B51), width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 AppLocalizations.of(context)!.previous,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: appDesign.colorPrimary,
+                style: const TextStyle(
+                  color: appDesign.colorPrimaryDark,
                   // color: Color(0x3F474B51),
                   fontSize: 18,
                   fontFamily: '.SF Arabic',
@@ -256,18 +303,22 @@ class _Consultancy3State extends State<Consultancy3> {
               ),
             ),
             SizedBox(
-              width: Dimensions.widthPercentage(context, 3),
+              width: layoutManager.valuesHandler(
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 7),
+                  Dimensions.widthPercentage(context, 3),
+                  Dimensions.widthPercentage(context, 3)),
             ),
             MaterialButton(
               height: 45,
-              minWidth: Dimensions.widthPercentage(context, 45),
+              minWidth: Dimensions.widthPercentage(context, 43),
               onPressed: () {
                 setState(() {
                   isPressed = true;
                 });
                 widget.submit();
               },
-              color: appDesign.colorPrimary,
+              color: appDesign.colorPrimaryDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

@@ -19,13 +19,7 @@ class _CommentCardState extends State<CommentCard> {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         decoration: const BoxDecoration(
-          border: Border.symmetric(
-            horizontal: BorderSide(
-              color: Colors.grey,
-              width: 0.5,
-            ),
-          ),
-        ),
+            border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))),
         child: Column(
           children: [
             Row(

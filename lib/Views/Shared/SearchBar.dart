@@ -12,35 +12,41 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
 
-    return Container(
+    return SizedBox(
       height: 40,
       child: TextField(
-        controller: controller ?? _searchController,
+        onSubmitted: (value) {
+          onSearchPressed!();
+        },
+        textInputAction: TextInputAction.search,
+        controller: controller ?? searchController,
         decoration: InputDecoration(
           filled: true,
           fillColor: appDesign.greyBackground,
           hintText: hintText,
           contentPadding: EdgeInsets.zero,
           prefixIcon: IconButton(
-            icon: Icon(Icons.search, color: appDesign.colorPrimaryDark),
+            icon: const Icon(Icons.search, color: appDesign.colorPrimaryDark),
             onPressed: () {
               onSearchPressed!();
               // Perform the search here
             },
           ),
-          suffixIcon: Icon(
+          suffixIcon: const Icon(
             Icons.filter_list,
             color: appDesign.colorPrimaryDark,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7.0),
-            borderSide: BorderSide(width: 2, color: appDesign.colorPrimaryDark),
+            borderSide:
+                const BorderSide(width: 2, color: appDesign.colorPrimaryDark),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7.0),
-            borderSide: BorderSide(width: 1, color: appDesign.colorPrimaryDark),
+            borderSide:
+                const BorderSide(width: 1, color: appDesign.colorPrimaryDark),
           ),
         ),
       ),

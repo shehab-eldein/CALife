@@ -30,6 +30,7 @@ class _AuthenticationServiceState extends State<AuthenticationService> {
         return userData.userInfo.id == 0
             ? const LoginView()
             : Scaffold(
+                resizeToAvoidBottomInset: false,
                 appBar: BaseAppBar(
                   appBar: AppBar(),
                   widgetContext: context,
