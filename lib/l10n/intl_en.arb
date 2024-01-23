@@ -120,7 +120,11 @@
   "postSubed":"Successfully posted and subscribed to group",
   "addImages":"Add Images",
   "confirm": "Are you sure?",
-  "language":"Language"
+  "language":"Language",
+  "blockContentHeader": "Block Content",
+  "blockAlert": "Are you sure you want to block this content? you will never show it again",
+  "block": "Block"
+
 }
 
 

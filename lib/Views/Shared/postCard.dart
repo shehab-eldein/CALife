@@ -2,6 +2,7 @@ import 'package:canadianslife/Controllers/TopicController.dart';
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
+import 'package:canadianslife/Views/Shared/BlockPopUp.dart';
 import 'package:canadianslife/Views/Shared/staggeredGridImages.dart';
 import 'package:canadianslife/Views/topicView.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _PostState extends State<Post> {
   }
 
   late Topic topicInfo;
+
   toggleLike() async {
     topicInfo.isUserLikedTopic == false
         ? await TopicController()
@@ -81,6 +83,7 @@ class _PostState extends State<Post> {
               child: Material(
                 elevation: 2,
                 child: Container(
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.white,
@@ -90,15 +93,30 @@ class _PostState extends State<Post> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment:
-                            isArabic ? Alignment.topLeft : Alignment.topRight,
-                        child: Text("10 ${isArabic ? "د" : "m"}",
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 13,
-                            )),
+                      Row(
+                        mainAxisAlignment: isArabic ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+
+                        children: [
+                          GestureDetector(
+                              child: Icon(Icons.more_horiz),
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BlockPopUp();
+                                },
+                              );
+                            },
+
+                          ),
+
+                          Text("10 ${isArabic ? "د" : "m"}",
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 13,
+                              )),
+                        ],
                       ),
                       Row(
                         children: [

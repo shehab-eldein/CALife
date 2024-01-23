@@ -161,16 +161,14 @@ class _CreatePostViewState extends State<CreatePostView> {
                       ),
               ),
             ),
-            Expanded(
-              child: TextField(
-                controller: _textController,
-                keyboardType: TextInputType.multiline,
-                minLines: 5,
-                maxLines: null,
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.startPosting,
-                  border: InputBorder.none,
-                ),
+            TextField(
+              controller: _textController,
+              keyboardType: TextInputType.multiline,
+              minLines: 5,
+              maxLines: null,
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.startPosting,
+                border: InputBorder.none,
               ),
             ),
             imageFiles.isEmpty
