@@ -86,43 +86,69 @@ class _HomeViewState extends State<HomeView> {
         onRefresh: () {
           return Future.delayed(Duration.zero, getTopics);
         },
-        child: ListView(
-          controller: listController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(
-              horizontal: layoutManager.mainHorizontalPadding(), vertical: 20),
-          children: [
-            CustomSearchBar(
-                onSearchPressed: getTopics,
-                controller: controller,
-                hintText: AppLocalizations.of(context)!.searchTopics),
-            isLoading == true
-                ? SizedBox(
-                    height: Dimensions.screenHeight(context),
-                    child: const Center(child: CircularProgressIndicator()))
-                : topics != null
-                    ? topics!.isEmpty
-                        ? const Center(
-                            child: NotFoundView(
-                              isNoGroups: false,
-                            ),
-                          )
-                        : Column(
-                            children: [
-                              ...topics!.map((e) => Post(
-                                    topicInfo: e,
-                                  )),
-                            ],
-                          )
-                    : SizedBox(
-                        height: Dimensions.screenHeight(context),
-                        child:
-                            const Center(child: CircularProgressIndicator())),
-            isLoadingMore
-                ? const Center(child: CircularProgressIndicator())
-                : const SizedBox()
-          ],
-        ),
+        child: UserData().userInfo.id > 0
+            ? ListView(
+                controller: listController,
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(
+                    horizontal: layoutManager.mainHorizontalPadding(),
+                    vertical: 20),
+                children: [
+                  CustomSearchBar(
+                      onSearchPressed: getTopics,
+                      controller: controller,
+                      hintText: AppLocalizations.of(context)!.searchTopics),
+                  isLoading == true
+                      ? SizedBox(
+                          height: Dimensions.screenHeight(context),
+                          child:
+                              const Center(child: CircularProgressIndicator()))
+                      : topics != null
+                          ? topics!.isEmpty
+                              ? const Center(
+                                  child: NotFoundView(
+                                    isNoGroups: false,
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    ...topics!.map((e) => Post(
+                                          topicInfo: e,
+                                        )),
+                                  ],
+                                )
+                          : SizedBox(
+                              height: Dimensions.screenHeight(context),
+                              child: const Center(
+                                  child: CircularProgressIndicator())),
+                  isLoadingMore
+                      ? const Center(child: CircularProgressIndicator())
+                      : const SizedBox()
+                ],
+              )
+            : Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: MaterialButton(
+                    height: 48,
+                    minWidth: double.infinity,
+                    color: appDesign.colorPrimaryDark,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    onPressed: () {
+                      Provider.of<UserData>(context, listen: false).signOut();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.logIn,
+                      style: TextStyle(
+                          fontFamily: '.SF Arabic',
+                          color: Colors.white,
+                          fontSize: Dimensions.fontSize(context, 1.3)),
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }

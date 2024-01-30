@@ -26,37 +26,39 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
       leading: showBackButton != null && showBackButton! == false
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                      color: Colors.black.withAlpha(38),
-                      offset: const Offset(0, 1),
+          ? UserData().isLoggedIn()
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          spreadRadius: 0,
+                          color: Colors.black.withAlpha(38),
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    splashColor: Colors.grey[500],
-                    onTap: () {
-                      context.navigateTo(const NotificationsView());
-                    },
-                    child: const Icon(
-                      Icons.notifications_none_outlined,
-                      color: appDesign.colorPrimaryDark,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        splashColor: Colors.grey[500],
+                        onTap: () {
+                          context.navigateTo(const NotificationsView());
+                        },
+                        child: const Icon(
+                          Icons.notifications_none_outlined,
+                          color: appDesign.colorPrimaryDark,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
+                )
+              : SizedBox()
           : Visibility(
               maintainSize: true,
               maintainAnimation: true,

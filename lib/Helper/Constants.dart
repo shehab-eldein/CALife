@@ -121,7 +121,7 @@ class UserData extends ChangeNotifier {
   }
 
   bool isLoggedIn() {
-    bool isLoggedIn = _userInfo.id == 0 ? false : true;
+    bool isLoggedIn = _userInfo.id > 0 ? true : false;
     return isLoggedIn;
   }
 
@@ -129,6 +129,24 @@ class UserData extends ChangeNotifier {
     print("Logged User: ${user!.toJson().toString()}");
     _userInfo = user;
     saveUserData(user);
+    notifyListeners();
+  }
+
+  logGuest() {
+    print("Logged in as a guest");
+    User guest = User(
+      id: -1,
+      displayName: "Guest",
+      fullName: "Guest",
+      email: "",
+      password: "",
+      phone: "",
+      userImage: "",
+      userType: 0,
+    );
+    _userInfo = guest;
+    saveUserData(guest);
+    Constant.controller.jumpToTab(1);
     notifyListeners();
   }
 

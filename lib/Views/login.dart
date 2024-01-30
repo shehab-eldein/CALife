@@ -118,6 +118,17 @@ class _LoginState extends State<LoginView> {
                   )
                 ],
               ),
+              Center(
+                child: TextButton(
+                    onPressed: () {
+                      Provider.of<UserData>(context, listen: false).logGuest();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.skip,
+                      style: const TextStyle(
+                          fontSize: 18, color: appDesign.colorPrimaryDark),
+                    )),
+              )
             ],
           ),
         ),

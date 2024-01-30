@@ -193,15 +193,17 @@ class _GroupDetailsState extends State<GroupDetails> {
                   //   ),
                   // ),
                   const SizedBox(width: 16),
-                  CircleAvatar(
-                    backgroundColor: const Color(0xFFF5F5F5),
-                    child: IconButton(
-                      onPressed: () {
-                        showAppDialog();
-                      },
-                      icon: const Icon(Icons.more_horiz),
-                    ),
-                  ),
+                  UserData().isLoggedIn()
+                      ? CircleAvatar(
+                          backgroundColor: const Color(0xFFF5F5F5),
+                          child: IconButton(
+                            onPressed: () {
+                              showAppDialog();
+                            },
+                            icon: const Icon(Icons.more_horiz),
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

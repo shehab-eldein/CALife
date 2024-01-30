@@ -100,49 +100,51 @@ class _GroupTopicsPageState extends State<GroupTopicsPage> {
               onSearchPressed: getTopics,
               hintText: AppLocalizations.of(context)!.searchTopics),
           const SizedBox(height: 10),
-          SizedBox(
-            height: 50,
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(200),
-                  child: FadeInImage(
-                    height: 45,
-                    width: 45,
-                    image: NetworkImage(
-                        '${Constant.baseURL}imgusers/${UserData().getId()}.jpg'),
-                    placeholder: const AssetImage(
-                      'images/person.png',
-                    ),
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        'images/person.png',
-                        fit: BoxFit.fill,
-                        height: 45,
-                        width: 45,
-                      );
-                    },
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: TextField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.startPosting,
-                      border: InputBorder.none,
-                    ),
-                    onTap: () {
-                      showAddPostPopup(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          UserData().isLoggedIn()
+              ? SizedBox(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(200),
+                        child: FadeInImage(
+                          height: 45,
+                          width: 45,
+                          image: NetworkImage(
+                              '${Constant.baseURL}imgusers/${UserData().getId()}.jpg'),
+                          placeholder: const AssetImage(
+                            'images/person.png',
+                          ),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'images/person.png',
+                              fit: BoxFit.fill,
+                              height: 45,
+                              width: 45,
+                            );
+                          },
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            hintText:
+                                AppLocalizations.of(context)!.startPosting,
+                            border: InputBorder.none,
+                          ),
+                          onTap: () {
+                            showAddPostPopup(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ))
+              : const SizedBox(),
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : topics != null && topics!.isEmpty

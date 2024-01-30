@@ -144,67 +144,70 @@ class _GroupCardState extends State<GroupCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Visibility(
-                      visible: widget.isNotSubed,
-                      child: Expanded(
-                        child: MaterialButton(
-                          height: 45,
-                          color: appDesign.colorPrimaryDark,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              isPressed = true;
-                            });
-                            await GroupController().subscribeToGroup(
-                                widget.groupInfo.id,
-                                Provider.of<UserData>(context, listen: false)
-                                    .userInfo
-                                    .id);
-                            if (Constant.isHomeEmpty) {
-                              setState(() {
-                                Constant.homeViewKey.currentState!.show();
-                              });
-                            }
-                            if (widget.refresh != null) {
-                              widget.refresh!();
-                            }
-                            setState(() {
-                              isPressed = false;
-                            });
-                          },
-                          child: isPressed
-                              ? const Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Text(
-                                  AppLocalizations.of(context)!.subscribe,
-                                  style: TextStyle(
-                                      fontFamily: '.SF Arabic',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize:
-                                          Dimensions.fontSize(context, 1.3)),
+                    UserData().userInfo.id > 0
+                        ? Visibility(
+                            visible: widget.isNotSubed,
+                            child: Expanded(
+                              child: MaterialButton(
+                                height: 45,
+                                color: appDesign.colorPrimaryDark,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                        ),
-                        // child: CustomTextButton(
-                        //   backgroundColor: appDesign.colorPrimaryDark,
-                        //   text: AppLocalizations.of(context)!.subscribe,
-                        //   onPressed: () {
-                        //     GroupController().subscribeToGroup(
-                        //         widget.groupInfo.id,
-                        //         Provider.of<UserData>(context, listen: false)
-                        //             .userInfo
-                        //             .id);
-                        //   },
-                        //   icon: Icons.add_box_rounded,
-                        // ),
-                      ),
-                    ),
+                                onPressed: () async {
+                                  setState(() {
+                                    isPressed = true;
+                                  });
+                                  await GroupController().subscribeToGroup(
+                                      widget.groupInfo.id,
+                                      Provider.of<UserData>(context,
+                                              listen: false)
+                                          .userInfo
+                                          .id);
+                                  if (Constant.isHomeEmpty) {
+                                    setState(() {
+                                      Constant.homeViewKey.currentState!.show();
+                                    });
+                                  }
+                                  if (widget.refresh != null) {
+                                    widget.refresh!();
+                                  }
+                                  setState(() {
+                                    isPressed = false;
+                                  });
+                                },
+                                child: isPressed
+                                    ? const Padding(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        AppLocalizations.of(context)!.subscribe,
+                                        style: TextStyle(
+                                            fontFamily: '.SF Arabic',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: Dimensions.fontSize(
+                                                context, 1.3)),
+                                      ),
+                              ),
+                              // child: CustomTextButton(
+                              //   backgroundColor: appDesign.colorPrimaryDark,
+                              //   text: AppLocalizations.of(context)!.subscribe,
+                              //   onPressed: () {
+                              //     GroupController().subscribeToGroup(
+                              //         widget.groupInfo.id,
+                              //         Provider.of<UserData>(context, listen: false)
+                              //             .userInfo
+                              //             .id);
+                              //   },
+                              //   icon: Icons.add_box_rounded,
+                              // ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(width: widget.isNotSubed ? 8 : 0),
                     Visibility(
                       visible: widget.groupInfo.visibility == 0 ||
