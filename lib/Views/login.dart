@@ -124,7 +124,7 @@ class _LoginState extends State<LoginView> {
                       Provider.of<UserData>(context, listen: false).logGuest();
                     },
                     child: Text(
-                      AppLocalizations.of(context)!.skip,
+                      AppLocalizations.of(context)!.loginAsGuest,
                       style: const TextStyle(
                           fontSize: 18, color: appDesign.colorPrimaryDark),
                     )),

@@ -8,6 +8,7 @@ import 'package:canadianslife/Models/TopicImage.dart';
 import 'package:canadianslife/Views/GroupDetailsView.dart';
 import 'package:canadianslife/Views/Shared/commentCard.dart';
 import 'package:canadianslife/Views/Shared/staggeredGridImages.dart';
+import 'package:canadianslife/Views/loggedInGuest.dart';
 import 'package:flutter/material.dart';
 import 'package:canadianslife/Helper/Constants.dart';
 import 'package:provider/provider.dart';
@@ -448,7 +449,13 @@ class _TopicViewState extends State<TopicView> {
                       angle: isArabic ? 45 * 3.14 / 180 : -45 * 3.14 / 180,
                       child: IconButton(
                         onPressed: () {
-                          addComment();
+                          UserData().userInfo.id < 1
+                              ? {
+                                  context.navigateTo(
+                                    const NotLoggedInView(),
+                                  ),
+                                }
+                              : addComment();
                         },
                         icon: const Icon(Icons.send_outlined),
                         color: Colors.white,

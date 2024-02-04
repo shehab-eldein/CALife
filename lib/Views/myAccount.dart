@@ -1,16 +1,14 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
 import 'package:canadianslife/Helper/Constants.dart';
-import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Views/Shared/myAccountTile.dart';
 import 'package:canadianslife/Views/Shared/outlinedButton.dart';
 import 'package:canadianslife/Views/Shared/profileInfoRow.dart';
 import 'package:canadianslife/Views/editInfoView.dart';
-import 'package:canadianslife/Views/login.dart';
 import 'package:canadianslife/Views/myGroups.dart';
 import 'package:canadianslife/Views/myPosts.dart';
 import 'package:canadianslife/Views/mySettings.dart';
-import 'package:canadianslife/Views/myGroups.dart';
+import 'package:canadianslife/Views/loggedInGuest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,7 +42,7 @@ class _MyAccountViewState extends State<MyAccountView> {
                   title: AppLocalizations.of(context)!.myGroups,
                   icon: Icons.groups,
                   onPressed: () {
-                    context.navigateTo(MyGroups());
+                    context.navigateTo(const MyGroups());
                   }),
               const SizedBox(height: 12),
               AppListTile(
@@ -73,28 +71,6 @@ class _MyAccountViewState extends State<MyAccountView> {
                   })
             ],
           )
-        : Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: MaterialButton(
-                height: 48,
-                minWidth: double.infinity,
-                color: appDesign.colorPrimaryDark,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                onPressed: () {
-                  Provider.of<UserData>(context, listen: false).signOut();
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.logIn,
-                  style: TextStyle(
-                      fontFamily: '.SF Arabic',
-                      color: Colors.white,
-                      fontSize: Dimensions.fontSize(context, 1.3)),
-                ),
-              ),
-            ),
-          );
+        : const NotLoggedInView();
   }
 }

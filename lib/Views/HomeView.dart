@@ -5,6 +5,7 @@ import 'package:canadianslife/Managers/LayoutManager.dart';
 import 'package:canadianslife/Models/Topic.dart';
 import 'package:canadianslife/Views/Shared/SearchBar.dart';
 import 'package:canadianslife/Views/noPostsView.dart';
+import 'package:canadianslife/Views/loggedInGuest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Shared/postCard.dart';
@@ -126,29 +127,7 @@ class _HomeViewState extends State<HomeView> {
                       : const SizedBox()
                 ],
               )
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: MaterialButton(
-                    height: 48,
-                    minWidth: double.infinity,
-                    color: appDesign.colorPrimaryDark,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    onPressed: () {
-                      Provider.of<UserData>(context, listen: false).signOut();
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.logIn,
-                      style: TextStyle(
-                          fontFamily: '.SF Arabic',
-                          color: Colors.white,
-                          fontSize: Dimensions.fontSize(context, 1.3)),
-                    ),
-                  ),
-                ),
-              ),
+            : NotLoggedInView(),
       ),
     );
   }

@@ -123,8 +123,10 @@
   "language":"Language",
   "blockContentHeader": "Block Content",
   "blockAlert": "Are you sure you want to block this content? you will never show it again",
-  "block": "Block"
-
+  "block": "Block",
+  "mustLogin":"You must be logged in with a real account to access this page",
+  "loggedGuest":"Logged in as a Guest",
+  "loginAsGuest":"Or continue as a guest"
 }
 
 
