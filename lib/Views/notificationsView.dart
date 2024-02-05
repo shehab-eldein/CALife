@@ -3,6 +3,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:canadianslife/Helper/responsive.dart';
 import 'package:canadianslife/Models/Notification.dart';
 import 'package:canadianslife/Views/Shared/notificationTile.dart';
+import 'package:canadianslife/Views/loggedInGuest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,20 +42,18 @@ class _NotificationsViewState extends State<NotificationsView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        isLoading
+    return UserData().userInfo.id > 0
+        ? isLoading
             ? SizedBox(
                 height: Dimensions.screenHeight(context),
                 child: const Center(child: CircularProgressIndicator()))
-            : Column(
+            : ListView(
                 children: [
                   ...notifications.map((e) {
                     return NotificationTile(notification: e);
                   })
                 ],
-              ),
-      ],
-    );
+              )
+        : const NotLoggedInView();
   }
 }

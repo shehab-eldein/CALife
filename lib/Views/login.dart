@@ -1,4 +1,5 @@
 import 'package:canadianslife/Extinsions/extensions.dart';
+import 'package:canadianslife/Views/Shared/BottomNavigation.dart';
 import 'package:canadianslife/Views/Shared/CustomLoadingButton.dart';
 import 'package:canadianslife/Views/signup.dart';
 // import 'package:canadianslife/Views/splash.dart';
@@ -122,6 +123,7 @@ class _LoginState extends State<LoginView> {
                 child: TextButton(
                     onPressed: () {
                       Provider.of<UserData>(context, listen: false).logGuest();
+                      currentIndex = 1;
                     },
                     child: Text(
                       AppLocalizations.of(context)!.loginAsGuest,

@@ -4,6 +4,7 @@ import 'package:canadianslife/Views/GroupsTabsView.dart';
 import 'package:canadianslife/Views/HomeView.dart';
 import 'package:canadianslife/Views/askForConsultancyView.dart';
 import 'package:canadianslife/Views/myAccount.dart';
+import 'package:canadianslife/Views/notificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -60,16 +61,28 @@ class _BottomNavigationState extends State<BottomNavigation> {
         inactiveColorPrimary: appDesign.colorPrimaryDark,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.people),
-        inactiveIcon: const Icon(Icons.people_outline),
+        icon: const Icon(Icons.notifications),
+        inactiveIcon: const Icon(Icons.notifications_outlined),
         textStyle:
             const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         title: currentIndex == 3
-            ? (AppLocalizations.of(context)!.consultancy)
+            ? (AppLocalizations.of(context)!.mainNotifs)
             : null,
         activeColorPrimary: appDesign.colorPrimaryDark,
         inactiveColorPrimary: appDesign.colorUnhighlighted,
       ),
+      // ---------- CONSULTANCY ---------------
+      // PersistentBottomNavBarItem(
+      //   icon: const Icon(Icons.people),
+      //   inactiveIcon: const Icon(Icons.people_outline),
+      //   textStyle:
+      //       const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+      //   title: currentIndex == 3
+      //       ? (AppLocalizations.of(context)!.consultancy)
+      //       : null,
+      //   activeColorPrimary: appDesign.colorPrimaryDark,
+      //   inactiveColorPrimary: appDesign.colorUnhighlighted,
+      // ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person),
         inactiveIcon: const Icon(Icons.person_outline),
@@ -92,8 +105,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
         const HomeView(),
         const GroupsTabsView(),
         const AdilAwdah(),
-        const AskForConsiltancyView(),
-        // OnboardingScreen(),
+        // const AskForConsiltancyView(),
+        const NotificationsView(),
         const MyAccountView(),
       ];
     }
