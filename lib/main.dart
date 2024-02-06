@@ -6,6 +6,7 @@ import 'package:canadianslife/Helper/Constants.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
           ),
           // home: SplashView(),
           home: userData.isFirstRun == true
-              ? const OnboardingScreen()
+              ? Platform.isIOS ? SplashView(): OnboardingScreen()
               : const SplashView(),
           // : OnboardingScreen(),
         ),
